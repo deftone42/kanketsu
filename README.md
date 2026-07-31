@@ -1,108 +1,71 @@
 # ⏱️ AniTime
 
-> **Find out if it's the right moment to start an anime or if you should wait.**
-
-## AniTime is a lightweight, real-time web application built with **Next.js** and deployed on **GitHub Pages**. It queries the **AniList GraphQL API** to help users instantly determine whether an anime is finished, in hiatus, airing, or expecting a new season soon.
-
-## 💡 The Problem & Core Concept
-
-When starting a new anime, viewers often ask:
-
-- _"Is it completed, or will I be left hanging on a cliffhanger for 3 years?"_
-- _"Is a new season coming up soon so I can catch up just in time?"_
-- _"Should I wait for the upcoming movie before starting?"_
-
-**AniTime** answers this instantly with a single search.
+**AniTime** is an anime discovery tool designed to help users determine the ideal time to start watching a series. Driven by a custom **Timing Score**, it evaluates the suitability of starting an anime based on its airing status, upcoming sequels, and overall franchise continuity.
 
 ---
 
-## 🎯 Features
+## 🚀 Tech Stack & Tools
 
-- 🔍 **Real-Time Autocomplete Search:** Triggers after typing 3 characters. Searches by English, Romaji, and Spanish titles.
-- ⚡ **Top 5 Live Suggestions:** Displays cover art, title, release year, and official AniList score.
-- ⏳ **Custom Loading Experience:** Smooth loading state while fetching detailed relations and season graphs.
-- 📊 **Smart Verdict Score:** Evaluates the state of the anime and gives a clear recommendation:
-  - 🟢 `Good time to watch!`
-  - 🟡 `Wait a little bit`
-  - 🟠 `Watch it if you can't wait`
-  - 🔴 `Hmmm not a good time`
-- 📈 **Anime Metadata Breakdown:**
-  - Official AniList Community Score
-  - Total Seasons & Episodes
-  - Estimated Total Watch Time (hours)
-  - Genres & Format
-  - _(Planned)_ Recommended finished similar anime
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router) + [React 19](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict mode)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Data Source:** [AniList GraphQL API](https://anilist.gitbook.io/anilist-apiv2-docs/)
+- **Deployment:** Automated deployment via **GitHub Pages** (Static Export)
 
 ---
 
-## 🛠️ Tech Stack
+## 📐 Hexagonal Architecture
 
-- **Framework:** Next.js (Static Export mode)
-- **Library:** React 19
-- **API:** AniList GraphQL API (`https://graphql.anilist.co`)
-- **Testing:** React Testing Library (RTL) + Mock Service Worker (MSW)
-- **Deployment:** GitHub Pages (via GitHub Actions)
-- **Default UI Language:** English _(Spanish localization planned for V2)_
+The project strictly adheres to **Hexagonal Architecture (Ports & Adapters)** principles to decouple core domain logic from the UI framework and external API providers:
 
----
-
-## 🗺️ Project Roadmap
-
-### Phase 1: Setup & Core Architecture 🏗️
-
-- [ ] Initialize Next.js project with TypeScript / Tailwind CSS.
-- [ ] Configure `next.config.js` for GitHub Pages (`output: 'export'`, `images: { unoptimized: true }`).
-- [ ] Set up `.nojekyll` pipeline for GitHub Actions static deployment.
-- [ ] Create basic app layout (Header with "AniTime" title, description, and search bar).
-
-### Phase 2: Search & Live Autocomplete 🔍
-
-- [ ] Implement debounced search input (350ms delay, minimum 3 characters).
-- [ ] Connect AniList GraphQL `Page` search query.
-- [ ] Render Top 5 suggestion dropdown with thumbnail, title, year, and AniList score.
-- [ ] Manage click-outside and keyboard navigation for the dropdown.
-
-### Phase 3: Detail Fetching & Verdict Logic 🧠
-
-- [ ] Design and build custom loading animation state.
-- [ ] Implement AniList GraphQL detailed `Media` query (fetching `relations`, `nextAiringEpisode`, `status`).
-- [ ] Build the decision engine (`getTimingAssessment`) to calculate verdicts and explanatory texts.
-- [ ] Render verdict badge, watch time calculator, and metadata card.
-
-### Phase 4: Integration Testing & QA 🧪
-
-- [ ] Set up MSW (Mock Service Worker) to mock AniList GraphQL requests.
-- [ ] Write RTL integration tests covering:
-  - Debounce behavior (<3 characters does not trigger API).
-  - Autocomplete list rendering with 5 items + scores.
-  - Loading state transition on item click.
-  - Correct rendering of verdict cards based on API mocks.
-
-### Phase 5: Deployment & Polish 🚀
-
-- [ ] Configure `.github/workflows/deploy.yml` for automated GitHub Pages deployment.
-- [ ] Perform UI responsive design checks (Mobile / Desktop).
-- [ ] Implement i18n support (Spanish language toggle).
-- [ ] _(Optional)_ Add "Similar Finished Animes" section.
+src/
+├── core/
+│ ├── domain/ # Entities, domain models, and business logic (Score, Anime)
+│ └── ports/ # Contract interfaces for infrastructure (AnimeRepository)
+├── infrastructure/ # External adapters (AniList GraphQL Client, DTOs, Mappers)
+└── app/ # UI components, React hooks, and Next.js App Router routes
 
 ---
 
-## 🧠 Verdict Logic Matrix
+## 🛠️ Prerequisites
 
-| Status / Condition                         | Verdict                           | Summary Explanation                                                             |
-| :----------------------------------------- | :-------------------------------- | :------------------------------------------------------------------------------ |
-| `FINISHED` + No upcoming sequels           | 🟢 **Good time to watch!**        | Complete story available. Perfect for binge-watching without waiting.           |
-| Sequel/Movie `NOT_YET_RELEASED` (<90 days) | 🟡 **Wait a little bit**          | A new season is right around the corner! Catch up now or wait for the premiere. |
-| `RELEASING` or >100 episodes active        | 🟠 **Watch it if you can't wait** | Currently airing or very long. Great if you enjoy weekly community discussions. |
-| `HIATUS`, `CANCELLED`, or dormant (>3 yrs) | 🔴 **Hmmm not a good time**       | High risk of remaining incomplete or paused indefinitely.                       |
+- **Node.js:** `>=22.0.0`
+- **NVM** (recommended for Node version management)
 
 ---
 
-## 🧪 Integration Testing Strategy
+## ⚡ Quick Start
 
-All user interactions are tested using **React Testing Library** and **MSW**:
+1. **Clone the repository:**
+   git clone https://github.com/your-username/anitime.git
+   cd anitime
 
-```bash
-# Run integration tests
-npm test
-```
+2. **Ensure correct Node.js version:**
+   nvm use
+
+3. **Install dependencies:**
+   npm install
+
+4. **Run the local development server:**
+   npm run dev
+
+   Open http://localhost:3000 in your browser.
+
+---
+
+## 📜 Available Scripts
+
+In the project directory, you can run:
+
+| Command         | Script       | Description                                                      |
+| :-------------- | :----------- | :--------------------------------------------------------------- |
+| `npm run dev`   | `next dev`   | Starts the Next.js development server with hot-reloading         |
+| `npm run build` | `next build` | Compiles the app and generates static HTML export for production |
+| `npm run start` | `next start` | Starts a Node.js production server to serve the build            |
+| `npm run lint`  | `eslint`     | Runs ESLint to identify code style and syntax issues             |
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
