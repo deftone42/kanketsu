@@ -16,14 +16,7 @@
 
 ## 📐 Hexagonal Architecture
 
-The project strictly adheres to **Hexagonal Architecture (Ports & Adapters)** principles to decouple core domain logic from the UI framework and external API providers:
-
-src/
-├── core/
-│ ├── domain/ # Entities, domain models, and business logic (Score, Anime)
-│ └── ports/ # Contract interfaces for infrastructure (AnimeRepository)
-├── infrastructure/ # External adapters (AniList GraphQL Client, DTOs, Mappers)
-└── app/ # UI components, React hooks, and Next.js App Router routes
+The project strictly adheres to **Hexagonal Architecture (Ports & Adapters)** principles to decouple core domain logic from the UI framework and external API providers
 
 ---
 
