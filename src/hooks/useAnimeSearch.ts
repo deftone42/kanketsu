@@ -1,65 +1,91 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   AnimeSearchResult,
   AnimeRepository,
 } from "@/core/ports/anime-repository";
-import { AniListGraphQLRepository } from "@/infraestructure/adapters/anilist-graphql-repository";
+import { AniListGraphQLRepository } from "@/infrastructure/adapters/anilist/anilist-graphql-repository";
 import { Anime } from "@/core/domain/models/anime";
 import { TimingScore } from "@/core/domain/models/score";
 import { evaluateAnimeScore } from "@/core/domain/services/evaluate-score";
 
-// Inyección de dependencias (por defecto la API de AniList)
 const repository: AnimeRepository = new AniListGraphQLRepository();
 
 export function useAnimeSearch() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<AnimeSearchResult[]>([]);
+  const [rawResults, setRawResults] = useState<AnimeSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
   const [score, setScore] = useState<TimingScore | null>(null);
   const [isFetchingDetail, setIsFetchingDetail] = useState(false);
 
-  // Debounce para la búsqueda
+  // 1. Derivar resultados visibles durante el render sin disparar re-renders con useEffect
+  const results = useMemo(() => {
+    return query.trim().length >= 3 ? rawResults : [];
+  }, [query, rawResults]);
+
+  // 2. Debounce libre de setState síncronos
   useEffect(() => {
-    if (!query || query.trim().length < 3) {
-      setResults([]);
-      setIsSearching(false);
+    const trimmedQuery = query.trim();
+
+    // Si tiene menos de 3 caracteres, no se ejecuta ningún setState. Salimos limpiamente.
+    if (trimmedQuery.length < 3) {
       return;
     }
 
-    setIsSearching(true);
+    let isCancelled = false;
 
+    // Todas las llamadas a setState ocurren ASÍNCRONAMENTE dentro del timer/callback
     const timer = setTimeout(async () => {
-      const searchResults = await repository.searchAnime(query);
-      setResults(searchResults);
-      setIsSearching(false);
+      if (isCancelled) return;
+
+      setIsSearching(true);
+
+      try {
+        const searchResults = await repository.searchAnime(trimmedQuery);
+        if (!isCancelled) {
+          setRawResults(searchResults);
+        }
+      } catch (error) {
+        console.error("Error al buscar anime:", error);
+      } finally {
+        if (!isCancelled) {
+          setIsSearching(false);
+        }
+      }
     }, 350);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
   }, [query]);
 
-  // Selección de un anime
+  // Selección de un anime (los eventos de usuario no tienen restricciones de cascading render)
   const selectAnime = useCallback(async (id: number) => {
-    setResults([]);
+    setRawResults([]);
     setIsFetchingDetail(true);
 
-    const animeDetail = await repository.getAnimeById(id);
-
-    if (animeDetail) {
-      setSelectedAnime(animeDetail);
-      setScore(evaluateAnimeScore(animeDetail));
+    try {
+      const animeDetail = await repository.getAnimeById(id);
+      if (animeDetail) {
+        setSelectedAnime(animeDetail);
+        setScore(evaluateAnimeScore(animeDetail));
+      }
+    } catch (error) {
+      console.error("Error al obtener detalle del anime:", error);
+    } finally {
+      setIsFetchingDetail(false);
     }
-
-    setIsFetchingDetail(false);
   }, []);
 
   const clearSelection = useCallback(() => {
     setSelectedAnime(null);
     setScore(null);
     setQuery("");
+    setRawResults([]);
   }, []);
 
   return {
