@@ -8,7 +8,7 @@ const ANILIST_ENDPOINT = "https://graphql.anilist.co";
 
 const SEARCH_ANIME_QUERY = `
   query ($search: String) {
-    Page(page: 1, perPage: 10) {
+    Page(page: 1, perPage: 5) {
       media(search: $search, type: ANIME, isAdult: false, sort: [SEARCH_MATCH, POPULARITY_DESC]) {
         id
         title {
@@ -23,11 +23,6 @@ const SEARCH_ANIME_QUERY = `
           year
         }
         averageScore
-        relations {
-          edges {
-            relationType
-          }
-        }
       }
     }
   }
