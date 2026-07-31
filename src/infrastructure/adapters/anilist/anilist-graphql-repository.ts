@@ -2,7 +2,7 @@ import {
   AnimeRepository,
   AnimeSearchResult,
 } from "@/core/ports/anime-repository";
-import { Anime, AnimeRelation, AnimeStatus } from "@/core/domain/models/anime";
+import { Anime, AnimeStatus } from "@/core/domain/models/anime";
 import {
   AniListGetByIdResponse,
   AniListRelationEdge,
@@ -36,17 +36,8 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const json = (await response.json()) as AniListSearchResponse;
       const rawMediaList = json.data?.Page?.media || [];
 
-      // Filtro de precuelas
-      const mainSeriesOnly = rawMediaList.filter(
-        (item: AniListSearchMediaItem) => {
-          const hasPrequel = item.relations?.edges?.some(
-            (edge: AniListRelationEdge) => edge.relationType === "PREQUEL",
-          );
-          return !hasPrequel;
-        },
-      );
-
-      return mainSeriesOnly.map((item: AniListSearchMediaItem) => ({
+      // Devuelve los resultados ordenados por coincidencia y popularidad
+      return rawMediaList.map((item: AniListSearchMediaItem) => ({
         id: item.id,
         title: {
           userPreferred: item.title.userPreferred || "",
@@ -106,8 +97,12 @@ export class AniListGraphQLRepository implements AnimeRepository {
           : null,
         relations:
           media.relations?.edges?.map((edge: AniListRelationEdge) => ({
-            // 👈 Hacemos cast explícito al tipo literal que exige el Dominio
-            relationType: edge.relationType as AnimeRelation["relationType"],
+            relationType: edge.relationType as
+              | "PREQUEL"
+              | "SEQUEL"
+              | "SIDE_STORY"
+              | "SUMMARY"
+              | "OTHER",
             status: edge.node.status as AnimeStatus,
             daysUntilAiring: edge.node.nextAiringEpisode
               ? Math.ceil(edge.node.nextAiringEpisode.timeUntilAiring / 86400)

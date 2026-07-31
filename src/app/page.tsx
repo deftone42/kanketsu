@@ -20,12 +20,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden">
-      {/* Luces/Gradients decorativos de fondo */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto w-full space-y-10 relative z-10 my-auto">
-        {/* Header Principal */}
         <header className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
             <Sparkles className="w-3.5 h-3.5" />
@@ -38,8 +36,7 @@ export default function Home() {
           </h1>
 
           <p className="text-gray-400 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-            Find out if it’s the right moment to start watching an anime, or if
-            you should wait for the next season!
+            Find out if it’s the right moment to start watching an anime
           </p>
         </header>
 
