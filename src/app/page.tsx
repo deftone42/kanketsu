@@ -66,7 +66,6 @@ export default function Home() {
           </section>
         )}
 
-        {/* Estado inicial / vacío */}
         {!isFetchingDetail && !selectedAnime && (
           <div className="text-center py-8 text-gray-600 text-xs uppercase tracking-wider font-semibold">
             Search for any title above to calculate the watch timing

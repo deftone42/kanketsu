@@ -9,7 +9,7 @@ export interface AnimeSearchResult {
   };
   coverImage: string;
   releaseYear?: number | null;
-  score?: number | null; // Nota oficial de AniList (0-100)
+  score?: number | null;
 }
 
 export interface AnimeRepository {

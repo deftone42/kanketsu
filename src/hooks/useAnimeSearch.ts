@@ -21,23 +21,19 @@ export function useAnimeSearch() {
   const [score, setScore] = useState<TimingScore | null>(null);
   const [isFetchingDetail, setIsFetchingDetail] = useState(false);
 
-  // 1. Derivar resultados visibles durante el render sin disparar re-renders con useEffect
   const results = useMemo(() => {
     return query.trim().length >= 3 ? rawResults : [];
   }, [query, rawResults]);
 
-  // 2. Debounce libre de setState síncronos
   useEffect(() => {
     const trimmedQuery = query.trim();
 
-    // Si tiene menos de 3 caracteres, no se ejecuta ningún setState. Salimos limpiamente.
     if (trimmedQuery.length < 3) {
       return;
     }
 
     let isCancelled = false;
 
-    // Todas las llamadas a setState ocurren ASÍNCRONAMENTE dentro del timer/callback
     const timer = setTimeout(async () => {
       if (isCancelled) return;
 
@@ -63,7 +59,6 @@ export function useAnimeSearch() {
     };
   }, [query]);
 
-  // Selección de un anime (los eventos de usuario no tienen restricciones de cascading render)
   const selectAnime = useCallback(async (id: number) => {
     setRawResults([]);
     setIsFetchingDetail(true);
