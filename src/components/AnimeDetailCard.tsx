@@ -41,7 +41,6 @@ export function AnimeDetailCard({ anime, score }: AnimeDetailCardProps) {
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl space-y-6">
-      {/* Header Info */}
       <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
         <div className="relative w-36 h-52 flex-shrink-0">
           <Image
@@ -93,7 +92,6 @@ export function AnimeDetailCard({ anime, score }: AnimeDetailCardProps) {
         </div>
       </div>
 
-      {/* Score Badge Card */}
       <div
         className={`p-5 rounded-2xl border ${styles.bg} ${styles.border} space-y-2`}
       >

@@ -23,7 +23,6 @@ export function SearchBar({
 }: SearchBarProps) {
   return (
     <div className="relative w-full max-w-xl mx-auto">
-      {/* Search Input */}
       <div className="relative flex items-center">
         <Search className="absolute left-4 w-5 h-5 text-gray-400" />
         <input
@@ -44,14 +43,12 @@ export function SearchBar({
         )}
       </div>
 
-      {/* Loading Indicator */}
       {isSearching && (
         <div className="absolute right-12 top-4">
           <Loader2 className="w-5 h-5 text-indigo-400 animate-spin" />
         </div>
       )}
 
-      {/* Dropdown Menu */}
       {results.length > 0 && (
         <div className="absolute z-50 left-0 right-0 mt-2 bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md">
           {results.map((anime) => (

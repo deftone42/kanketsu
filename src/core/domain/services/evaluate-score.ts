@@ -4,12 +4,10 @@ import { TimingScore } from "../models/score";
 export function evaluateAnimeScore(anime: Anime): TimingScore {
   const { status, relations = [], episodes = 0 } = anime;
 
-  // Busca si existe alguna secuela o película confirmada en producción/por estrenar
   const upcomingSequel = relations.find(
     (rel) => rel.relationType === "SEQUEL" && rel.status === "NOT_YET_RELEASED",
   );
 
-  // 1. Caso: En emisión
   if (status === "RELEASING") {
     return {
       level: "IF_CANT_WAIT",
@@ -20,7 +18,6 @@ export function evaluateAnimeScore(anime: Anime): TimingScore {
     };
   }
 
-  // 2. Caso: Próxima secuela anunciada o cercana
   if (upcomingSequel) {
     const daysLeft = upcomingSequel.daysUntilAiring;
     const daysMessage = daysLeft
@@ -35,7 +32,6 @@ export function evaluateAnimeScore(anime: Anime): TimingScore {
     };
   }
 
-  // 3. Caso: Finalizado completamente
   if (status === "FINISHED") {
     return {
       level: "GOOD_TIME",
@@ -45,7 +41,6 @@ export function evaluateAnimeScore(anime: Anime): TimingScore {
     };
   }
 
-  // 4. Caso: Cancelado o en Hiatus
   if (status === "HIATUS" || status === "CANCELLED") {
     return {
       level: "NOT_GOOD_TIME",
@@ -56,7 +51,6 @@ export function evaluateAnimeScore(anime: Anime): TimingScore {
     };
   }
 
-  // Fallback por defecto
   return {
     level: "NOT_GOOD_TIME",
     badgeText: "Hmmm not a good time",

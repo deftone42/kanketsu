@@ -10,7 +10,7 @@
 - **Styling:** Tailwind CSS
 - **Architecture:** Hexagonal (Domain, Ports, Adapters)
 - **Environment:** Node.js `>=22.0.0` (Enforced via `.nvmrc` and `engines` with `engine-strict=true`)
-- **Deployment:** GitHub Pages (Static export with `images.unoptimized: true`)
+- **Deployment & Distribution:** Local build / Static Export (GitHub Pages and automated Releases are currently on hold/disabled).
 
 ---
 
@@ -29,7 +29,7 @@
   - Derived state management using `useMemo` and clean asynchronous debouncing.
 - [x] **CI/CD & Environment:**
   - Strict Node.js version alignment via `.nvmrc`.
-  - Automated GitHub Actions workflows for validation (Lint, Typecheck, Build) and GitHub Pages releases (`node-version-file: '.nvmrc'`).
+  - Automated GitHub Actions validation workflow (Lint, Typecheck, Build).
 
 ---
 
@@ -46,6 +46,7 @@
   - **Infrastructure:** Parameterized AniList GraphQL queries to retrieve related/recommended series by genre and format.
   - **Domain Service:** Recommendation sorting algorithm prioritizing shows with a favorable **Timing Score** ("Ideal to watch now").
   - **UI:** Interactive carousel/section for "Similar shows worth watching right now".
+    [23:43, 31/7/2026] Eder: Accesibilidad
 
 ---
 
@@ -61,9 +62,16 @@
 
 ## 🔮 Phase 4: Optimization & Advanced Features (Backlog)
 
+- [ ] **Deployment & Release Pipeline Re-activation:**
+  - Re-enable GitHub Actions deployment for GitHub Pages static output.
+  - Re-configure automated tag-based GitHub Releases with changelog generation.
 - [ ] **Client Caching / LocalStorage:**
   - Temporary client-side caching to minimize API requests for repeated searches.
 - [ ] **PWA / Offline Support:**
   - Basic offline reading support for saved/bookmarked anime lists.
 - [ ] **Custom Timing Score Filters:**
   - User preference toggles (e.g., "Prefer finished series", "Tolerate ongoing series if few episodes remain", "Filter recommendations strictly by Movies or TV Series").
+- [ ] **Accesibility:**
+  - Aria labels, alt, etc....
+- [ ] **SEO:**
+- [ ] **Dedicated Design**

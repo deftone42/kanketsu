@@ -36,7 +36,6 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const json = (await response.json()) as AniListSearchResponse;
       const rawMediaList = json.data?.Page?.media || [];
 
-      // Devuelve los resultados ordenados por coincidencia y popularidad
       return rawMediaList.map((item: AniListSearchMediaItem) => ({
         id: item.id,
         title: {
