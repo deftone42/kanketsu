@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   output: "export",
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "s4.anilist.co",
+      },
+    ],
   },
   basePath: isProd ? `/${repoName}` : "",
   assetPrefix: isProd ? `/${repoName}/` : "",
