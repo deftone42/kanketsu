@@ -5,8 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  validate:
-    name: Lint, Typecheck & Build
+  CI:
     runs-on: ubuntu-latest
 
     steps:
