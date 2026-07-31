@@ -33,6 +33,16 @@
 
 ---
 
+## 🧪 Phase 2: Testing & Code Quality (Next Up)
+
+- [ ] **Integration Test Suite with Vitest & MSW:**
+  - Test environment setup using Vitest and React Testing Library.
+  - Mock API integration using MSW (_Mock Service Worker_) to intercept AniList GraphQL calls.
+  - Unit tests for `evaluateAnimeScore` logic.
+  - Integration tests for the `useAnimeSearch` hook.
+
+---
+
 ## 🟡 Phase 2: UI Components & User Experience (In Progress)
 
 - [x] **Search & Detail View:**
@@ -46,17 +56,6 @@
   - **Infrastructure:** Parameterized AniList GraphQL queries to retrieve related/recommended series by genre and format.
   - **Domain Service:** Recommendation sorting algorithm prioritizing shows with a favorable **Timing Score** ("Ideal to watch now").
   - **UI:** Interactive carousel/section for "Similar shows worth watching right now".
-    [23:43, 31/7/2026] Eder: Accesibilidad
-
----
-
-## 🧪 Phase 3: Testing & Code Quality (Next Up)
-
-- [ ] **Integration Test Suite with Vitest & MSW:**
-  - Test environment setup using Vitest and React Testing Library.
-  - Mock API integration using MSW (_Mock Service Worker_) to intercept AniList GraphQL calls.
-  - Unit tests for `evaluateAnimeScore` logic.
-  - Integration tests for the `useAnimeSearch` hook.
 
 ---
 
