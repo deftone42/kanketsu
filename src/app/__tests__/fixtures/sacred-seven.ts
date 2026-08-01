@@ -16,5 +16,18 @@ export const sacredSevenScenario: Anime = {
   endDate: { year: 2011 },
   format: "TV",
   nextAiringEpisode: null,
-  relations: [{ relationType: "SUMMARY", status: "FINISHED" }],
+  relations: [
+    {
+      relationType: "SUMMARY",
+      status: "FINISHED",
+      format: "MOVIE",
+      daysUntilAiring: null,
+    },
+    {
+      relationType: "ADAPTATION",
+      status: "FINISHED",
+      format: "MANGA",
+      daysUntilAiring: null,
+    },
+  ],
 };

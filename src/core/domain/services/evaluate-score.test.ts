@@ -5,6 +5,9 @@ import { onePieceScenario } from "@/app/__tests__/fixtures/one-piece";
 import { sacredSevenScenario } from "@/app/__tests__/fixtures/sacred-seven";
 import { gintamaScenario } from "@/app/__tests__/fixtures/gintama";
 import { frierenScenario } from "@/app/__tests__/fixtures/frieren";
+import { soulEaterAnime } from "@/app/__tests__/fixtures/soul-eater";
+import { rezeroAnime } from "@/app/__tests__/fixtures/rezero";
+import { oshiNoKoAnime } from "@/app/__tests__/fixtures/oshi-no-ko";
 
 describe("evaluateWatchingScore - Multi-Scenario Test Suite", () => {
   it("should evaluate Gintama as PERFECT_TIME (100) because the entire franchise is completed", () => {
@@ -46,5 +49,34 @@ describe("evaluateWatchingScore - Multi-Scenario Test Suite", () => {
     expect(result.summary).toContain(
       "Ended in 2011 without continuation news.",
     );
+  });
+
+  it("should evaluate Soul Eater as RISK_INCOMPLETE (40) due to production limbo (>3 years)", () => {
+    const result = evaluateWatchingScore(soulEaterAnime);
+
+    expect(result.score).toBe(40);
+    expect(result.level).toBe("RISK_INCOMPLETE");
+    expect(result.badgeText).toBe("Production Limbo");
+    expect(result.summary).toContain(
+      "Ended in 2009 without continuation news.",
+    );
+  });
+
+  it("should evaluate Re:Zero as GOOD_TIME (80) because the season ended but the source novel is still ongoing", () => {
+    const result = evaluateWatchingScore(rezeroAnime);
+
+    expect(result.score).toBe(80);
+    expect(result.level).toBe("GOOD_TIME");
+    expect(result.badgeText).toBe("Season Complete");
+    expect(result.summary).toBe("Season finished, ongoing story.");
+  });
+
+  it("should evaluate Oshi no Ko as PERFECT_TIME (95) because the franchise is completed", () => {
+    const result = evaluateWatchingScore(oshiNoKoAnime);
+
+    expect(result.score).toBe(95);
+    expect(result.level).toBe("PERFECT_TIME");
+    expect(result.badgeText).toBe("Completed Story!");
+    expect(result.summary).toBe("Entire franchise is completed and available.");
   });
 });

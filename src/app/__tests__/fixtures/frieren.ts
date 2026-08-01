@@ -19,11 +19,40 @@ export const frierenScenario: Anime = {
   nextAiringEpisode: null,
   relations: [
     {
-      relationType: "SIDE_STORY",
-      status: "FINISHED",
+      relationType: "ADAPTATION",
+      status: "RELEASING",
+      format: "MANGA",
       daysUntilAiring: null,
     },
-    { relationType: "OTHER", status: "FINISHED", daysUntilAiring: null },
-    { relationType: "SEQUEL", status: "FINISHED", daysUntilAiring: null },
+    {
+      relationType: "CHARACTER",
+      status: "FINISHED",
+      format: "MUSIC",
+      daysUntilAiring: null,
+    },
+    {
+      relationType: "SIDE_STORY",
+      status: "FINISHED",
+      format: "ONA",
+      daysUntilAiring: null,
+    },
+    {
+      relationType: "OTHER",
+      status: "FINISHED",
+      format: "MUSIC",
+      daysUntilAiring: null,
+    },
+    {
+      relationType: "SEQUEL",
+      status: "FINISHED",
+      format: "TV",
+      daysUntilAiring: null,
+    },
+    {
+      relationType: "SIDE_STORY",
+      status: "FINISHED",
+      format: "ONA",
+      daysUntilAiring: null,
+    },
   ],
 };

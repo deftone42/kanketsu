@@ -24,15 +24,24 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
 
   console.log(JSON.stringify(anime));
 
-  const upcomingSequel = relations.find(
-    (rel) => rel.relationType === "SEQUEL" && rel.status === "NOT_YET_RELEASED",
+  // FILTRADO CLAVE: Solo consideramos secuelas de formato principal (TV / MOVIE)
+  const validSequels = relations.filter(
+    (rel) =>
+      rel.relationType === "SEQUEL" &&
+      (rel.format === "TV" || rel.format === "MOVIE" || !rel.format),
   );
-  const hasFinishedSequel = relations.some(
-    (rel) => rel.relationType === "SEQUEL" && rel.status === "FINISHED",
+
+  const upcomingSequel = validSequels.find(
+    (rel) => rel.status === "NOT_YET_RELEASED",
+  );
+
+  // Solo cuenta si hay una secuela principal emitida
+  const hasMainFinishedSequel = validSequels.some(
+    (rel) => rel.status === "FINISHED",
   );
 
   // =========================================================================
-  // CASO 1: CANCELADO (~10-15 pts)
+  // CASOS DE ESTADO (CANCELLED, HIATUS, NOT_YET_RELEASED)
   // =========================================================================
   if (status === "CANCELLED") {
     return {
@@ -44,9 +53,6 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
     };
   }
 
-  // =========================================================================
-  // CASO 2: HIATUS (~30-35 pts)
-  // =========================================================================
   if (status === "HIATUS") {
     return {
       score: clampScore(BASE_SCORE - 40 + qualityBonus),
@@ -57,9 +63,6 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
     };
   }
 
-  // =========================================================================
-  // CASO 3: AÚN NO ESTRENADO (20 pts)
-  // =========================================================================
   if (status === "NOT_YET_RELEASED") {
     return {
       score: clampScore(BASE_SCORE - 50),
@@ -71,7 +74,7 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
   }
 
   // =========================================================================
-  // CASO 4: HYPE WINDOW (< 60 días) (~95-100 pts)
+  // HYPE WINDOW (< 60 días) -> 95-100 pts
   // =========================================================================
   if (
     upcomingSequel &&
@@ -84,12 +87,12 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
       level: "PERFECT_TIME",
       badgeText: "Hype Window Active!",
       summary: `New season premieres in ${daysLeft} days!`,
-      details: `A new season debuts in about ${daysLeft} days. Perfect timing to binge now and join weekly broadcasts!`,
+      details: `A new season debuts in about ${daysLeft} days. Perfect timing to binge now!`,
     };
   }
 
   // =========================================================================
-  // CASO 5: SECUELA CONFIRMADA (Fecha lejana / TBD) (~80-85 pts)
+  // SECUELA CONFIRMADA (Futuro) -> 80-85 pts
   // =========================================================================
   if (upcomingSequel) {
     const daysLeft = upcomingSequel.daysUntilAiring;
@@ -99,34 +102,31 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
       badgeText: "Good time to catch up",
       summary: "A new season has been officially announced.",
       details: daysLeft
-        ? `A continuation is scheduled in roughly ${daysLeft} days. Great time to catch up.`
-        : "A continuation is in production. Great time to watch prior content.",
+        ? `A continuation is scheduled in roughly ${daysLeft} days.`
+        : "A continuation is in production. Great time to catch up.",
     };
   }
 
   // =========================================================================
-  // CASO 6: EN EMISIÓN (RELEASING)
+  // EN EMISIÓN (RELEASING)
   // =========================================================================
   if (status === "RELEASING") {
-    // Excepción Mega-Series (One Piece, Conan, etc.) -> ~90-95 pts
     if (episodes === null || episodes >= MEGA_SERIES_EPISODE_THRESHOLD) {
       return {
         score: clampScore(BASE_SCORE + 20 + qualityBonus),
         level: "PERFECT_TIME",
         badgeText: "Great Backlog!",
         summary: "Massive episode backlog available.",
-        details: `With over ${episodes || "150+"} episodes ongoing, you have plenty of content to binge continuously without waiting week-to-week for a long time.`,
+        details: `With over ${episodes || "150+"} episodes ongoing, you can binge continuously.`,
       };
     }
 
-    // Emisión semanal de temporada corta -> ~55-60 pts
     return {
       score: clampScore(BASE_SCORE - 15 + qualityBonus),
       level: "IF_CANT_WAIT",
       badgeText: "Watch if impatient",
       summary: "Currently releasing weekly.",
-      details:
-        "Episodes drop week by week. Dive in now for live discussions or wait until the season finishes.",
+      details: "Episodes drop week by week.",
     };
   }
 
@@ -137,9 +137,14 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
     const endYear = endDate?.year;
     const yearsSinceEnded = endYear ? CURRENT_YEAR - endYear : null;
 
-    // Sub-caso A: Limbo de producción (> 3 años sin noticias ni secuelas) -> ~40 pts
+    // 1. Verificamos si el material original (Manga/Novela) sigue en publicación
+    const isSourceOngoing = relations.some(
+      (rel) => rel.relationType === "ADAPTATION" && rel.status === "RELEASING",
+    );
+
+    // Sub-caso A: Limbo de producción (> 3 años sin noticias) -> ~40 pts
     if (
-      !hasFinishedSequel &&
+      !hasMainFinishedSequel &&
       yearsSinceEnded !== null &&
       yearsSinceEnded >= LIMBO_THRESHOLD_YEARS
     ) {
@@ -148,35 +153,34 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
         level: "RISK_INCOMPLETE",
         badgeText: "Production Limbo",
         summary: `Ended in ${endYear} without continuation news.`,
-        details: `Finished ${yearsSinceEnded} years ago with no new season announced. Expect an incomplete anime arc.`,
+        details: `Finished ${yearsSinceEnded} years ago with no new season announced.`,
       };
     }
 
-    // Sub-caso B: Franquicia Concluida / Secuelas Completadas (Gintama / FMA Case) -> 100 pts
-    // La historia global o el hilo de secuelas está emitido por completo.
-    if (hasFinishedSequel && !upcomingSequel) {
+    // Sub-caso B: Franquicia Concluida Definitivamente (Gintama / FMA) -> 100 pts
+    // Para dar 100/100, la obra original NO debe estar en publicación y las secuelas deben estar finalizadas
+    if (hasMainFinishedSequel && !upcomingSequel && !isSourceOngoing) {
       return {
         score: clampScore(BASE_SCORE + 25 + qualityBonus), // 70 + 25 + 5 = 100
         level: "PERFECT_TIME",
         badgeText: "Completed Story!",
         summary: "Entire franchise is completed and available.",
         details:
-          "All seasons and sequels have been fully released. You can watch the complete story from start to finish without waiting.",
+          "All seasons have been fully released. You can watch the complete story.",
       };
     }
 
-    // Sub-caso C: Temporada reciente con historia abierta (Frieren Case) -> 85 pts
-    // Se ha emitido la temporada actual, pero la historia global continúa sin secuela anunciada aún.
+    // Sub-caso C: Temporada Finalizada con historia abierta (Frieren Case) -> 85 pts
+    // Al estar el manga en "RELEASING", cae automáticamente aquí
     return {
       score: clampScore(BASE_SCORE + 10 + qualityBonus), // 70 + 10 + 5 = 85
       level: "GOOD_TIME",
       badgeText: "Season Complete",
       summary: "Season finished, ongoing story.",
-      details: `All ${episodes || ""} episodes of this season are available. Be aware that the broader story is still ongoing and waiting for future adaptations.`,
+      details: `All ${episodes || ""} episodes of this season are available. The broader story continues.`,
     };
   }
 
-  // Fallback
   return {
     score: 50,
     level: "NOT_GOOD_TIME",

@@ -27,6 +27,7 @@ export interface AniListRelationEdge {
   relationType: string;
   node: {
     id: number;
+    format?: string | null; // <-- AÑADIDO
     status: string;
     nextAiringEpisode?: {
       timeUntilAiring: number;

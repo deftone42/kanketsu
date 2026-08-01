@@ -57,6 +57,7 @@ export const GET_ANIME_BY_ID_QUERY = `
           relationType
           node {
             id
+            format
             status
             nextAiringEpisode {
               timeUntilAiring

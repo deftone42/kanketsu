@@ -2,7 +2,12 @@ import {
   AnimeRepository,
   AnimeSearchResult,
 } from "@/core/ports/anime-repository";
-import { Anime, AnimeStatus } from "@/core/domain/models/anime";
+import {
+  Anime,
+  AnimeFormat,
+  AnimeRelationType,
+  AnimeStatus,
+} from "@/core/domain/models/anime";
 import {
   AniListGetByIdResponse,
   AniListRelationEdge,
@@ -83,12 +88,12 @@ export class AniListGraphQLRepository implements AnimeRepository {
           native: media.title.native || undefined,
         },
         coverImage: media.coverImage?.large || "",
-        userScore: media.averageScore || null, // Mapped to userScore
+        userScore: media.averageScore || null,
         status: media.status as AnimeStatus,
         episodes: media.episodes || null,
         releaseYear: media.startDate?.year || null,
         endDate: media.endDate?.year ? { year: media.endDate.year } : null,
-        format: media.format || "UNKNOWN",
+        format: (media.format as AnimeFormat) || "TV",
         nextAiringEpisode: media.nextAiringEpisode
           ? {
               episode: media.nextAiringEpisode.episode,
@@ -97,13 +102,9 @@ export class AniListGraphQLRepository implements AnimeRepository {
           : null,
         relations:
           media.relations?.edges?.map((edge: AniListRelationEdge) => ({
-            relationType: edge.relationType as
-              | "PREQUEL"
-              | "SEQUEL"
-              | "SIDE_STORY"
-              | "SUMMARY"
-              | "OTHER",
+            relationType: edge.relationType as AnimeRelationType,
             status: edge.node.status as AnimeStatus,
+            format: (edge.node.format as AnimeFormat) || null,
             daysUntilAiring: edge.node.nextAiringEpisode
               ? Math.ceil(edge.node.nextAiringEpisode.timeUntilAiring / 86400)
               : null,
