@@ -44,6 +44,9 @@ export const GET_ANIME_BY_ID_QUERY = `
       startDate {
         year
       }
+      endDate {
+        year
+      }
       format
       nextAiringEpisode {
         episode

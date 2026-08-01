@@ -48,7 +48,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
         score: item.averageScore || null,
       }));
     } catch (error) {
-      console.error("Error al buscar anime en AniList:", error);
+      console.error("Error searching anime in AniList:", error);
       return [];
     }
   }
@@ -83,10 +83,11 @@ export class AniListGraphQLRepository implements AnimeRepository {
           native: media.title.native || undefined,
         },
         coverImage: media.coverImage?.large || "",
-        score: media.averageScore || null,
+        userScore: media.averageScore || null, // Mapped to userScore
         status: media.status as AnimeStatus,
         episodes: media.episodes || null,
         releaseYear: media.startDate?.year || null,
+        endDate: media.endDate?.year ? { year: media.endDate.year } : null,
         format: media.format || "UNKNOWN",
         nextAiringEpisode: media.nextAiringEpisode
           ? {

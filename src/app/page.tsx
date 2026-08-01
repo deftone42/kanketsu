@@ -65,7 +65,7 @@ export default function Home() {
             aria-label="Anime detail card"
             className="animate-in fade-in slide-in-from-bottom-4 duration-500"
           >
-            <AnimeDetailCard anime={selectedAnime} score={score} />
+            <AnimeDetailCard anime={selectedAnime} watchingScore={score} />
           </section>
         )}
 

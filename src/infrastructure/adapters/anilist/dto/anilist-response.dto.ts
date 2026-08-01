@@ -14,6 +14,10 @@ export interface AniListStartDate {
   year?: number;
 }
 
+export interface AniListEndDate {
+  year?: number;
+}
+
 export interface AniListNextAiringEpisode {
   episode: number;
   timeUntilAiring: number;
@@ -57,6 +61,7 @@ export interface AniListMediaDetail {
   status: string;
   episodes?: number;
   startDate?: AniListStartDate;
+  endDate?: AniListEndDate;
   format?: string;
   nextAiringEpisode?: AniListNextAiringEpisode | null;
   relations?: {

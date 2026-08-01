@@ -8,7 +8,7 @@ import {
 import { AniListGraphQLRepository } from "@/infrastructure/adapters/anilist/anilist-graphql-repository";
 import { Anime } from "@/core/domain/models/anime";
 import { TimingScore } from "@/core/domain/models/score";
-import { evaluateAnimeScore } from "@/core/domain/services/evaluate-score";
+import { evaluateWatchingScore } from "@/core/domain/services/evaluate-score";
 
 const repository: AnimeRepository = new AniListGraphQLRepository();
 
@@ -67,7 +67,7 @@ export function useAnimeSearch() {
       const animeDetail = await repository.getAnimeById(id);
       if (animeDetail) {
         setSelectedAnime(animeDetail);
-        setScore(evaluateAnimeScore(animeDetail));
+        setScore(evaluateWatchingScore(animeDetail));
       }
     } catch (error) {
       console.error("Error al obtener detalle del anime:", error);

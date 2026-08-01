@@ -5,9 +5,24 @@ export type AnimeStatus =
   | "CANCELLED"
   | "HIATUS";
 
+export type AnimeRelationType =
+  | "SEQUEL"
+  | "PREQUEL"
+  | "SIDE_STORY"
+  | "PARENT"
+  | "SPIN_OFF"
+  | "ALTERNATIVE"
+  | "SUMMARY"
+  | "OTHER";
+
 export interface AnimeRelation {
-  relationType: "SEQUEL" | "PREQUEL" | "SIDE_STORY" | "SUMMARY" | "OTHER";
-  status: AnimeStatus;
+  relationType: AnimeRelationType;
+  status:
+    | "FINISHED"
+    | "RELEASING"
+    | "NOT_YET_RELEASED"
+    | "CANCELLED"
+    | "HIATUS";
   daysUntilAiring?: number | null;
 }
 
@@ -20,12 +35,13 @@ export interface Anime {
     native?: string;
   };
   coverImage: string;
-  score?: number | null; // Puntuación de 0 a 100
+  userScore: number | null;
   status: AnimeStatus;
   episodes?: number | null;
   releaseYear?: number | null;
-  format?: string;
-  nextAiringEpisode?: {
+  endDate?: { year: number | null } | null;
+  format: string;
+  nextAiringEpisode: {
     episode: number;
     timeUntilAiringSeconds: number;
   } | null;
