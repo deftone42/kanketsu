@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Anime } from "@/core/domain/models/anime";
 import { ScoreLevel, TimingScore } from "@/core/domain/models/score";
-import { Star, Tv, Calendar, Film, PlayCircle } from "lucide-react";
+import { Star, Tv, Calendar, Film, PlayCircle, Clock } from "lucide-react";
 
 interface AnimeDetailCardProps {
   anime: Anime;
@@ -46,12 +46,22 @@ const LEVEL_STYLES: Record<
   },
 };
 
+function formatTimeRemaining(seconds: number): string {
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  if (days > 0) return `${days}d ${hours}h`;
+  return `${hours}h`;
+}
+
 export function AnimeDetailCard({
   anime,
   watchingScore,
 }: AnimeDetailCardProps) {
   const styles =
     LEVEL_STYLES[watchingScore.level] || LEVEL_STYLES.NOT_GOOD_TIME;
+
+  const seasonsCount = anime.franchise.seasons.length;
+  const moviesCount = anime.franchise.movies.length;
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl space-y-6">
@@ -77,10 +87,10 @@ export function AnimeDetailCard({
             {anime.userScore !== null && anime.userScore !== undefined && (
               <span
                 className="flex items-center gap-1 text-amber-400 font-semibold bg-amber-400/10 px-2.5 py-1 rounded-full border border-amber-400/20"
-                title="Average score given by AniList users"
+                title="Average score given by AniList users across the franchise"
               >
                 <Star className="w-3.5 h-3.5 fill-current" />
-                {anime.userScore}% User Score
+                {anime.userScore}% Franchise Score
               </span>
             )}
 
@@ -88,12 +98,15 @@ export function AnimeDetailCard({
               <Tv className="w-3.5 h-3.5" />
               {anime.status.replace(/_/g, " ")}
             </span>
-            {anime.format && (
-              <span className="flex items-center gap-1 bg-gray-800 px-2.5 py-1 rounded-full border border-gray-700">
-                <Film className="w-3.5 h-3.5" />
-                {anime.format}
-              </span>
-            )}
+
+            {/* Franchise Structure Badges */}
+            <span className="flex items-center gap-1 bg-gray-800 px-2.5 py-1 rounded-full border border-gray-700">
+              <Film className="w-3.5 h-3.5" />
+              {seasonsCount} {seasonsCount === 1 ? "Season" : "Seasons"}
+              {moviesCount > 0 &&
+                ` • ${moviesCount} Movie${moviesCount > 1 ? "s" : ""}`}
+            </span>
+
             {anime.releaseYear && (
               <span className="flex items-center gap-1 bg-gray-800 px-2.5 py-1 rounded-full border border-gray-700">
                 <Calendar className="w-3.5 h-3.5" />
@@ -103,13 +116,38 @@ export function AnimeDetailCard({
           </div>
 
           <p className="text-sm text-gray-400 pt-1">
-            Total Episodes:{" "}
+            Total TV Episodes:{" "}
             <span className="text-white font-medium">
-              {anime.episodes || "Ongoing"}
+              {anime.franchise.totalEpisodes > 0
+                ? anime.franchise.totalEpisodes
+                : "Ongoing / Unknown"}
             </span>
           </p>
         </div>
       </div>
+
+      {/* NEXT AIRING EPISODE BANNER (si existe) */}
+      {anime.nextAiringEpisode && (
+        <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-4 flex items-center justify-between text-xs text-blue-300">
+          <div className="flex items-center gap-2.5">
+            <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
+            <div>
+              <p className="font-semibold text-white">
+                Next: {anime.nextAiringEpisode.seasonTitle}
+              </p>
+              <p className="text-blue-300/80">
+                Episode {anime.nextAiringEpisode.episode}
+              </p>
+            </div>
+          </div>
+          <span className="bg-blue-500/20 border border-blue-500/40 text-blue-300 px-3 py-1 rounded-full font-bold">
+            Airing in{" "}
+            {formatTimeRemaining(
+              anime.nextAiringEpisode.timeUntilAiringSeconds,
+            )}
+          </span>
+        </div>
+      )}
 
       {/* SECTION 2: ANITIME WATCHING SCORE */}
       <div

@@ -4,11 +4,7 @@ export type AnimeFormat =
   | "MOVIE"
   | "SPECIAL"
   | "OVA"
-  | "ONA"
-  | "MUSIC"
-  | "MANGA"
-  | "NOVEL"
-  | "ONE_SHOT";
+  | "ONA";
 
 export type AnimeStatus =
   | "FINISHED"
@@ -17,29 +13,18 @@ export type AnimeStatus =
   | "CANCELLED"
   | "HIATUS";
 
-export type AnimeRelationType =
-  | "ADAPTATION"
-  | "SEQUEL"
-  | "PREQUEL"
-  | "SIDE_STORY"
-  | "PARENT"
-  | "SPIN_OFF"
-  | "ALTERNATIVE"
-  | "CHARACTER"
-  | "SUMMARY"
-  | "SOURCE"
-  | "COMPILATION"
-  | "CONTAINS"
-  | "OTHER";
-
-export interface AnimeRelation {
-  relationType: AnimeRelationType;
+export interface FranchiseMediaItem {
+  id: number;
+  title: string;
+  format: AnimeFormat;
+  episodes: number | null;
+  score: number | null;
   status: AnimeStatus;
-  format?: AnimeFormat | null;
-  daysUntilAiring?: number | null;
+  releaseYear: number | null;
 }
 
 export interface Anime {
+  // 1. Información común (Anclada a la primera temporada / Nodo raíz)
   id: number;
   title: {
     userPreferred: string;
@@ -48,15 +33,24 @@ export interface Anime {
     native?: string | null;
   };
   coverImage: string;
-  userScore: number | null;
-  status: AnimeStatus;
-  episodes: number | null;
   releaseYear: number | null;
   endDate?: { year?: number | null } | null;
-  format?: AnimeFormat | null;
+
+  // 2. Métricas globales de la franquicia (Para el evaluador)
+  userScore: number | null;
+  status: AnimeStatus;
+
+  // Próximo episodio con el título de la temporada específica al que pertenece
   nextAiringEpisode?: {
     episode: number;
     timeUntilAiringSeconds: number;
+    seasonTitle: string;
   } | null;
-  relations: AnimeRelation[];
+
+  // 3. Estructura de la franquicia
+  franchise: {
+    seasons: FranchiseMediaItem[];
+    movies: FranchiseMediaItem[];
+    totalEpisodes: number;
+  };
 }

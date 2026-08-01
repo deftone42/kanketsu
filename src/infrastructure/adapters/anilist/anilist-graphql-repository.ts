@@ -4,21 +4,82 @@ import {
 } from "@/core/ports/anime-repository";
 import {
   Anime,
-  AnimeFormat,
-  AnimeRelationType,
   AnimeStatus,
+  FranchiseMediaItem,
 } from "@/core/domain/models/anime";
 import {
-  AniListGetByIdResponse,
-  AniListRelationEdge,
   AniListSearchMediaItem,
   AniListSearchResponse,
 } from "./dto/anilist-response.dto";
-import { GET_ANIME_BY_ID_QUERY, SEARCH_ANIME_QUERY } from "./graphql/queries";
+import {
+  GET_ANIME_BY_ID_QUERY,
+  SEARCH_ANIME_QUERY,
+  SEARCH_FRANCHISE_MEDIA_QUERY,
+} from "./graphql/queries";
 
 const ANILIST_ENDPOINT = "https://graphql.anilist.co";
 
 export class AniListGraphQLRepository implements AnimeRepository {
+  private sanitizeTitle(title: string): string {
+    return title.replace(/[\[\]()【】]/g, "").trim();
+  }
+
+  private async resolveRootNode(
+    animeId: number,
+  ): Promise<{ id: number; title: string; coverImage: string }> {
+    try {
+      const response = await fetch(ANILIST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
+            query ($id: Int) {
+              Media(id: $id, type: ANIME) {
+                id
+                title { userPreferred }
+                coverImage { large }
+                relations {
+                  edges {
+                    relationType
+                    node {
+                      id
+                      title { userPreferred }
+                      coverImage { large }
+                    }
+                  }
+                }
+              }
+            }
+          `,
+          variables: { id: animeId },
+        }),
+      });
+
+      if (!response.ok) {
+        return { id: animeId, title: "", coverImage: "" };
+      }
+
+      const json = await response.json();
+      const media = json.data?.Media;
+      if (!media) return { id: animeId, title: "", coverImage: "" };
+
+      const edges = media.relations?.edges || [];
+      const prequelEdge = edges.find((e: any) => e.relationType === "PREQUEL");
+
+      if (prequelEdge && prequelEdge.node?.id) {
+        return await this.resolveRootNode(prequelEdge.node.id);
+      }
+
+      return {
+        id: media.id,
+        title: media.title?.userPreferred || "",
+        coverImage: media.coverImage?.large || "",
+      };
+    } catch {
+      return { id: animeId, title: "", coverImage: "" };
+    }
+  }
+
   async searchAnime(query: string): Promise<AnimeSearchResult[]> {
     const cleanedQuery = query.trim();
     if (!cleanedQuery || cleanedQuery.length < 2) return [];
@@ -60,6 +121,11 @@ export class AniListGraphQLRepository implements AnimeRepository {
 
   async getAnimeById(id: number): Promise<Anime | null> {
     try {
+      // 1. Encontramos el nodo raíz (Primera temporada) para la identidad visual
+      const rootNode = await this.resolveRootNode(id);
+      const cleanTitle = this.sanitizeTitle(rootNode.title);
+
+      // 2. Buscamos toda la franquicia usando la query específica de franquicia
       const response = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
         headers: {
@@ -67,51 +133,129 @@ export class AniListGraphQLRepository implements AnimeRepository {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          query: GET_ANIME_BY_ID_QUERY,
-          variables: { id },
+          query: SEARCH_FRANCHISE_MEDIA_QUERY,
+          variables: { search: cleanTitle },
         }),
       });
 
       if (!response.ok) return null;
 
-      const json = (await response.json()) as AniListGetByIdResponse;
-      const media = json.data?.Media;
+      const json = await response.json();
+      const mediaList = json.data?.Page?.media || [];
 
-      if (!media) return null;
+      if (mediaList.length === 0) return null;
+
+      // 3. Separación estricta de TV/TV_SHORT y MOVIE
+      const tvItems = mediaList.filter(
+        (m: any) => m.format === "TV" || m.format === "TV_SHORT",
+      );
+      const movieItems = mediaList.filter((m: any) => m.format === "MOVIE");
+
+      const seasons: FranchiseMediaItem[] = tvItems.map((m: any) => ({
+        id: m.id,
+        title: m.title?.userPreferred || "",
+        format: m.format,
+        episodes: m.episodes || null,
+        score: m.averageScore || null,
+        status: m.status,
+        releaseYear: m.startDate?.year || null,
+      }));
+
+      const movies: FranchiseMediaItem[] = movieItems.map((m: any) => ({
+        id: m.id,
+        title: m.title?.userPreferred || "",
+        format: m.format,
+        episodes: m.episodes || null,
+        score: m.averageScore || null,
+        status: m.status,
+        releaseYear: m.startDate?.year || null,
+      }));
+
+      // Suma exclusiva de episodios de TV
+      const totalEpisodes = seasons.reduce(
+        (acc, s) => acc + (s.episodes || 0),
+        0,
+      );
+
+      // User Score unificado (media de todas las temporadas y películas con nota)
+      const allItems = [...tvItems, ...movieItems];
+      const validScores = allItems
+        .map((m: any) => m.averageScore)
+        .filter(
+          (score: number | null): score is number =>
+            score !== null && score !== undefined,
+        );
+
+      const userScore =
+        validScores.length > 0
+          ? Math.round(
+              validScores.reduce((acc, s) => acc + s, 0) / validScores.length,
+            )
+          : null;
+
+      // Ordenar por fecha para encontrar el elemento más reciente
+      const sortedByDate = [...mediaList].sort((a, b) => {
+        const yearA = a.startDate?.year || 0;
+        const yearB = b.startDate?.year || 0;
+        return yearB - yearA;
+      });
+
+      const latestMedia = sortedByDate[0];
+      const status = (latestMedia?.status || "FINISHED") as AnimeStatus;
+
+      // Buscar si hay algún próximo episodio en toda la franquicia
+      let nextAiringEpisode = null;
+      for (const item of mediaList) {
+        if (item.nextAiringEpisode) {
+          nextAiringEpisode = {
+            episode: item.nextAiringEpisode.episode,
+            timeUntilAiringSeconds: item.nextAiringEpisode.timeUntilAiring,
+            seasonTitle: item.title?.userPreferred || "",
+          };
+          break;
+        }
+      }
+
+      // Obtener detalles completos de la raíz para traducciones de títulos e imagen
+      const rootResponse = await fetch(ANILIST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: GET_ANIME_BY_ID_QUERY,
+          variables: { id: rootNode.id },
+        }),
+      });
+
+      const rootJson = rootResponse.ok ? await rootResponse.json() : null;
+      const rootMedia = rootJson?.data?.Media;
 
       return {
-        id: media.id,
+        id: rootNode.id,
         title: {
-          userPreferred: media.title.userPreferred || "",
-          english: media.title.english || undefined,
-          romaji: media.title.romaji || undefined,
-          native: media.title.native || undefined,
+          userPreferred: rootMedia?.title?.userPreferred || rootNode.title,
+          english: rootMedia?.title?.english || null,
+          romaji: rootMedia?.title?.romaji || null,
+          native: rootMedia?.title?.native || null,
         },
-        coverImage: media.coverImage?.large || "",
-        userScore: media.averageScore || null,
-        status: media.status as AnimeStatus,
-        episodes: media.episodes || null,
-        releaseYear: media.startDate?.year || null,
-        endDate: media.endDate?.year ? { year: media.endDate.year } : null,
-        format: (media.format as AnimeFormat) || "TV",
-        nextAiringEpisode: media.nextAiringEpisode
-          ? {
-              episode: media.nextAiringEpisode.episode,
-              timeUntilAiringSeconds: media.nextAiringEpisode.timeUntilAiring,
-            }
+        coverImage: rootNode.coverImage || rootMedia?.coverImage?.large || "",
+        releaseYear: rootMedia?.startDate?.year || null,
+        endDate: latestMedia?.endDate?.year
+          ? { year: latestMedia.endDate.year }
           : null,
-        relations:
-          media.relations?.edges?.map((edge: AniListRelationEdge) => ({
-            relationType: edge.relationType as AnimeRelationType,
-            status: edge.node.status as AnimeStatus,
-            format: (edge.node.format as AnimeFormat) || null,
-            daysUntilAiring: edge.node.nextAiringEpisode
-              ? Math.ceil(edge.node.nextAiringEpisode.timeUntilAiring / 86400)
-              : null,
-          })) || [],
+        userScore,
+        status,
+        nextAiringEpisode,
+        franchise: {
+          seasons,
+          movies,
+          totalEpisodes,
+        },
       };
     } catch (error) {
-      console.error("Error fetching anime detail from AniList:", error);
+      console.error(
+        "Error fetching structured franchise detail from AniList:",
+        error,
+      );
       return null;
     }
   }
