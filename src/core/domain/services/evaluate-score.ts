@@ -19,14 +19,13 @@ function getQualityBonus(userScore: number | null): number {
 }
 
 export function evaluateWatchingScore(anime: Anime): TimingScore {
-  const { status, endDate, userScore, nextAiringEpisode, franchise } = anime;
-  const episodes = franchise.totalEpisodes;
+  const { status, endDate, userScore, nextAiringEpisode, totalEpisodes } =
+    anime;
+  console.log(anime);
   const qualityBonus = getQualityBonus(userScore);
 
-  console.log(anime);
-
   // =========================================================================
-  // 1. ESTADOS ESPECIALES (CANCELLED, HIATUS, NOT_YET_RELEASED)
+  // 1. ESTADOS ESPECIALES (CANCELLED, HIATUS, NOT_RELEASED)
   // =========================================================================
   if (status === "CANCELLED") {
     return {
@@ -48,7 +47,7 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
     };
   }
 
-  if (status === "NOT_YET_RELEASED") {
+  if (status === "NOT_RELEASED") {
     return {
       score: clampScore(BASE_SCORE - 50),
       level: "NOT_GOOD_TIME",
@@ -59,44 +58,59 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
   }
 
   // =========================================================================
-  // 2. VENTANA DE HYPE (Próximo estreno con el título específico de la temporada)
+  // 2. NUEVA TEMPORADA EN EL HORIZONTE (NEW_SEASON_COMING)
   // =========================================================================
-  if (nextAiringEpisode) {
-    const daysLeft = Math.ceil(
-      nextAiringEpisode.timeUntilAiringSeconds / 86400,
-    );
-    const seasonName = nextAiringEpisode.seasonTitle || "New content";
+  if (status === "NEW_SEASON_COMING") {
+    // Si hay una fecha exacta de próximo episodio con cuenta atrás cercana
+    if (nextAiringEpisode) {
+      const daysLeft = Math.ceil(
+        nextAiringEpisode.timeUntilAiringSeconds / 86400,
+      );
+      const seasonName = nextAiringEpisode.seasonTitle || "New content";
 
-    if (daysLeft <= HYPE_WINDOW_DAYS) {
+      if (daysLeft <= HYPE_WINDOW_DAYS) {
+        return {
+          score: clampScore(BASE_SCORE + 25 + qualityBonus),
+          level: "PERFECT_TIME",
+          badgeText: "Hype Window Active!",
+          summary: `${seasonName} premieres in ${daysLeft} days!`,
+          details: `"${seasonName}" debuts in about ${daysLeft} days. Perfect timing to binge now!`,
+        };
+      }
+
       return {
-        score: clampScore(BASE_SCORE + 25 + qualityBonus),
-        level: "PERFECT_TIME",
-        badgeText: "Hype Window Active!",
-        summary: `${seasonName} premieres in ${daysLeft} days!`,
-        details: `"${seasonName}" debuts in about ${daysLeft} days. Perfect timing to binge now!`,
+        score: clampScore(BASE_SCORE + 10 + qualityBonus),
+        level: "GOOD_TIME",
+        badgeText: "Good time to catch up",
+        summary: `${seasonName} has been officially announced.`,
+        details: `"${seasonName}" is scheduled in roughly ${daysLeft} days. Great time to catch up.`,
       };
     }
 
+    // Anunciada pero sin fecha exacta todavía (ej. Frieren / Oshi no Ko con temporada confirmada)
     return {
-      score: clampScore(BASE_SCORE + 10 + qualityBonus),
-      level: "GOOD_TIME",
-      badgeText: "Good time to catch up",
-      summary: `${seasonName} has been officially announced.`,
-      details: `"${seasonName}" is scheduled in roughly ${daysLeft} days. Great time to catch up.`,
+      score: clampScore(BASE_SCORE + 20 + qualityBonus),
+      level: "PERFECT_TIME",
+      badgeText: "Sequel Announced!",
+      summary: "A new season is officially in production.",
+      details: `Catch up on all ${totalEpisodes || "available"} released episodes before the upcoming continuation drops!`,
     };
   }
 
   // =========================================================================
-  // 3. EN EMISIÓN (RELEASING)
+  // 3. EN EMISIÓN ACTUALMENTE (ONGOING)
   // =========================================================================
-  if (status === "RELEASING") {
-    if (episodes === null || episodes >= MEGA_SERIES_EPISODE_THRESHOLD) {
+  if (status === "ONGOING") {
+    if (
+      totalEpisodes === null ||
+      totalEpisodes >= MEGA_SERIES_EPISODE_THRESHOLD
+    ) {
       return {
         score: clampScore(BASE_SCORE + 20 + qualityBonus),
         level: "PERFECT_TIME",
         badgeText: "Great Backlog!",
         summary: "Massive episode backlog available.",
-        details: `With over ${episodes || "150+"} episodes ongoing across the franchise, you can binge continuously.`,
+        details: `With over ${totalEpisodes || "150+"} episodes ongoing across the franchise, you can binge continuously.`,
       };
     }
 
@@ -133,7 +147,7 @@ export function evaluateWatchingScore(anime: Anime): TimingScore {
       level: "PERFECT_TIME",
       badgeText: "Completed Story",
       summary: "Available to watch in full.",
-      details: `All available TV episodes (${episodes || "complete"}) are released. Great time to experience the whole journey.`,
+      details: `All available TV episodes (${totalEpisodes || "complete"}) are released. Great time to experience the whole journey.`,
     };
   }
 

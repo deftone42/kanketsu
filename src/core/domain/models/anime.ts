@@ -8,8 +8,9 @@ export type AnimeFormat =
 
 export type AnimeStatus =
   | "FINISHED"
-  | "RELEASING"
-  | "NOT_YET_RELEASED"
+  | "ONGOING" // Temporada en curso
+  | "NEW_SEASON_COMING" // Nueva temporada en el horizonte
+  | "NOT_RELEASED"
   | "CANCELLED"
   | "HIATUS";
 
@@ -48,9 +49,7 @@ export interface Anime {
   } | null;
 
   // 3. Estructura de la franquicia
-  franchise: {
-    seasons: FranchiseMediaItem[];
-    movies: FranchiseMediaItem[];
-    totalEpisodes: number;
-  };
+  seasons: FranchiseMediaItem[];
+  movies: FranchiseMediaItem[];
+  totalEpisodes: number;
 }

@@ -60,8 +60,8 @@ export function AnimeDetailCard({
   const styles =
     LEVEL_STYLES[watchingScore.level] || LEVEL_STYLES.NOT_GOOD_TIME;
 
-  const seasonsCount = anime.franchise.seasons.length;
-  const moviesCount = anime.franchise.movies.length;
+  const seasonsCount = anime.seasons.length;
+  const moviesCount = anime.movies.length;
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl space-y-6">
@@ -118,8 +118,8 @@ export function AnimeDetailCard({
           <p className="text-sm text-gray-400 pt-1">
             Total TV Episodes:{" "}
             <span className="text-white font-medium">
-              {anime.franchise.totalEpisodes > 0
-                ? anime.franchise.totalEpisodes
+              {anime.totalEpisodes > 0
+                ? anime.totalEpisodes
                 : "Ongoing / Unknown"}
             </span>
           </p>
