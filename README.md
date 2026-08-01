@@ -59,6 +59,17 @@ In the project directory, you can run:
 
 ---
 
+## 📚 Documentation
+
+| Guide                                      | Description                                                 |
+| :----------------------------------------- | :---------------------------------------------------------- |
+| [Architecture](./docs/ARCHITECTURE.md)     | Hexagonal layers, data flow, and dependency rules           |
+| [Scoring System](./docs/SCORING-SYSTEM.md) | How the Timing Score is calculated, all cases and constants |
+| [Testing](./docs/TESTING.md)               | Test stack, fixtures, MSW mocking, and best practices       |
+| [Development](./docs/DEVELOPMENT.md)       | Setup, commands, project structure, and CI/CD               |
+
+---
+
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
