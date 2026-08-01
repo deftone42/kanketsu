@@ -35,7 +35,7 @@
 
 ## 🧪 Phase 2: Testing & Code Quality (Next Up)
 
-- [ ] **Integration Test Suite with Vitest & MSW:**
+- [x] **Integration Test Suite with Vitest & MSW:**
   - Test environment setup using Vitest and React Testing Library.
   - Mock API integration using MSW (_Mock Service Worker_) to intercept AniList GraphQL calls.
   - Unit tests for `evaluateAnimeScore` logic.

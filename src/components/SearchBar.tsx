@@ -26,9 +26,12 @@ export function SearchBar({
       <div className="relative flex items-center">
         <Search className="absolute left-4 w-5 h-5 text-gray-400" />
         <input
+          aria-label="Search anime textfield"
           type="text"
           value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
+          onChange={(e) => {
+            onQueryChange(e.target.value);
+          }}
           placeholder="Search anime (e.g. Attack on Titan, Frieren)..."
           className="w-full pl-12 pr-10 py-3.5 bg-gray-900 border border-gray-800 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-lg text-base"
         />
@@ -54,6 +57,7 @@ export function SearchBar({
           {results.map((anime) => (
             <button
               key={anime.id}
+              aria-label={`${anime.title.userPreferred} selection button`}
               onClick={() => onSelect(anime.id)}
               className="w-full flex items-center gap-4 p-3 hover:bg-gray-800/80 transition-colors text-left border-b border-gray-800/50 last:border-none"
             >
@@ -67,7 +71,10 @@ export function SearchBar({
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white truncate">
+                <p
+                  aria-label="Anime title"
+                  className="text-sm font-semibold text-white truncate"
+                >
                   {anime.title.userPreferred}
                 </p>
                 <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">

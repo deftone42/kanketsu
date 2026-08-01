@@ -61,7 +61,10 @@ export default function Home() {
         )}
 
         {!isFetchingDetail && selectedAnime && score && (
-          <section className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <section
+            aria-label="Anime detail card"
+            className="animate-in fade-in slide-in-from-bottom-4 duration-500"
+          >
             <AnimeDetailCard anime={selectedAnime} score={score} />
           </section>
         )}
