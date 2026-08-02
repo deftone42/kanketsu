@@ -17,7 +17,7 @@ export type AnimeStatus =
 export interface FranchiseMediaItem {
   id: number;
   title: string;
-  format: AnimeFormat;
+  format: AnimeFormat | null;
   episodes: number | null;
   score: number | null;
   status: AnimeStatus;

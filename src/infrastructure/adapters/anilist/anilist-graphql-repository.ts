@@ -4,11 +4,12 @@ import {
 } from "@/core/ports/anime-repository";
 import {
   Anime,
+  AnimeFormat,
   AnimeStatus,
   FranchiseMediaItem,
 } from "@/core/domain/models/anime";
 import {
-  AniListSearchMediaItem,
+  AniListMediaItem,
   AniListSearchResponse,
 } from "./dto/anilist-response.dto";
 import { SEARCH_ANIME_QUERY } from "./graphql/queries";
@@ -90,62 +91,71 @@ export class AniListGraphQLRepository implements AnimeRepository {
     }
   }
 
-  async getAnimeById(id: number): Promise<Anime | null> {
+  /**
+   * Función auxiliar recursiva para recorrer la red de la franquicia mediante lotes (BFS recursivo)
+   */
+  private async fetchFranchiseRecursive(
+    currentBatchIds: number[],
+    visitedIds: Set<number> = new Set(),
+  ): Promise<AniListMediaItem[]> {
+    const idsToFetch = currentBatchIds.filter((id) => !visitedIds.has(id));
+    if (idsToFetch.length === 0) return [];
+
+    idsToFetch.forEach((id) => visitedIds.add(id));
+
     try {
-      const visitedIds = new Set<number>();
-      let currentBatchIds: number[] = [id];
-      const mediaList: any[] = [];
+      const res = await fetch(ANILIST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: MEDIA_BATCH_QUERY,
+          variables: { ids: idsToFetch },
+        }),
+      });
 
-      // Recorrido BFS natural que se detiene cuando no hay más relaciones que explorar
-      while (currentBatchIds.length > 0) {
-        const idsToFetch = currentBatchIds.filter((id) => !visitedIds.has(id));
-        if (idsToFetch.length === 0) break;
+      if (!res.ok) return [];
+      const json = (await res.json()) as AniListSearchResponse;
+      const fetchedMedia = json.data?.Page?.media || [];
+      if (fetchedMedia.length === 0) return [];
 
-        idsToFetch.forEach((id) => visitedIds.add(id));
-
-        const res = await fetch(ANILIST_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query: MEDIA_BATCH_QUERY,
-            variables: { ids: idsToFetch },
-          }),
-        });
-
-        if (!res.ok) continue;
-        const json = await res.json();
-        const fetchedMedia = json.data?.Page?.media || [];
-        if (fetchedMedia.length === 0) continue;
-
-        const nextBatchIdsSet = new Set<number>();
-
-        for (const media of fetchedMedia) {
-          mediaList.push(media);
-
-          // Extraer los IDs relacionados usando edges para la siguiente iteración
-          const edges = media.relations?.edges || [];
-          for (const edge of edges) {
-            const targetNode = edge.node;
-            if (targetNode?.id && !visitedIds.has(targetNode.id)) {
-              nextBatchIdsSet.add(targetNode.id);
-            }
+      const nextBatchIds: number[] = [];
+      for (const media of fetchedMedia) {
+        const edges = media.relations?.edges || [];
+        for (const edge of edges) {
+          const targetNode = edge.node;
+          if (targetNode?.id && !visitedIds.has(targetNode.id)) {
+            nextBatchIds.push(targetNode.id);
           }
         }
-
-        currentBatchIds = Array.from(nextBatchIdsSet);
       }
+
+      // Llamada recursiva si se encontraron nuevas relaciones pendientes
+      const deeperMedia =
+        nextBatchIds.length > 0
+          ? await this.fetchFranchiseRecursive(nextBatchIds, visitedIds)
+          : [];
+
+      return [...fetchedMedia, ...deeperMedia];
+    } catch (error) {
+      console.error("Error fetching franchise recursively:", error);
+      return [];
+    }
+  }
+
+  async getAnimeById(id: number): Promise<Anime | null> {
+    try {
+      const mediaList = await this.fetchFranchiseRecursive([id]);
 
       if (mediaList.length === 0) return null;
 
       // 3. SEPARAR TV Y PELÍCULAS DE LA FRANQUICIA OBTENIDA
-      // Excluimos ONA y SPECIAL de las series de TV; solo aceptamos TV, TV_SHORT o null con status NOT_YET_RELEASED
       const tvItems = mediaList.filter(
-        (m: any) =>
+        (m) =>
           m.format === "TV" ||
           m.format === "TV_SHORT" ||
           (m.format === null && m.status === "NOT_YET_RELEASED"),
       );
-      const movieItems = mediaList.filter((m: any) => m.format === "MOVIE");
+      const movieItems = mediaList.filter((m) => m.format === "MOVIE");
 
       // 2. IDENTIFICAR EL NODO RAÍZ (Priorizando series de TV por fecha de inicio para evitar PVs o tráilers)
       const sortedTvByDate = [...tvItems].sort((a, b) => {
@@ -162,23 +172,23 @@ export class AniListGraphQLRepository implements AnimeRepository {
 
       const rootMedia = sortedTvByDate[0] || sortedByStartDate[0];
 
-      const seasons: FranchiseMediaItem[] = tvItems.map((m: any) => ({
+      const seasons: FranchiseMediaItem[] = tvItems.map((m) => ({
         id: m.id,
         title: m.title?.userPreferred || "",
-        format: m.format,
+        format: m.format as AnimeFormat,
         episodes: m.episodes || null,
         score: m.averageScore || null,
-        status: m.status,
+        status: m.status as AnimeStatus,
         releaseYear: m.startDate?.year || null,
       }));
 
-      const movies: FranchiseMediaItem[] = movieItems.map((m: any) => ({
+      const movies: FranchiseMediaItem[] = movieItems.map((m) => ({
         id: m.id,
         title: m.title?.userPreferred || "",
-        format: m.format,
+        format: m.format as AnimeFormat,
         episodes: m.episodes || null,
         score: m.averageScore || null,
-        status: m.status,
+        status: m.status as AnimeStatus,
         releaseYear: m.startDate?.year || null,
       }));
 
@@ -190,8 +200,8 @@ export class AniListGraphQLRepository implements AnimeRepository {
       // 4. PUNTUACIÓN Y ESTADOS GLOBALES
       const allItems = [...tvItems, ...movieItems];
       const validScores = allItems
-        .map((m: any) => m.averageScore)
-        .filter((score: number | null): score is number => score != null);
+        .map((m) => m.averageScore)
+        .filter((score): score is number => score != null);
 
       const userScore =
         validScores.length > 0
@@ -212,15 +222,15 @@ export class AniListGraphQLRepository implements AnimeRepository {
         }
       }
 
-      const hasOngoing = tvItems.some((m: any) => m.status === "RELEASING");
+      const hasOngoing = tvItems.some((m) => m.status === "RELEASING");
       const hasUpcoming =
-        tvItems.some((m: any) => m.status === "NOT_YET_RELEASED") ||
+        tvItems.some((m) => m.status === "NOT_YET_RELEASED") ||
         nextAiringEpisode !== null;
       const isAllNotReleased =
         tvItems.length > 0 &&
-        tvItems.every((m: any) => m.status === "NOT_YET_RELEASED");
-      const isCancelled = tvItems.some((m: any) => m.status === "CANCELLED");
-      const isHiatus = tvItems.some((m: any) => m.status === "HIATUS");
+        tvItems.every((m) => m.status === "NOT_YET_RELEASED");
+      const isCancelled = tvItems.some((m) => m.status === "CANCELLED");
+      const isHiatus = tvItems.some((m) => m.status === "HIATUS");
 
       let status: AnimeStatus = "FINISHED";
       if (isCancelled) status = "CANCELLED";
@@ -230,7 +240,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       else if (isAllNotReleased) status = "NOT_RELEASED";
 
       const releasedTvItems = tvItems.filter(
-        (m: any) => m.status === "FINISHED" || m.status === "RELEASING",
+        (m) => m.status === "FINISHED" || m.status === "RELEASING",
       );
       const sortedByRecent = [
         ...(releasedTvItems.length > 0 ? releasedTvItems : tvItems),

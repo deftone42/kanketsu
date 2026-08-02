@@ -1,21 +1,19 @@
 export interface AniListTitle {
-  userPreferred?: string;
-  english?: string;
-  romaji?: string;
-  native?: string;
+  userPreferred?: string | null;
+  english?: string | null;
+  romaji?: string | null;
+  native?: string | null;
 }
 
 export interface AniListCoverImage {
-  medium?: string;
-  large?: string;
+  medium?: string | null;
+  large?: string | null;
 }
 
-export interface AniListStartDate {
-  year?: number;
-}
-
-export interface AniListEndDate {
-  year?: number;
+export interface AniListDate {
+  year?: number | null;
+  month?: number | null;
+  day?: number | null;
 }
 
 export interface AniListNextAiringEpisode {
@@ -23,55 +21,53 @@ export interface AniListNextAiringEpisode {
   timeUntilAiring: number;
 }
 
-export interface AniListRelationEdge {
-  relationType: string;
-  node: {
-    id: number;
-    format?: string | null; // <-- AÑADIDO
-    status: string;
-    nextAiringEpisode?: {
-      timeUntilAiring: number;
-    } | null;
-  };
+export interface AniListRelationNode {
+  id: number;
+  format?: string | null;
+  status?: string | null;
+  startDate?: AniListDate;
+  nextAiringEpisode?: {
+    episode?: number;
+    timeUntilAiring: number;
+  } | null;
 }
 
-export interface AniListSearchMediaItem {
+export interface AniListRelationEdge {
+  relationType?: string | null;
+  node: AniListRelationNode;
+}
+
+export interface AniListRelations {
+  edges?: AniListRelationEdge[] | null;
+}
+
+export interface AniListMediaItem {
   id: number;
   title: AniListTitle;
   coverImage?: AniListCoverImage;
-  startDate?: AniListStartDate;
-  averageScore?: number;
-  relations?: {
-    edges?: AniListRelationEdge[];
-  };
+  format?: string | null;
+  episodes?: number | null;
+  averageScore?: number | null;
+  status: string;
+  startDate?: AniListDate;
+  endDate?: AniListDate;
+  nextAiringEpisode?: AniListNextAiringEpisode | null;
+  relations?: AniListRelations;
+}
+
+export interface AniListPageInfo {
+  total?: number;
+  perPage?: number;
+  currentPage?: number;
+  lastPage?: number;
+  hasNextPage?: boolean;
 }
 
 export interface AniListSearchResponse {
   data?: {
     Page?: {
-      media?: AniListSearchMediaItem[];
+      pageInfo?: AniListPageInfo;
+      media?: AniListMediaItem[];
     };
-  };
-}
-
-export interface AniListMediaDetail {
-  id: number;
-  title: AniListTitle;
-  coverImage?: AniListCoverImage;
-  averageScore?: number;
-  status: string;
-  episodes?: number;
-  startDate?: AniListStartDate;
-  endDate?: AniListEndDate;
-  format?: string;
-  nextAiringEpisode?: AniListNextAiringEpisode | null;
-  relations?: {
-    edges?: AniListRelationEdge[];
-  };
-}
-
-export interface AniListGetByIdResponse {
-  data?: {
-    Media?: AniListMediaDetail;
   };
 }
