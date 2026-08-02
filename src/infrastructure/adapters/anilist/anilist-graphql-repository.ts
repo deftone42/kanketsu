@@ -32,14 +32,15 @@ const MEDIA_BATCH_QUERY = `
         episodes
         averageScore
         status
-        startDate { year }
-        endDate { year }
+        startDate { year month day }
+        endDate { year month day }
         nextAiringEpisode {
           episode
           timeUntilAiring
         }
         relations {
           edges {
+            relationType
             node {
               id
               format
@@ -50,6 +51,8 @@ const MEDIA_BATCH_QUERY = `
     }
   }
 `;
+
+const VALID_FRANCHISE_RELATIONS = new Set(["SEQUEL", "PREQUEL"]);
 
 export class AniListGraphQLRepository implements AnimeRepository {
   async searchAnime(query: string): Promise<AnimeSearchResult[]> {
@@ -74,7 +77,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const json = (await response.json()) as AniListSearchResponse;
       const rawMediaList = json.data?.Page?.media || [];
 
-      return rawMediaList.map((item: AniListSearchMediaItem) => ({
+      return rawMediaList.map((item) => ({
         id: item.id,
         title: {
           userPreferred: item.title.userPreferred || "",
@@ -91,9 +94,6 @@ export class AniListGraphQLRepository implements AnimeRepository {
     }
   }
 
-  /**
-   * Función auxiliar recursiva para recorrer la red de la franquicia mediante lotes (BFS recursivo)
-   */
   private async fetchFranchiseRecursive(
     currentBatchIds: number[],
     visitedIds: Set<number> = new Set(),
@@ -122,14 +122,18 @@ export class AniListGraphQLRepository implements AnimeRepository {
       for (const media of fetchedMedia) {
         const edges = media.relations?.edges || [];
         for (const edge of edges) {
-          const targetNode = edge.node;
-          if (targetNode?.id && !visitedIds.has(targetNode.id)) {
-            nextBatchIds.push(targetNode.id);
+          if (
+            edge.relationType &&
+            VALID_FRANCHISE_RELATIONS.has(edge.relationType)
+          ) {
+            const targetNode = edge.node;
+            if (targetNode?.id && !visitedIds.has(targetNode.id)) {
+              nextBatchIds.push(targetNode.id);
+            }
           }
         }
       }
 
-      // Llamada recursiva si se encontraron nuevas relaciones pendientes
       const deeperMedia =
         nextBatchIds.length > 0
           ? await this.fetchFranchiseRecursive(nextBatchIds, visitedIds)
@@ -148,7 +152,6 @@ export class AniListGraphQLRepository implements AnimeRepository {
 
       if (mediaList.length === 0) return null;
 
-      // 3. SEPARAR TV Y PELÍCULAS DE LA FRANQUICIA OBTENIDA
       const tvItems = mediaList.filter(
         (m) =>
           m.format === "TV" ||
@@ -157,22 +160,26 @@ export class AniListGraphQLRepository implements AnimeRepository {
       );
       const movieItems = mediaList.filter((m) => m.format === "MOVIE");
 
-      // 2. IDENTIFICAR EL NODO RAÍZ (Priorizando series de TV por fecha de inicio para evitar PVs o tráilers)
-      const sortedTvByDate = [...tvItems].sort((a, b) => {
-        const yearA = a.startDate?.year || 9999;
-        const yearB = b.startDate?.year || 9999;
-        return yearA - yearB;
+      const getDateWeight = (date?: {
+        year?: number | null;
+        month?: number | null;
+        day?: number | null;
+      }) => {
+        if (!date?.year) return 99999999;
+        const year = date.year;
+        const month = date.month || 1;
+        const day = date.day || 1;
+        return year * 10000 + month * 100 + day;
+      };
+
+      const sortedTv = [...tvItems].sort((a, b) => {
+        return getDateWeight(a.startDate) - getDateWeight(b.startDate);
       });
 
-      const sortedByStartDate = [...mediaList].sort((a, b) => {
-        const yearA = a.startDate?.year || 9999;
-        const yearB = b.startDate?.year || 9999;
-        return yearA - yearB;
-      });
+      const requestedItem = mediaList.find((m) => m.id === id);
+      const rootMedia = sortedTv[0] || requestedItem || mediaList[0];
 
-      const rootMedia = sortedTvByDate[0] || sortedByStartDate[0];
-
-      const seasons: FranchiseMediaItem[] = tvItems.map((m) => ({
+      const seasons: FranchiseMediaItem[] = sortedTv.map((m) => ({
         id: m.id,
         title: m.title?.userPreferred || "",
         format: m.format as AnimeFormat,
@@ -192,12 +199,15 @@ export class AniListGraphQLRepository implements AnimeRepository {
         releaseYear: m.startDate?.year || null,
       }));
 
-      const totalEpisodes = seasons.reduce(
-        (acc, s) => acc + (s.episodes || 0),
-        0,
-      );
+      // CÁLCULO MEJORADO DE EPISODIOS: Si episodes es null pero está en emisión, estimamos con nextAiringEpisode
+      const totalEpisodes = tvItems.reduce((acc, m) => {
+        if (m.episodes) return acc + m.episodes;
+        if (m.status === "RELEASING" && m.nextAiringEpisode?.episode) {
+          return acc + (m.nextAiringEpisode.episode - 1);
+        }
+        return acc;
+      }, 0);
 
-      // 4. PUNTUACIÓN Y ESTADOS GLOBALES
       const allItems = [...tvItems, ...movieItems];
       const validScores = allItems
         .map((m) => m.averageScore)
@@ -244,7 +254,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       );
       const sortedByRecent = [
         ...(releasedTvItems.length > 0 ? releasedTvItems : tvItems),
-      ].sort((a, b) => (b.startDate?.year || 0) - (a.startDate?.year || 0));
+      ].sort((a, b) => getDateWeight(b.startDate) - getDateWeight(a.startDate));
       const latestMedia = sortedByRecent[0] || rootMedia;
 
       return {
@@ -265,7 +275,9 @@ export class AniListGraphQLRepository implements AnimeRepository {
         nextAiringEpisode,
         seasons,
         movies,
-        totalEpisodes,
+        totalEpisodes: nextAiringEpisode
+          ? nextAiringEpisode?.episode - 1
+          : totalEpisodes,
       };
     } catch (error) {
       console.error(
