@@ -199,7 +199,6 @@ export class AniListGraphQLRepository implements AnimeRepository {
         releaseYear: m.startDate?.year || null,
       }));
 
-      // CÁLCULO MEJORADO DE EPISODIOS: Si episodes es null pero está en emisión, estimamos con nextAiringEpisode
       const totalEpisodes = tvItems.reduce((acc, m) => {
         if (m.episodes) return acc + m.episodes;
         if (m.status === "RELEASING" && m.nextAiringEpisode?.episode) {
@@ -249,11 +248,12 @@ export class AniListGraphQLRepository implements AnimeRepository {
       else if (hasUpcoming) status = "NEW_SEASON_COMING";
       else if (isAllNotReleased) status = "NOT_RELEASED";
 
-      const releasedTvItems = tvItems.filter(
+      // SOLUCIÓN: Incluir también las películas (allItems) para detectar el verdadero final de la franquicia (ej. Gintama: The Final en 2021)
+      const releasedAllItems = allItems.filter(
         (m) => m.status === "FINISHED" || m.status === "RELEASING",
       );
       const sortedByRecent = [
-        ...(releasedTvItems.length > 0 ? releasedTvItems : tvItems),
+        ...(releasedAllItems.length > 0 ? releasedAllItems : allItems),
       ].sort((a, b) => getDateWeight(b.startDate) - getDateWeight(a.startDate));
       const latestMedia = sortedByRecent[0] || rootMedia;
 
