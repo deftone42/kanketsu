@@ -7,12 +7,18 @@ import {
   AnimeFormat,
   AnimeStatus,
   FranchiseMediaItem,
+  Relation,
+  RelationType,
 } from "@/core/domain/models/anime";
 import {
   AniListMediaItem,
+  AniListMediaResponse,
   AniListSearchResponse,
 } from "./dto/anilist-response.dto";
-import { SEARCH_ANIME_QUERY } from "./graphql/queries";
+import {
+  GET_ANIME_WITH_RELATIONS_QUERY,
+  SEARCH_ANIME_QUERY,
+} from "./graphql/queries";
 
 const ANILIST_ENDPOINT = "https://graphql.anilist.co";
 
@@ -53,6 +59,37 @@ const MEDIA_BATCH_QUERY = `
 `;
 
 const VALID_FRANCHISE_RELATIONS = new Set(["SEQUEL", "PREQUEL"]);
+
+/** Maps AniList relation edges to domain Relation[]. */
+function mapRelations(media: AniListMediaItem): Relation[] {
+  const edges = media.relations?.edges || [];
+  return edges
+    .filter((edge) => edge.relationType && edge.node?.id)
+    .map((edge) => ({
+      id: edge.node.id,
+      relationType: edge.relationType as RelationType,
+      format: (edge.node.format ?? null) as AnimeFormat | null,
+      title: edge.node.title?.userPreferred || "",
+    }));
+}
+
+/** Maps AniList status string to domain AnimeStatus. */
+function mapAniListStatus(status: string): AnimeStatus {
+  switch (status) {
+    case "FINISHED":
+      return "FINISHED";
+    case "RELEASING":
+      return "ONGOING";
+    case "NOT_YET_RELEASED":
+      return "NOT_RELEASED";
+    case "CANCELLED":
+      return "CANCELLED";
+    case "HIATUS":
+      return "HIATUS";
+    default:
+      return "FINISHED";
+  }
+}
 
 export class AniListGraphQLRepository implements AnimeRepository {
   async searchAnime(query: string): Promise<AnimeSearchResult[]> {
@@ -248,7 +285,6 @@ export class AniListGraphQLRepository implements AnimeRepository {
       else if (hasUpcoming) status = "NEW_SEASON_COMING";
       else if (isAllNotReleased) status = "NOT_RELEASED";
 
-      // SOLUCIÓN: Incluir también las películas (allItems) para detectar el verdadero final de la franquicia (ej. Gintama: The Final en 2021)
       const releasedAllItems = allItems.filter(
         (m) => m.status === "FINISHED" || m.status === "RELEASING",
       );
@@ -278,10 +314,72 @@ export class AniListGraphQLRepository implements AnimeRepository {
         totalEpisodes: nextAiringEpisode
           ? nextAiringEpisode?.episode - 1
           : totalEpisodes,
+        relations: mapRelations(rootMedia),
       };
     } catch (error) {
       console.error(
         "Error fetching structured franchise detail from AniList:",
+        error,
+      );
+      return null;
+    }
+  }
+
+  async getAnimeWithRelations(id: number): Promise<Anime | null> {
+    try {
+      const response = await fetch(ANILIST_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          query: GET_ANIME_WITH_RELATIONS_QUERY,
+          variables: { id },
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(`[AniList] HTTP ${response.status} fetching anime ${id}`);
+        return null;
+      }
+
+      const json = (await response.json()) as AniListMediaResponse;
+      const media = json.data?.Media;
+
+      if (!media) {
+        console.warn(`[AniList] Anime ${id} not found`);
+        return null;
+      }
+
+      return {
+        id: media.id,
+        title: {
+          userPreferred: media.title?.userPreferred || "",
+          english: media.title?.english || null,
+          romaji: media.title?.romaji || null,
+          native: media.title?.native || null,
+        },
+        coverImage: media.coverImage?.large || "",
+        releaseYear: media.startDate?.year || null,
+        endDate: media.endDate?.year ? { year: media.endDate.year } : null,
+        userScore: media.averageScore ?? null,
+        status: mapAniListStatus(media.status),
+        nextAiringEpisode: media.nextAiringEpisode
+          ? {
+              episode: media.nextAiringEpisode.episode,
+              timeUntilAiringSeconds: media.nextAiringEpisode.timeUntilAiring,
+              seasonTitle: media.title?.userPreferred || "",
+            }
+          : null,
+        seasons: [],
+        movies: [],
+        totalEpisodes: media.episodes ?? 0,
+        relations: mapRelations(media),
+      };
+    } catch (error) {
+      console.error(
+        `[AniList] Error fetching anime ${id} with relations:`,
         error,
       );
       return null;

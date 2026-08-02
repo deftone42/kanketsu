@@ -1,3 +1,50 @@
+export const GET_ANIME_WITH_RELATIONS_QUERY = `
+  query ($id: Int) {
+    Media(id: $id, type: ANIME) {
+      id
+      title {
+        userPreferred
+        english
+        romaji
+        native
+      }
+      coverImage {
+        large
+      }
+      format
+      episodes
+      averageScore
+      status
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      nextAiringEpisode {
+        episode
+        timeUntilAiring
+      }
+      relations {
+        edges {
+          relationType
+          node {
+            id
+            format
+            title {
+              userPreferred
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const SEARCH_ANIME_QUERY = `
   query ($search: String) {
     Page(page: 1, perPage: 5) {

@@ -26,6 +26,7 @@ export interface AniListRelationNode {
   format?: string | null;
   status?: string | null;
   startDate?: AniListDate;
+  title?: AniListTitle;
   nextAiringEpisode?: {
     episode?: number;
     timeUntilAiring: number;
@@ -69,5 +70,11 @@ export interface AniListSearchResponse {
       pageInfo?: AniListPageInfo;
       media?: AniListMediaItem[];
     };
+  };
+}
+
+export interface AniListMediaResponse {
+  data?: {
+    Media?: AniListMediaItem;
   };
 }

@@ -24,6 +24,12 @@ export interface FranchiseMediaItem {
   releaseYear: number | null;
 }
 
+// Import Relation for use in the Anime interface
+import type { Relation } from "./relation";
+
+// Re-export Relation from its own module for convenience
+export type { Relation, RelationType } from "./relation";
+
 export interface Anime {
   // 1. Información común (Anclada a la primera temporada / Nodo raíz)
   id: number;
@@ -52,4 +58,7 @@ export interface Anime {
   seasons: FranchiseMediaItem[];
   movies: FranchiseMediaItem[];
   totalEpisodes: number;
+
+  // 4. Relation graph edges (all relation types from this node)
+  relations: Relation[];
 }
