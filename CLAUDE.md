@@ -1,1 +1,56 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 @AGENTS.md
+
+## Commands
+
+```bash
+npm run dev                          # Next dev server (http://localhost:3000)
+npm run build                        # next build → static export to out/
+npm run lint                         # eslint (flat config, eslint.config.mjs)
+npx tsc --noEmit                     # type check — part of CI, not covered by lint
+npm run test                         # vitest run (single pass)
+npm run test:watch                   # vitest watch
+npm run test -- franchise-collector  # single test file (substring match on path)
+npm run test -- -t "cycle"           # single test by name
+npm run test:franchise -- --id=21    # CLI harness: real AniList call + BFS dump (default id 21 = One Piece)
+```
+
+CI (`.github/workflows/ci.yml`, on PRs to `main`) runs, in order: `lint` → `tsc --noEmit` → `test` → `build`. Match that before declaring work done — `npm run lint` alone does not type check.
+
+Node `>=22` is enforced via `.nvmrc` + `engines` with `engine-strict=true` (`.npmrc`); use `nvm use` first.
+
+## Architecture
+
+Hexagonal, with a single port. Dependency direction: `app`/`components`/`hooks` → `core/ports` → `core/domain`, and `infrastructure` → `core/domain`. The domain imports nothing outside itself (no React, no Next, no fetch). `@/*` maps to `src/*`.
+
+**Port** — `src/core/ports/anime-repository.ts` declares two methods:
+
+- `searchAnime(query)` → lightweight `AnimeSearchResult[]` for the dropdown.
+- `getWorksByIds(ids)` → a batched `WorkBatch` of hydrated works plus discovered relation topology. Throws `RepositoryError` subclasses (`RateLimitedError`, `WorkNotFoundError`, `RepositoryUnavailableError`) — it never returns `null` for a failure, so a rate limit cannot be mistaken for a missing anime.
+
+**One franchise implementation.** `src/core/domain/services/franchise-collector.ts` (`FranchiseCollector`) is the single path: a frontier-batched traversal that fetches every unvisited work at the current depth in one request. It returns a `Franchise` — `timeline` (PREQUEL/SEQUEL chain in release order), `related` (movies, OVAs, specials), `sources` (manga/novels), `summary`, and `isComplete`/`unresolvedIds` when traversal stopped early. `rootId` is always the id you passed, so the UI can highlight the entry the user selected.
+
+Two AniList facts the batching depends on: the API shares **one ID space** across anime and manga (so omitting the `type` filter returns source works for free), and it rate-limits **per request, not per query complexity** (so `FRANCHISE_BATCH_QUERY` nests `relations` three deep at no cost). Nested nodes are *topology stubs* — they reveal ids for planning the next frontier and never become hydrated nodes.
+
+**Aggregation lives in the domain.** `summarizeFranchise` folds the collected works into the `FranchiseSummary` that `evaluateWatchingScore` consumes. It is pure and unit-tested; nothing about franchise-level totals or status lives in the adapter any more.
+
+**Scoring** — `evaluateWatchingScore(anime)` in `src/core/domain/services/evaluate-score.ts` is a pure function branching on the franchise-level `AnimeStatus`, starting from `BASE_SCORE = 70` and applying deltas plus a quality bonus, clamped to 0–100. `NEW_SEASON_COMING` within `HYPE_WINDOW_DAYS` (60) and `ONGOING` past `MEGA_SERIES_EPISODE_THRESHOLD` (150) are the two special windows. `docs/SCORING-SYSTEM.md` documents the intent. Note the domain status vocabulary differs from AniList's (`RELEASING` → `ONGOING`; `NEW_SEASON_COMING` is derived by the adapter, never returned by the API).
+
+**App layer** — `useAnimeSearch` is the only orchestration point: it instantiates the repository at module scope, debounces 350ms with cancellation, gates results at ≥3 chars, and on selection fetches detail then computes the score. Components stay presentational.
+
+**Static export** — `next.config.ts` sets `output: "export"` with `basePath`/`assetPrefix` of `/anitime` under `NODE_ENV=production`. No server runtime exists: all AniList calls are client-side, so avoid server actions, route handlers, or anything requiring a Node server.
+
+## Testing
+
+Vitest + happy-dom + RTL, globals on. Setup files: `src/test/setup.ts` (MSW lifecycle, `onUnhandledRequest: "error"`) and `vitest.setup.tsx` (mocks `next/image` → plain `<img>`). MSW handlers in `src/mocks/handlers.ts` branch on the GraphQL body to serve either a search page or a media detail; when you change `graphql/queries.ts` or the DTOs, update the handlers or every integration test starts failing on unmocked requests.
+
+**Fixtures are recorded, never hand-written.** `npm run record:fixtures` hits the real API and writes `src/test/fixtures/anilist/*.json`; tests replay those offline. Re-record when `FRANCHISE_BATCH_QUERY` changes. Each fixture pins a hazard found against the live API: One Piece reports `episodes: null` while airing, Monogatari's sequels adapt five *different* source novels, Steins;Gate has no source work at all, and **id 9183 is a dead id** (AniList 404s it — real Gintama is `918`, and `docs/` may still cite 9183 wrongly).
+
+Docs drift warning: `docs/ARCHITECTURE.md` and `docs/TESTING.md` still describe the old `Anime`-based model and `src/app/__tests__/` fixtures that do not exist. Verify against the tree before citing them.
+
+## Docs
+
+`docs/ARCHITECTURE.md`, `docs/SCORING-SYSTEM.md`, `docs/TESTING.md`, `docs/DEVELOPMENT.md`, plus `ROADMAP.md` for what's in flight (franchise/sequel UI breakdown, genre recommendations; deployment pipeline is on hold).

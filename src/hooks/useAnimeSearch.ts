@@ -6,18 +6,20 @@ import {
   AnimeRepository,
 } from "@/core/ports/anime-repository";
 import { AniListGraphQLRepository } from "@/infrastructure/adapters/anilist/anilist-graphql-repository";
-import { Anime } from "@/core/domain/models/anime";
+import { Franchise } from "@/core/domain/models/franchise";
 import { TimingScore } from "@/core/domain/models/score";
-import { evaluateAnimeScore } from "@/core/domain/services/evaluate-score";
+import { evaluateWatchingScore } from "@/core/domain/services/evaluate-score";
+import { FranchiseCollector } from "@/core/domain/services/franchise-collector";
 
 const repository: AnimeRepository = new AniListGraphQLRepository();
+const collector = new FranchiseCollector(repository);
 
 export function useAnimeSearch() {
   const [query, setQuery] = useState("");
   const [rawResults, setRawResults] = useState<AnimeSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
+  const [franchise, setFranchise] = useState<Franchise | null>(null);
   const [score, setScore] = useState<TimingScore | null>(null);
   const [isFetchingDetail, setIsFetchingDetail] = useState(false);
 
@@ -64,20 +66,20 @@ export function useAnimeSearch() {
     setIsFetchingDetail(true);
 
     try {
-      const animeDetail = await repository.getAnimeById(id);
-      if (animeDetail) {
-        setSelectedAnime(animeDetail);
-        setScore(evaluateAnimeScore(animeDetail));
-      }
+      const collected = await collector.collect(id);
+      setFranchise(collected);
+      setScore(evaluateWatchingScore(collected.summary));
     } catch (error) {
-      console.error("Error al obtener detalle del anime:", error);
+      console.error("Could not collect the franchise:", error);
+      setFranchise(null);
+      setScore(null);
     } finally {
       setIsFetchingDetail(false);
     }
   }, []);
 
   const clearSelection = useCallback(() => {
-    setSelectedAnime(null);
+    setFranchise(null);
     setScore(null);
     setQuery("");
     setRawResults([]);
@@ -88,7 +90,7 @@ export function useAnimeSearch() {
     setQuery,
     results,
     isSearching,
-    selectedAnime,
+    franchise,
     score,
     isFetchingDetail,
     selectAnime,

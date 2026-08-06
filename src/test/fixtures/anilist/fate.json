@@ -1,0 +1,2380 @@
+{
+  "requestedIds": [
+    10087,
+    356
+  ],
+  "response": {
+    "data": {
+      "Page": {
+        "media": [
+          {
+            "id": 356,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "FINISHED",
+            "episodes": 24,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 68,
+            "title": {
+              "userPreferred": "Fate/stay night",
+              "english": "Fate/stay night",
+              "romaji": "Fate/stay night",
+              "native": "Fate/stay night"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx356-mTpMvtillumS.png"
+            },
+            "startDate": {
+              "year": 2006,
+              "month": 1,
+              "day": 7
+            },
+            "endDate": {
+              "year": 2006,
+              "month": 6,
+              "day": 17
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "PREQUEL",
+                  "node": {
+                    "id": 11741,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Fate/Zero 2nd Season"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 13263,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Zero: Onegai! Einzbern Soudanshitsu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 33649,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 66803,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Heart of Freaks"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 55191,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 106918,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Lord El-Melloi II-sei no Jikenbo: \"Rail Zeppelin\" Grace note"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 10012,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "Carnival Phantasm"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30780,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "TYPE-MOON Sakuhin-shuu: TAKE MOON"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 12187,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm EX Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 15927,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm: HibiChika Special"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 169,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Shingetsutan Tsukihime"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 2593,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kara no Kyoukai: Fukan Fuukei"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 30707,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Melty Blood"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 127149,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Carnival"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 12565,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 6922,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 98035,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10012,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 14829,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21717,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/EXTRA Last Encore"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 12565,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 131587,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21318,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works 2nd Season - sunny day"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 97815,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: First Order"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 12565,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "Fate/Prototype"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 85754,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Prototype: Sougin no Fragments"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 71681,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype Tribute Phantasm"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10012,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 19603,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 20792,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 14829,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10012,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 98035,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 131587,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21717,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/EXTRA Last Encore"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 12565,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 97815,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: First Order"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 20791,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21718,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] II. lost butterfly"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 86182,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel]"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 98035,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21717,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/EXTRA Last Encore"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 14829,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 12565,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 97815,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: First Order"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SPIN_OFF",
+                  "node": {
+                    "id": 14829,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 33526,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 19109,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya Short Anime"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 18851,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya: Undoukai DE Dance!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 87195,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 100269,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya: Prisma☆Phantasm"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SPIN_OFF",
+                  "node": {
+                    "id": 100855,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Emiya-san Chi no Kyou no Gohan"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 87199,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Emiya-san Chi no Kyou no Gohan"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 30715,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Fate/stay night"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 86182,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel]"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 50548,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Fate/Stay Night x Magical Girl Lyrical Nanoha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 33649,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 81987,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/hollow ataraxia"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 40490,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night Comic Anthology"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 40491,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Stay Night: Comic Battle"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 57327,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ALL AROUND TYPE-MOON"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 87199,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Emiya-san Chi no Kyou no Gohan"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 53568,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Fate/Extra"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 62425,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/EXTRA"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 33526,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/kaleid liner Prisma☆Illya"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 49381,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Himuro no Tenchi: Fate/school Life"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 87196,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Type-Moon Gakuen: Chibichuki!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 63005,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 100260,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Koha-Ace"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 30780,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "TYPE-MOON Sakuhin-shuu: TAKE MOON"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 116144,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/mahjong night Seihai Sensou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 131587,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 65911,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "TYPE-MOON Sakuhinshuu - Dotsuki Manzai"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 75949,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Hana no Miyako!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 96082,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Fate/tiger Colosseum Upper"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 80295,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha: Unbirth"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 138258,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night: 15-nen no Kiseki TYPE-MOON Ten"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 86753,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/strange Fake"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 108493,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Requiem"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 50006,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/strange Fake"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 98035,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Fate/Apocrypha"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 63005,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 87251,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Apocrypha"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 21717,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Fate/EXTRA Last Encore"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 62425,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/EXTRA"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 87200,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Extra CCC: Fox Tail"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110891,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Extra CCC Trial"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 87201,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Extra CCC"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 53568,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Fate/Extra"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 97815,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Fate/Grand Order: First Order"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 100728,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: MOONLIGHT/LOSTROOM"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 100729,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: Himuro no Tenchi - 7-nin no Saikyou Gijin-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 103276,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: Shinsei Entaku Ryouiki Camelot - Wandering; Agateram"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 110297,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: turas réalta"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 108178,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: Mortalis:Stella"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 106915,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Manga de Wakaru! Fate/Grand Order"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 106916,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Manga de Wakaru! Fate/Grand Order"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 110442,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Gudaguda Order"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 101184,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order CMs"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 127149,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Carnival"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 159569,
+                            "type": "ANIME",
+                            "format": "TV_SHORT",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: Fujimaru Ritsuka wa Wakaranai"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 159559,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "16bit Sensation: ANOTHER LAYER"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 124049,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "16bit Sensation"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 293,
+                            "type": "ANIME",
+                            "format": "TV_SHORT",
+                            "title": {
+                              "userPreferred": "Di Gi Charat"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 10087,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "FINISHED",
+            "episodes": 13,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 81,
+            "title": {
+              "userPreferred": "Fate/Zero",
+              "english": "Fate/Zero",
+              "romaji": "Fate/Zero",
+              "native": "Fate/Zero"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx10087-M4Hd9qrHGrXk.png"
+            },
+            "startDate": {
+              "year": 2011,
+              "month": 10,
+              "day": 2
+            },
+            "endDate": {
+              "year": 2011,
+              "month": 12,
+              "day": 25
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 11741,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Fate/Zero 2nd Season"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 20791,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel] I. presage flower"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 13263,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Fate/Zero: Onegai! Einzbern Soudanshitsu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 33649,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 66803,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Heart of Freaks"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 55191,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 106918,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Lord El-Melloi II-sei no Jikenbo: \"Rail Zeppelin\" Grace note"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 33649,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Fate/Zero"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 55191,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 66803,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Heart of Freaks"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 30715,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 75417,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Sensha Otoko: A True Tank Story"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 87196,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Type-Moon Gakuen: Chibichuki!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 87197,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Lord El-Melloi II-sei no Jikenbo"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 127693,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Lord El-Melloi II-sei no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 131587,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 86182,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/stay night [Heaven's Feel]"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 50006,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/strange Fake"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 57327,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ALL AROUND TYPE-MOON"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 100260,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Koha-Ace"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 192970,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero Cafe: Fate/Zero Cafe Tsudou Eireitachi"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 13263,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Fate/Zero: Onegai! Einzbern Soudanshitsu"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 10012,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "Carnival Phantasm"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30780,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "TYPE-MOON Sakuhin-shuu: TAKE MOON"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 12187,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm EX Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 15927,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Carnival Phantasm: HibiChika Special"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 169,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Shingetsutan Tsukihime"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 356,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 19603,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/stay night: Unlimited Blade Works"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 2593,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kara no Kyoukai: Fukan Fuukei"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 30707,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Melty Blood"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 6922,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Fate/stay night Movie: UNLIMITED BLADE WORKS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 127149,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Carnival"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 12565,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Fate/Prototype"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 19165,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Fate/Zero Cafe"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 192970,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero Cafe: Fate/Zero Cafe Tsudou Eireitachi"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 55191,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Fate/Zero"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 33649,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 10087,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 11741,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Fate/Zero 2nd Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 114017,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Grand Order: Chaldea Scrap—Nakatani Sakuhinshuu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 103075,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Lord El-Melloi II-sei no Jikenbo"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 86753,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/strange Fake"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 192970,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fate/Zero Cafe: Fate/Zero Cafe Tsudou Eireitachi"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

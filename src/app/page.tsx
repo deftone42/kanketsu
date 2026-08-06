@@ -11,7 +11,7 @@ export default function Home() {
     setQuery,
     results,
     isSearching,
-    selectedAnime,
+    franchise,
     score,
     isFetchingDetail,
     selectAnime,
@@ -60,13 +60,23 @@ export default function Home() {
           </div>
         )}
 
-        {!isFetchingDetail && selectedAnime && score && (
-          <section className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <AnimeDetailCard anime={selectedAnime} score={score} />
+        {!isFetchingDetail && franchise && score && (
+          <section
+            aria-label="Anime detail card"
+            className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4"
+          >
+            <AnimeDetailCard franchise={franchise} watchingScore={score} />
+
+            {!franchise.isComplete && (
+              <p className="text-center text-xs text-amber-400/80">
+                Some entries could not be loaded (
+                {franchise.unresolvedIds.length} missing).
+              </p>
+            )}
           </section>
         )}
 
-        {!isFetchingDetail && !selectedAnime && (
+        {!isFetchingDetail && !franchise && (
           <div className="text-center py-8 text-gray-600 text-xs uppercase tracking-wider font-semibold">
             Search for any title above to calculate the watch timing
           </div>

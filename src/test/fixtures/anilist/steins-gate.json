@@ -1,0 +1,1048 @@
+{
+  "requestedIds": [
+    9253
+  ],
+  "response": {
+    "data": {
+      "Page": {
+        "media": [
+          {
+            "id": 9253,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "FINISHED",
+            "episodes": 24,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 89,
+            "title": {
+              "userPreferred": "Steins;Gate",
+              "english": "Steins;Gate",
+              "romaji": "Steins;Gate",
+              "native": "シュタインズ・ゲート"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx9253-tIUXF2gfU8Sg.jpg"
+            },
+            "startDate": {
+              "year": 2011,
+              "month": 4,
+              "day": 6
+            },
+            "endDate": {
+              "year": 2011,
+              "month": 9,
+              "day": 14
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 10863,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Oukoubakko no Poriomania"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 11577,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Fuka Ryouiki no Déjà vu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 20907,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Soumei Eichi no Cognitive Computing"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 21624,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Kyoukaimenjou no Missing Link - Divide By Zero"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21127,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate 0"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 47517,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Steins;Gate"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 77825,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Aishin Meizu no Babel"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 79381,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Heiji Kyokusen no Epigraph"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 85137,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Eigou Kaiki no Pandora"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 58899,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate Onshuu no Brownian Motion"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 102247,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate 0"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 58897,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Shijou Saikyou no Slight Fever"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 121015,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins Gate!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 121016,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "STEINS;GATE DROPS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 123282,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Senkei Kousoku no Mosaicism"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 57965,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no Sweets Honey"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 85548,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no Future Honey"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 11577,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Fuka Ryouiki no Déjà vu"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 10863,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Oukoubakko no Poriomania"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 58897,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Shijou Saikyou no Slight Fever"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 47517,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 127015,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "STEINS;GATE: Enkan Rensa no Uroborosu"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91997,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 194394,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "STEINS;GATE Hiyoku Renri No Underling"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 10519,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Mahou Shoujo Sonico☆Magica"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 20455,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "SoniAni: SUPER SONICO THE ANIMATION"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 145924,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Saya no Uta"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 5682,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Phantom: Requiem for the Phantom"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 90223,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Sumaga"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 95335,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kyuuketsu Senki Vjedogonia"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 4975,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ChäoS;HEAd"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 90281,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Axanael: The Case-Book of ENA"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 9756,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Mahou Shoujo Madoka☆Magica"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 91997,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Steins;Gate: Hoshikuzu no Duplet"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 47517,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 102247,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate 0"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 121015,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins Gate!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 104174,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Steins;Gate 0: Kesshou Takei no Valentine - Bittersweet Day"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21127,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate 0"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 121016,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "STEINS;GATE DROPS"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 85137,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Eigou Kaiki no Pandora"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 58897,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Shijou Saikyou no Slight Fever"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 77825,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Aishin Meizu no Babel"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10863,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Oukoubakko no Poriomania"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 50699,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Boukan no Rebellion"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 81945,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Heni Kuukan no Octet"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 91995,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Mugen Enten no Arc Light"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21624,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Kyoukaimenjou no Missing Link - Divide By Zero"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 85548,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no Future Honey"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 181143,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no Sweets Honey Final"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 58899,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate Onshuu no Brownian Motion"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 11577,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Fuka Ryouiki no Déjà vu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 158772,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Motto Hiyoku Renri no Sweets Honey"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 127015,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "STEINS;GATE: Enkan Rensa no Uroborosu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 20907,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Soumei Eichi no Cognitive Computing"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 123282,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Senkei Kousoku no Mosaicism"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 181488,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no +Nyan2 Crisis☆"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 89627,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Gekijouban Steins;Gate: Fuka Ryouiki no Déjà vu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 79381,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Heiji Kyokusen no Epigraph"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 57965,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Steins;Gate: Hiyoku Renri no Sweets Honey"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 69859,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Steins;Gate Chouyoku no Divergence: Reverse"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 4975,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "ChäoS;HEAd"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21126,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ChäoS;Child"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 37653,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ChäoS;HEAd"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 10519,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Mahou Shoujo Sonico☆Magica"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 21708,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Occultic;Nine"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 13599,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Robotics;Notes"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 13599,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Robotics;Notes"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 65063,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ROBOTICS;NOTES"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 9253,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Steins;Gate"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 4975,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ChäoS;HEAd"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

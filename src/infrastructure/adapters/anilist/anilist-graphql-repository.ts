@@ -2,16 +2,82 @@ import {
   AnimeRepository,
   AnimeSearchResult,
 } from "@/core/ports/anime-repository";
-import { Anime, AnimeStatus } from "@/core/domain/models/anime";
+import { WorkBatch } from "@/core/domain/models/franchise";
 import {
-  AniListGetByIdResponse,
-  AniListRelationEdge,
-  AniListSearchMediaItem,
+  RateLimitedError,
+  RepositoryUnavailableError,
+} from "@/core/domain/errors/repository-errors";
+import {
+  AniListBatchResponse,
   AniListSearchResponse,
 } from "./dto/anilist-response.dto";
-import { GET_ANIME_BY_ID_QUERY, SEARCH_ANIME_QUERY } from "./graphql/queries";
+import { mapBatchResponse } from "./mappers/franchise-work-mapper";
+import { FRANCHISE_BATCH_QUERY, SEARCH_ANIME_QUERY } from "./graphql/queries";
 
 const ANILIST_ENDPOINT = "https://graphql.anilist.co";
+
+/** AniList accepts at most 50 ids per page. */
+const MAX_IDS_PER_REQUEST = 50;
+
+function chunk(ids: number[], size: number): number[][] {
+  const chunks: number[][] = [];
+  for (let index = 0; index < ids.length; index += size) {
+    chunks.push(ids.slice(index, index + size));
+  }
+  return chunks;
+}
+
+function parseRetryAfter(response: Response): number | null {
+  const header = response.headers.get("Retry-After");
+  if (header === null) return null;
+  const seconds = Number.parseInt(header, 10);
+  return Number.isNaN(seconds) ? null : seconds;
+}
+
+async function fetchBatch(ids: number[]): Promise<WorkBatch> {
+  let response: Response;
+  try {
+    response = await fetch(ANILIST_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "User-Agent": "AniTime/1.0",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        query: FRANCHISE_BATCH_QUERY,
+        variables: { ids },
+      }),
+    });
+  } catch (error) {
+    throw new RepositoryUnavailableError(
+      `Could not reach AniList: ${
+        error instanceof Error ? error.message : "unknown error"
+      }`,
+    );
+  }
+
+  if (response.status === 429) {
+    throw new RateLimitedError(parseRetryAfter(response));
+  }
+
+  if (!response.ok) {
+    throw new RepositoryUnavailableError(
+      `AniList responded with HTTP ${response.status}`,
+    );
+  }
+
+  let body: AniListBatchResponse;
+  try {
+    body = (await response.json()) as AniListBatchResponse;
+  } catch {
+    throw new RepositoryUnavailableError(
+      "AniList returned a response we could not parse",
+    );
+  }
+
+  return mapBatchResponse(body);
+}
 
 export class AniListGraphQLRepository implements AnimeRepository {
   async searchAnime(query: string): Promise<AnimeSearchResult[]> {
@@ -22,6 +88,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const response = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
         headers: {
+          "User-Agent": "AniTime/1.0",
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -36,7 +103,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const json = (await response.json()) as AniListSearchResponse;
       const rawMediaList = json.data?.Page?.media || [];
 
-      return rawMediaList.map((item: AniListSearchMediaItem) => ({
+      return rawMediaList.map((item) => ({
         id: item.id,
         title: {
           userPreferred: item.title.userPreferred || "",
@@ -48,69 +115,22 @@ export class AniListGraphQLRepository implements AnimeRepository {
         score: item.averageScore || null,
       }));
     } catch (error) {
-      console.error("Error al buscar anime en AniList:", error);
+      console.error("Error searching anime in AniList:", error);
       return [];
     }
   }
 
-  async getAnimeById(id: number): Promise<Anime | null> {
-    try {
-      const response = await fetch(ANILIST_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          query: GET_ANIME_BY_ID_QUERY,
-          variables: { id },
-        }),
-      });
+  async getWorksByIds(ids: number[]): Promise<WorkBatch> {
+    if (ids.length === 0) return { works: [], edges: [], stubs: [] };
 
-      if (!response.ok) return null;
+    const batches = await Promise.all(
+      chunk(ids, MAX_IDS_PER_REQUEST).map((batchIds) => fetchBatch(batchIds)),
+    );
 
-      const json = (await response.json()) as AniListGetByIdResponse;
-      const media = json.data?.Media;
-
-      if (!media) return null;
-
-      return {
-        id: media.id,
-        title: {
-          userPreferred: media.title.userPreferred || "",
-          english: media.title.english || undefined,
-          romaji: media.title.romaji || undefined,
-          native: media.title.native || undefined,
-        },
-        coverImage: media.coverImage?.large || "",
-        score: media.averageScore || null,
-        status: media.status as AnimeStatus,
-        episodes: media.episodes || null,
-        releaseYear: media.startDate?.year || null,
-        format: media.format || "UNKNOWN",
-        nextAiringEpisode: media.nextAiringEpisode
-          ? {
-              episode: media.nextAiringEpisode.episode,
-              timeUntilAiringSeconds: media.nextAiringEpisode.timeUntilAiring,
-            }
-          : null,
-        relations:
-          media.relations?.edges?.map((edge: AniListRelationEdge) => ({
-            relationType: edge.relationType as
-              | "PREQUEL"
-              | "SEQUEL"
-              | "SIDE_STORY"
-              | "SUMMARY"
-              | "OTHER",
-            status: edge.node.status as AnimeStatus,
-            daysUntilAiring: edge.node.nextAiringEpisode
-              ? Math.ceil(edge.node.nextAiringEpisode.timeUntilAiring / 86400)
-              : null,
-          })) || [],
-      };
-    } catch (error) {
-      console.error("Error fetching anime detail from AniList:", error);
-      return null;
-    }
+    return {
+      works: batches.flatMap((batch) => batch.works),
+      edges: batches.flatMap((batch) => batch.edges),
+      stubs: batches.flatMap((batch) => batch.stubs),
+    };
   }
 }

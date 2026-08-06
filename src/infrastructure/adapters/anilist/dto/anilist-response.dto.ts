@@ -1,17 +1,19 @@
 export interface AniListTitle {
-  userPreferred?: string;
-  english?: string;
-  romaji?: string;
-  native?: string;
+  userPreferred?: string | null;
+  english?: string | null;
+  romaji?: string | null;
+  native?: string | null;
 }
 
 export interface AniListCoverImage {
-  medium?: string;
-  large?: string;
+  medium?: string | null;
+  large?: string | null;
 }
 
-export interface AniListStartDate {
-  year?: number;
+export interface AniListDate {
+  year?: number | null;
+  month?: number | null;
+  day?: number | null;
 }
 
 export interface AniListNextAiringEpisode {
@@ -19,26 +21,13 @@ export interface AniListNextAiringEpisode {
   timeUntilAiring: number;
 }
 
-export interface AniListRelationEdge {
-  relationType: string;
-  node: {
-    id: number;
-    status: string;
-    nextAiringEpisode?: {
-      timeUntilAiring: number;
-    } | null;
-  };
-}
-
+/** A row from the search query — deliberately lean, search fetches little. */
 export interface AniListSearchMediaItem {
   id: number;
   title: AniListTitle;
   coverImage?: AniListCoverImage;
-  startDate?: AniListStartDate;
-  averageScore?: number;
-  relations?: {
-    edges?: AniListRelationEdge[];
-  };
+  startDate?: AniListDate;
+  averageScore?: number | null;
 }
 
 export interface AniListSearchResponse {
@@ -49,23 +38,43 @@ export interface AniListSearchResponse {
   };
 }
 
-export interface AniListMediaDetail {
+/** A node inside a nested `relations` projection: topology only. */
+export interface AniListNestedNode {
   id: number;
-  title: AniListTitle;
-  coverImage?: AniListCoverImage;
-  averageScore?: number;
-  status: string;
-  episodes?: number;
-  startDate?: AniListStartDate;
-  format?: string;
-  nextAiringEpisode?: AniListNextAiringEpisode | null;
-  relations?: {
-    edges?: AniListRelationEdge[];
-  };
+  type?: string | null;
+  format?: string | null;
+  title?: AniListTitle;
+  relations?: { edges?: AniListNestedEdge[] | null } | null;
 }
 
-export interface AniListGetByIdResponse {
+export interface AniListNestedEdge {
+  relationType?: string | null;
+  node: AniListNestedNode;
+}
+
+/** A fully hydrated media item from the top level of a batch response. */
+export interface AniListBatchMediaItem {
+  id: number;
+  type?: string | null;
+  format?: string | null;
+  status?: string | null;
+  episodes?: number | null;
+  chapters?: number | null;
+  volumes?: number | null;
+  averageScore?: number | null;
+  title?: AniListTitle;
+  coverImage?: AniListCoverImage;
+  startDate?: AniListDate;
+  endDate?: AniListDate;
+  nextAiringEpisode?: AniListNextAiringEpisode | null;
+  relations?: { edges?: AniListNestedEdge[] | null } | null;
+}
+
+export interface AniListBatchResponse {
   data?: {
-    Media?: AniListMediaDetail;
-  };
+    Page?: {
+      media?: AniListBatchMediaItem[] | null;
+    } | null;
+  } | null;
+  errors?: { message: string; status?: number }[];
 }

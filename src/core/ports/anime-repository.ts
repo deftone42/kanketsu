@@ -1,4 +1,4 @@
-import { Anime } from "../domain/models/anime";
+import { WorkBatch } from "../domain/models/franchise";
 
 export interface AnimeSearchResult {
   id: number;
@@ -14,5 +14,10 @@ export interface AnimeSearchResult {
 
 export interface AnimeRepository {
   searchAnime(query: string): Promise<AnimeSearchResult[]>;
-  getAnimeById(id: number): Promise<Anime | null>;
+  /**
+   * Fetches many works in a single request, with three hops of relation
+   * topology around each. Throws RepositoryError subclasses; never returns
+   * null for a failure, so a rate limit cannot be mistaken for absence.
+   */
+  getWorksByIds(ids: number[]): Promise<WorkBatch>;
 }

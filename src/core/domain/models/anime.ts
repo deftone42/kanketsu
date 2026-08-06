@@ -1,33 +1,20 @@
+export type AnimeFormat =
+  | "TV"
+  | "TV_SHORT"
+  | "MOVIE"
+  | "SPECIAL"
+  | "OVA"
+  | "ONA";
+
+/**
+ * Our status vocabulary, which deliberately differs from AniList's:
+ * RELEASING becomes ONGOING, and NEW_SEASON_COMING is derived by
+ * summarizeFranchise rather than reported by the API.
+ */
 export type AnimeStatus =
   | "FINISHED"
-  | "RELEASING"
-  | "NOT_YET_RELEASED"
+  | "ONGOING"
+  | "NEW_SEASON_COMING"
+  | "NOT_RELEASED"
   | "CANCELLED"
   | "HIATUS";
-
-export interface AnimeRelation {
-  relationType: "SEQUEL" | "PREQUEL" | "SIDE_STORY" | "SUMMARY" | "OTHER";
-  status: AnimeStatus;
-  daysUntilAiring?: number | null;
-}
-
-export interface Anime {
-  id: number;
-  title: {
-    userPreferred: string;
-    english?: string;
-    romaji?: string;
-    native?: string;
-  };
-  coverImage: string;
-  score?: number | null; // Puntuación de 0 a 100
-  status: AnimeStatus;
-  episodes?: number | null;
-  releaseYear?: number | null;
-  format?: string;
-  nextAiringEpisode?: {
-    episode: number;
-    timeUntilAiringSeconds: number;
-  } | null;
-  relations?: AnimeRelation[];
-}
