@@ -30,6 +30,11 @@
   - Data is ready: render `franchise.timeline`, mark `franchise.rootId`.
   - Open questions for its design pass: horizontal scroll vs grid vs list; what each card shows; how "you are here" reads visually and to a screen reader; behaviour on a 40+ entry franchise; whether `related` (movies, OVAs) gets its own strip.
   - Decided against a single "face" entry for the franchise: JJK S2 is a *season* of one work while Fate/Zero is a *standalone work*, and no rule serves both. Showing the selected entry **plus** its entry point sidesteps the choice entirely.
+- [ ] **Per-entry detail view:**
+  - Open a single season/movie from the timeline and see its own metadata (episodes, score, dates, synopsis) without leaving the franchise view. The timeline strip ships non-interactive precisely because the franchise-level score does not change when you pick a different entry — a per-entry view is what would make clicking meaningful.
+- [ ] **Extra franchise information (UI TBD):**
+  - Spin-offs, movies, OVAs and specials — everything in `franchise.related` — plus the source works in `franchise.sources`. All already collected; only the presentation is undecided.
+  - Matters more than it looks: a franchise can have a `timeline` of 1 and still be huge. One Piece is a single continuous series with **108 related works** (35 movies, 37 specials, 14 TV); Death Note has 3. For those, `related` *is* the franchise.
 - [ ] **Timing Score refinement:**
   - Consume `summary.sourceStatus` — *"has the manga finished?"* is a strong signal that more anime is coming. Currently collected and exposed but deliberately **not** scored, so model changes and scoring changes stay separately traceable.
   - Revisit the constants (`BASE_SCORE`, `HYPE_WINDOW_DAYS`, `MEGA_SERIES_EPISODE_THRESHOLD`) against real franchises now that the summary is trustworthy.
