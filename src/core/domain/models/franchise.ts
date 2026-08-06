@@ -2,6 +2,7 @@ import { AnimeStatus } from "./anime";
 import {
   AnimeWork,
   FranchiseWork,
+  SourceFormat,
   SourceWork,
   WorkStub,
 } from "./franchise-work";
@@ -33,6 +34,8 @@ export interface FranchiseSummary {
   status: AnimeStatus;
   nextAiringEpisode: AnimeWork["nextAiringEpisode"];
   sourceStatus: FranchiseSourceStatus;
+  /** Predominant source format, so the UI can say "Manga" rather than "Source". */
+  sourceFormat: SourceFormat | null;
 }
 
 /** A complete franchise in our own vocabulary. Nothing AniList-shaped here. */

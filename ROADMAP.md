@@ -30,9 +30,18 @@
   - Data is ready: render `franchise.timeline`, mark `franchise.rootId`.
   - Open questions for its design pass: horizontal scroll vs grid vs list; what each card shows; how "you are here" reads visually and to a screen reader; behaviour on a 40+ entry franchise; whether `related` (movies, OVAs) gets its own strip.
   - Decided against a single "face" entry for the franchise: JJK S2 is a *season* of one work while Fate/Zero is a *standalone work*, and no rule serves both. Showing the selected entry **plus** its entry point sidesteps the choice entirely.
+- [ ] **Per-entry detail view:**
+  - Open a single season/movie from the timeline and see its own metadata (episodes, score, dates, synopsis) without leaving the franchise view. The timeline strip ships non-interactive precisely because the franchise-level score does not change when you pick a different entry — a per-entry view is what would make clicking meaningful.
+- [ ] **Extra franchise information (UI TBD):**
+  - Spin-offs, movies, OVAs and specials — everything in `franchise.related` — plus the source works in `franchise.sources`. All already collected; only the presentation is undecided.
+  - Matters more than it looks: a franchise can have a `timeline` of 1 and still be huge. One Piece is a single continuous series with **108 related works** (35 movies, 37 specials, 14 TV); Death Note has 3. For those, `related` *is* the franchise.
 - [ ] **Timing Score refinement:**
   - Consume `summary.sourceStatus` — *"has the manga finished?"* is a strong signal that more anime is coming. Currently collected and exposed but deliberately **not** scored, so model changes and scoring changes stay separately traceable.
-  - Revisit the constants (`BASE_SCORE`, `HYPE_WINDOW_DAYS`, `MEGA_SERIES_EPISODE_THRESHOLD`) against real franchises now that the summary is trustworthy.
+  - **Reference scenario: HUNTER×HUNTER (2011).** The anime is `FINISHED`, so today it scores as a completed story — but the manga never ended and the adaptation simply stops mid-arc, so there is no ending to watch. `FINISHED` anime **+** `sourceStatus: "ONGOING"` is not a completed story; it is an abandoned one, and should score closer to `HIATUS` than to `FINISHED`. Distinct from the two checks already in play (anime length, source still running): those measure *how much* there is, this measures *whether it concludes*.
+  - **A finished series must not score below an unfinished one on timing alone.** Observed: a completed series scores 85 while Jujutsu Kaisen — still running — scores 90. `FINISHED` gives `+15` and `NEW_SEASON_COMING` inside the hype window gives `+25`, so anticipation currently outweighs the certainty of a complete story. Decide what the app is actually optimising for and rebalance the deltas in `evaluate-score.ts`.
+  - **Penalise poorly-rated series and say so.** A low `averageScore` should pull the Timing Score down and surface a short caveat under the verdict — wording along the lines of *"Not well rated by users"*. Today `getQualityBonus` only applies −5 below 50, which is too blunt and invisible to the reader.
+  - Revisit the constants (`BASE_SCORE`, `HYPE_WINDOW_DAYS`, `MEGA_SERIES_EPISODE_THRESHOLD`) against real series now that the summary is trustworthy.
+  - Guard rail worth keeping: for a single-season series the seasons average must equal that season's own score. Fixed once already — the average used to include movies and specials, which made Sacred Seven report a score its only season never had.
 - [ ] **New season release date display**
 - [ ] **Genre & Format Recommendation Engine:**
   - **Domain:** Extend domain models to include `genres` (Action, Romance, Sci-Fi, etc.) and explicit `format` classification (TV, Movie, OVA, Special, ONA).

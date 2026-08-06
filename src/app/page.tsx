@@ -2,8 +2,12 @@
 
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
 import { SearchBar } from "@/components/SearchBar";
-import { AnimeDetailCard } from "@/components/AnimeDetailCard";
-import { Clock, Sparkles, Loader2 } from "lucide-react";
+import { SeasonCard } from "@/components/SeasonCard";
+import { FranchiseCard } from "@/components/FranchiseCard";
+import { ScoreCard } from "@/components/ScoreCard";
+import { FranchiseTimeline } from "@/components/FranchiseTimeline";
+import { isAnimeWork } from "@/core/domain/models/franchise-work";
+import { Clock, Loader2 } from "lucide-react";
 
 export default function Home() {
   const {
@@ -18,6 +22,15 @@ export default function Home() {
     clearSelection,
   } = useAnimeSearch();
 
+  const selectedWork = franchise?.nodes.get(franchise.rootId);
+  const selectedSeason =
+    selectedWork && isAnimeWork(selectedWork) ? selectedWork : null;
+
+  // The first entry names the franchise: "Shingeki no Kyojin", not "Season 3".
+  const franchiseName = franchise?.timeline[0]?.title.userPreferred ?? "";
+  const movieCount =
+    franchise?.related.filter((work) => work.format === "MOVIE").length ?? 0;
+
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none" />
@@ -25,11 +38,6 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto w-full space-y-10 relative z-10 my-auto">
         <header className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
-            AniList Powered Decision Engine
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white flex items-center justify-center gap-3">
             <Clock className="w-10 h-10 sm:w-14 sm:h-14 text-indigo-500" />
             Ani<span className="text-indigo-500">Time</span>
@@ -60,21 +68,57 @@ export default function Home() {
           </div>
         )}
 
-        {!isFetchingDetail && franchise && score && (
-          <section
-            aria-label="Anime detail card"
-            className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4"
+        {/*
+          A failed first request still yields a Franchise — empty, but with a
+          summary that scores as "Completed Story". Never show a verdict we
+          have no data behind.
+        */}
+        {!isFetchingDetail && franchise && franchise.timeline.length === 0 && (
+          <div
+            role="alert"
+            className="text-center py-8 space-y-2 text-rose-300/90"
           >
-            <AnimeDetailCard franchise={franchise} watchingScore={score} />
-
-            {!franchise.isComplete && (
-              <p className="text-center text-xs text-amber-400/80">
-                Some entries could not be loaded (
-                {franchise.unresolvedIds.length} missing).
-              </p>
-            )}
-          </section>
+            <p className="text-sm font-semibold">Could not load this series.</p>
+            <p className="text-xs text-gray-500">
+              AniList may be rate-limiting us. Try again in a moment.
+            </p>
+          </div>
         )}
+
+        {!isFetchingDetail &&
+          franchise &&
+          score &&
+          franchise.timeline.length > 0 && (
+            <section
+              aria-label="Anime detail card"
+              className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6"
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
+                {selectedSeason && <SeasonCard season={selectedSeason} />}
+
+                <FranchiseCard
+                  name={franchiseName}
+                  summary={franchise.summary}
+                  seasonCount={franchise.timeline.length}
+                  movieCount={movieCount}
+                />
+              </div>
+
+              <ScoreCard score={score} />
+
+              <FranchiseTimeline
+                timeline={franchise.timeline}
+                selectedId={franchise.rootId}
+              />
+
+              {!franchise.isComplete && (
+                <p className="text-center text-xs text-amber-400/80">
+                  Some entries could not be loaded (
+                  {franchise.unresolvedIds.length} missing).
+                </p>
+              )}
+            </section>
+          )}
 
         {!isFetchingDetail && !franchise && (
           <div className="text-center py-8 text-gray-600 text-xs uppercase tracking-wider font-semibold">

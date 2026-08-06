@@ -1,5 +1,10 @@
 import { AnimeStatus } from "../models/anime";
-import { AnimeWork, NextEpisode, SourceWork } from "../models/franchise-work";
+import {
+  AnimeWork,
+  NextEpisode,
+  SourceFormat,
+  SourceWork,
+} from "../models/franchise-work";
 import { FranchiseSourceStatus, FranchiseSummary } from "../models/franchise";
 
 /**
@@ -74,6 +79,29 @@ function latestEndYear(works: AnimeWork[]): number | null {
   return years.length === 0 ? null : Math.max(...years);
 }
 
+/**
+ * A franchise can adapt several works of different kinds — Monogatari draws
+ * on many light novels plus a stray manga — so the label reflects whichever
+ * kind predominates.
+ */
+function derivePredominantFormat(sources: SourceWork[]): SourceFormat | null {
+  const tally = new Map<SourceFormat, number>();
+  for (const source of sources) {
+    tally.set(source.format, (tally.get(source.format) ?? 0) + 1);
+  }
+
+  let predominant: SourceFormat | null = null;
+  let highest = 0;
+  for (const [format, count] of tally) {
+    if (count > highest) {
+      predominant = format;
+      highest = count;
+    }
+  }
+
+  return predominant;
+}
+
 function deriveSourceStatus(sources: SourceWork[]): FranchiseSourceStatus {
   if (sources.length === 0) return "UNKNOWN";
   return sources.every((source) => source.status === "FINISHED")
@@ -99,9 +127,12 @@ export function summarizeFranchise(
       (total, work) => total + releasedEpisodes(work),
       0,
     ),
-    averageScore: averageScore(watchable),
+    // Seasons only. Including movies and specials makes a single-season
+    // series report a score its one season never had.
+    averageScore: averageScore(timeline),
     status: deriveStatus(timeline),
     nextAiringEpisode: soonestUpcomingEpisode(watchable),
     sourceStatus: deriveSourceStatus(sources),
+    sourceFormat: derivePredominantFormat(sources),
   };
 }

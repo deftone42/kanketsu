@@ -116,10 +116,37 @@ describe("summarizeFranchise", () => {
     expect(summary.status).toBe("ONGOING");
   });
 
-  it("averages scores across timeline and related works, ignoring absent ones", () => {
+  it("averages the timeline's scores, ignoring absent ones", () => {
     const summary = summarizeFranchise(
-      [animeWork({ id: 1, score: 90 }), animeWork({ id: 2, score: null })],
-      [animeWork({ id: 3, score: 80, format: "MOVIE" })],
+      [
+        animeWork({ id: 1, score: 90 }),
+        animeWork({ id: 2, score: null }),
+        animeWork({ id: 3, score: 80 }),
+      ],
+      [],
+      [],
+    );
+    expect(summary.averageScore).toBe(85);
+  });
+
+  it("matches the entry's own score when the series has a single season", () => {
+    // Sacred Seven: one season plus specials. The average must not drift away
+    // from that season's score just because extras exist.
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1, score: 68 })],
+      [
+        animeWork({ id: 2, score: 55, format: "SPECIAL" }),
+        animeWork({ id: 3, score: 90, format: "OVA" }),
+      ],
+      [],
+    );
+    expect(summary.averageScore).toBe(68);
+  });
+
+  it("excludes movies and specials from the seasons average", () => {
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1, score: 90 }), animeWork({ id: 2, score: 80 })],
+      [animeWork({ id: 3, score: 40, format: "MOVIE" })],
       [],
     );
     expect(summary.averageScore).toBe(85);
@@ -197,6 +224,34 @@ describe("summarizeFranchise", () => {
       [sourceWork({ id: 2 })],
     );
     expect(summary.sourceStatus).toBe("FINISHED");
+  });
+
+  it("reports the source format so the UI can name it", () => {
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1 })],
+      [],
+      [sourceWork({ id: 2, format: "MANGA" })],
+    );
+    expect(summary.sourceFormat).toBe("MANGA");
+  });
+
+  it("picks the predominant format when sources are mixed", () => {
+    // Monogatari adapts many light novels plus a stray manga.
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1 })],
+      [],
+      [
+        sourceWork({ id: 2, format: "NOVEL" }),
+        sourceWork({ id: 3, format: "NOVEL" }),
+        sourceWork({ id: 4, format: "MANGA" }),
+      ],
+    );
+    expect(summary.sourceFormat).toBe("NOVEL");
+  });
+
+  it("has no source format when the franchise is an original work", () => {
+    const summary = summarizeFranchise([animeWork({ id: 1 })], [], []);
+    expect(summary.sourceFormat).toBeNull();
   });
 
   it("reports ONGOING when any source is still publishing", () => {
