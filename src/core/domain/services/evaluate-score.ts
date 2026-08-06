@@ -1,4 +1,4 @@
-import { Anime } from "../models/anime";
+import { FranchiseSummary } from "../models/franchise";
 import { TimingScore } from "../models/score";
 
 const BASE_SCORE = 70;
@@ -16,9 +16,9 @@ function getQualityBonus(userScore: number | null): number {
   return 0;
 }
 
-export function evaluateWatchingScore(anime: Anime): TimingScore {
-  const { status, userScore, nextAiringEpisode, totalEpisodes } = anime;
-  const qualityBonus = getQualityBonus(userScore);
+export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
+  const { status, averageScore, nextAiringEpisode, totalEpisodes } = summary;
+  const qualityBonus = getQualityBonus(averageScore);
 
   // =========================================================================
   // 1. ESTADOS ESPECIALES (CANCELLED, HIATUS, NOT_RELEASED)
