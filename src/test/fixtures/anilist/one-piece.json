@@ -1,0 +1,3690 @@
+{
+  "requestedIds": [
+    21
+  ],
+  "response": {
+    "data": {
+      "Page": {
+        "media": [
+          {
+            "id": 21,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "RELEASING",
+            "episodes": null,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 87,
+            "title": {
+              "userPreferred": "ONE PIECE",
+              "english": "ONE PIECE",
+              "romaji": "ONE PIECE",
+              "native": "ONE PIECE"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21-ELSYx3yMPcKM.jpg"
+            },
+            "startDate": {
+              "year": 1999,
+              "month": 10,
+              "day": 20
+            },
+            "endDate": {
+              "year": null,
+              "month": null,
+              "day": null
+            },
+            "nextAiringEpisode": {
+              "episode": 1173,
+              "timeUntilAiring": 243150
+            },
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 466,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Taose! Kaizoku Ganzack"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 105234,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Taose! Kaizoku Ganzack"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 1094,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE TV Special: Umi no Heso no Daibouken-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 1237,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Oounabara ni Hirake! Dekkai Dekkai Chichi no Yume!"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 1238,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Mamore! Saigo no Oobutai"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 2020,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Nenmatsu Tokubetsu Kikaku! Mugiwara no Luffy Oyabun Torimonochou"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 2386,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Yume no Soccer Ou!"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 461,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Chinjuu-jima no Chopper Oukoku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 2490,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Mezase! Kaizoku Yakyuu Ou"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 12001,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE 3D: Gekisou! Trap Coaster"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 16239,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Luffy - Hand Island no Bouken"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 12859,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: Z"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 16468,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: Z - GLORIOUS ISLAND"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 12859,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: Z"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 15323,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Nami - Koukaishi no Namida to Nakama no Kizuna"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 19123,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Merry - Mou Hitori no Nakama no Monogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 20835,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE \"3D2Y\": Ace no shi wo Koete! Luffy Nakama to no Chikai"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 21230,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Sabo - 3-Kyoudai no Kizuna Kiseki no Saikai to Uketsugareru Ishi"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21485,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Adventure of Nebulandia"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21831,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Heart of Gold"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21880,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: GOLD - episode 0 711ver."
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21335,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: GOLD"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 99302,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of East Blue - Luffy to 4-nin no Nakama no Daibouken"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 459,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE (Movie)"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 460,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 460,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 459,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE (Movie)"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 461,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Chinjuu-jima no Chopper Oukoku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 2385,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken - Jango no Dance Carnival"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 461,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Chinjuu-jima no Chopper Oukoku"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 460,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 462,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Dead End no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 2386,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Yume no Soccer Ou!"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 462,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE THE MOVIE: Dead End no Bouken"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 461,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Chinjuu-jima no Chopper Oukoku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 463,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Norowareta Seiken"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 463,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Norowareta Seiken"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 462,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Dead End no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 464,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Omatsuri Danshaku to Himitsu no Shima"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 464,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE THE MOVIE: Omatsuri Danshaku to Himitsu no Shima"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 463,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Norowareta Seiken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 465,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Karakuri-jou no Mecha Kyohei"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 465,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE THE MOVIE: Karakuri-jou no Mecha Kyohei"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 464,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Omatsuri Danshaku to Himitsu no Shima"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 2107,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 2107,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 465,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Karakuri-jou no Mecha Kyohei"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 3848,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Episode of Chopper Plus - Fuyu ni Saku, Kiseki no Sakura"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 106572,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 3848,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE THE MOVIE: Episode of Chopper Plus - Fuyu ni Saku, Kiseki no Sakura"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 2107,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 4155,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: STRONG WORLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 107110,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Cry heart"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 4155,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: STRONG WORLD"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 8740,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: STRONG WORLD - EPISODE:0"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 3848,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Episode of Chopper Plus - Fuyu ni Saku, Kiseki no Sakura"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 9999,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE 3D: Mugiwara Chase"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 9999,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE 3D: Mugiwara Chase"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 4155,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: STRONG WORLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 12859,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: Z"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 12859,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: Z"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 16239,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Luffy - Hand Island no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 16468,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: Z - GLORIOUS ISLAND"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 9999,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE 3D: Mugiwara Chase"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21335,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: GOLD"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21880,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: GOLD - episode 0 711ver."
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 105143,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE STAMPEDE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21831,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Heart of Gold"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 96427,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Loguetown-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 30013,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "ONE PIECE"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 15323,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Nami - Koukaishi no Namida to Nakama no Kizuna"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 2107,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 19123,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Merry - Mou Hitori no Nakama no Monogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 35114,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101918,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Sorajima"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 102533,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "One Piece Party"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 103252,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Shokugeki no Sanji"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 3848,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Episode of Chopper Plus - Fuyu ni Saku, Kiseki no Sakura"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 96427,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Loguetown-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 44414,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE Log Book Omake"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 41926,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Jump Super Stars"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 47152,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "ONE PIECE: STRONG WORLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 105234,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Taose! Kaizoku Ganzack"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 82353,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Chopperman"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 53251,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Chopperman: Yuke Yuke! Minna no Chopper-sensei"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 30881,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "CROSS EPOCH"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 99302,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of East Blue - Luffy to 4-nin no Nakama no Daibouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 30793,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "WANTED! Oda Eiichiro Tanpenshuu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 106572,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 55146,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "ONE PIECE x Toriko"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110232,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Koby ni no Kobiyama Urifutatsu Nagi no Oohihou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110233,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Koisuru ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110258,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "CHIN PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110259,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "CHIN PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 104664,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel A"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110409,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Fischer's x ONE PIECE: 7-tsunagi no Daihihou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 110715,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE Gakuen!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 113686,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel HEROINES"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 117802,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE episode A"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 119425,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel LAW"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 125826,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Monsters"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 128291,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel Mugiwara Stories"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 128292,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Gekijouban ONE PIECE: STAMPEDE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 134184,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 138283,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Vivi no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 110450,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Roronoa Zoro, Umi ni Chiru"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 146516,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Nami vs Kalifa"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 154266,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "One Piece 1000-wa Kinen! Tokubetsu Bangai-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 466,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Taose! Kaizoku Ganzack"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 75757,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Shokugeki no Souma"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 171630,
+                            "type": "ANIME",
+                            "format": null,
+                            "title": {
+                              "userPreferred": "THE ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 177475,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "ONE PIECE×KAWAISOUNI! Kono Boushi wo Omae ni Azukeru"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 183423,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Gyojin Tou-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 183727,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Ore no Keikaku wa Zettai ni Kuruwanai!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 184804,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Heya Sagashi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 188120,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel LAW: Kikoku no Toki"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 101918,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Sorajima"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 8740,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: STRONG WORLD - EPISODE:0"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 4155,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: STRONG WORLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 47152,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "ONE PIECE: STRONG WORLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 105143,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE STAMPEDE"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21335,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: GOLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 128292,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Gekijouban ONE PIECE: STAMPEDE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 102639,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Nissan SERENA x One Piece: Sennyuu Sauzando Sanii-gou"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 106492,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Kyutai Panic Adventure!"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 971,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Astro Boy Tetsuwan Atom"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 813,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 107256,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Kyutai Panic Adventure Returns!!!"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 106572,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 2107,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 107110,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Cry heart"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 3848,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE THE MOVIE: Episode of Chopper Plus - Fuyu ni Saku, Kiseki no Sakura"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 107256,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Kyutai Panic Adventure Returns!!!"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 106492,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Kyutai Panic Adventure!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 813,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 3545,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Kochira Katsushikaku Kameari Kouenmae Hashutsujo (TV)"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 2385,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken - Jango no Dance Carnival"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 460,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Nejimaki-jima no Bouken"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 101099,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "HUNGRY DAYS: Aoharu ka yo."
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 2225,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Alps no Shoujo Heidi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 2406,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Sazae-san"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 512,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Majo no Takkyuubin"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SPIN_OFF",
+                          "node": {
+                            "id": 113308,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Kinen Satsuei"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21880,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: GOLD - episode 0 711ver."
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21831,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Heart of Gold"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21335,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "ONE PIECE FILM: GOLD"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 5252,
+                    "type": "ANIME",
+                    "format": "OVA",
+                    "title": {
+                      "userPreferred": "ONE PIECE: ROMANCE DAWN STORY"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 35114,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 30793,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "WANTED! Oda Eiichiro Tanpenshuu"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 35114,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 134186,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Kami kara Mirai no Present"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 134185,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Ikki Yakou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 125826,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Monsters"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 134184,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 147146,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "WANTED!"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 113308,
+                    "type": "ANIME",
+                    "format": "MUSIC",
+                    "title": {
+                      "userPreferred": "Kinen Satsuei"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 101099,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "HUNGRY DAYS: Aoharu ka yo."
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 114761,
+                    "type": "ANIME",
+                    "format": "MUSIC",
+                    "title": {
+                      "userPreferred": "A-RA-SHI : Reborn"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 10033,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Toriko"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 10074,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Toriko 3D: Kaimaku Gourmet Adventure!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 37887,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Toriko"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 17699,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Toriko Movie: Bishokushin no Special Menu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6941,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Toriko: Jump Super Anime Tour 2009 Special"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 11787,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Toriko: Barbarian Ivy wo Hokaku Seyo!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 813,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Dragon Ball Z"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 223,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 225,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball GT"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30042,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Dragon Ball"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 894,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Ora no Gohan wo Kaese!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 895,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Konoyo de Ichiban Tsuyoi Yatsu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 896,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Chikyuu Marugoto Chou Kessen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 897,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Super Saiyajin da Son Goku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 898,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Tobikkiri no Saikyou Tai Saikyou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 899,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Gekitotsu!! 100-oku Power no Senshi-tachi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 900,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Kyokugen Battle!! Sandai Super Saiyajin"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 901,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Moetsukiro!! Nessen - Ressen - Chou Gekisen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 902,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Ginga Girigiri!! Bucchigiri no Sugoi Yatsu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 903,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Kiken na Futari! Super Senshi wa Nemurenai"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 904,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Super Senshi Gekiha!! Katsu no wa Ore da"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 905,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Fukkatsu no Fusion!! Goku to Vegeta"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 906,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Ryuuken Bakuhatsu!! Goku ga Yaraneba Dare ga Yaru"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 984,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Saiya-jin Zetsumetsu Keikaku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 985,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Zetsubou e no Hankou!! Nokosareta Chousenshi - Gohan to Trunks"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 5152,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball: Ossu! Kaette Kita Son Goku to Nakama-tachi!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 6714,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Atsumare! Goku's World"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 12231,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball: Episode of Bardock"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 14837,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Kami to Kami"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 6033,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Kai"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 20635,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Kai (2014)"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 20778,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Fukkatsu no \"F\""
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21175,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Super"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 102431,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: The Real 4-D"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 106492,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Kyutai Panic Adventure!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 107256,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Kyutai Panic Adventure Returns!!!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 10017,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Dragon Ball: Super Saiya-jin Zetsumetsu Keikaku"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 986,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Tatta Hitori no Saishuu Kessen - Freeza ni Idonda Z Senshi Son Goku no Chi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 138864,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Dragon Ball Z: Kyokugen Battle!! Sandai Super Saiyajin Special"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 167496,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Kiseki Zenkai! Z Power no Otoko-tachi!"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 170083,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball DAIMA"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 206814,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Dragon Ball Super: Beerus"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 126649,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Tokyo One Piece Tower: Tongari Shima no Dai Hihou"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 134184,
+                    "type": "MANGA",
+                    "format": "ONE_SHOT",
+                    "title": {
+                      "userPreferred": "Romance Dawn"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 30793,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "WANTED! Oda Eiichiro Tanpenshuu"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 35114,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Romance Dawn"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 141902,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "ONE PIECE FILM: RED"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153959,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Shin Jidai"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153964,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Watashi wa Saikyou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153966,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Gyakkou"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153973,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Utakata Lullaby"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153982,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Sekai no Tsuzuki"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 153986,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Tot Musica"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 154001,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Kaze no Yukue"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 143293,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "One Piece: Annecy Festival 60th Anniversary"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 147996,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Dragon Ball: Annecy Festival 60th Anniversary"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "PREQUEL",
+                  "node": {
+                    "id": 167404,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "MONSTERS: Ippaku Sanjou Hiryuu Jigoku"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 125826,
+                            "type": "MANGA",
+                            "format": "ONE_SHOT",
+                            "title": {
+                              "userPreferred": "Monsters"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 171630,
+                    "type": "ANIME",
+                    "format": null,
+                    "title": {
+                      "userPreferred": "THE ONE PIECE"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 177475,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "ONE PIECE×KAWAISOUNI! Kono Boushi wo Omae ni Azukeru"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 182469,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE FAN LETTER"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 128291,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel Mugiwara Stories"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 183423,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE: Gyojin Tou-hen"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 183423,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Gyojin Tou-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 30013,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 182469,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "ONE PIECE FAN LETTER"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 187225,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "LOS ANGELES LAKERS x ONE PIECE"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 188668,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Koisuru ONE PIECE"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 110233,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Koisuru ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 197179,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Koisuru ONE PIECE: ONE PIECE DAY'25 Zenyasai Tokubetsu-hen"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 197178,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE HEROINES"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 113686,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "ONE PIECE novel HEROINES"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 187380,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "ONE PIECE: Original Episode/Luffy, Law"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SPIN_OFF",
+                  "node": {
+                    "id": 204432,
+                    "type": "ANIME",
+                    "format": "TV_SHORT",
+                    "title": {
+                      "userPreferred": "CHOPPER's"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "ONE PIECE"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

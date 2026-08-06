@@ -12,7 +12,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:franchise": "npx tsx src/scripts/test-franchise.ts"
+    "test:franchise": "npx tsx src/scripts/test-franchise.ts",
+    "record:fixtures": "npx tsx src/scripts/record-fixtures.ts"
   },
   "dependencies": {
     "lucide-react": "^1.28.0",

@@ -1,0 +1,1490 @@
+{
+  "requestedIds": [
+    5081,
+    11597,
+    9260,
+    21399
+  ],
+  "response": {
+    "data": {
+      "Page": {
+        "media": [
+          {
+            "id": 5081,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "FINISHED",
+            "episodes": 15,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 82,
+            "title": {
+              "userPreferred": "Bakemonogatari",
+              "english": "Bakemonogatari",
+              "romaji": "Bakemonogatari",
+              "native": "化物語"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx5081-9GocceQ5Z865.jpg"
+            },
+            "startDate": {
+              "year": 2009,
+              "month": 7,
+              "day": 3
+            },
+            "endDate": {
+              "year": 2010,
+              "month": 6,
+              "day": 25
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "PREQUEL",
+                  "node": {
+                    "id": 15689,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Nekomonogatari (Kuro)"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143704,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nekomonogatari: Kuro"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 11597,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Nisemonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 17074,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Monogatari Series: Second Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 21520,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Koyomimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 95265,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nisemonogatari Anime Complete Guidebook"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 102859,
+                            "type": "ANIME",
+                            "format": "MUSIC",
+                            "title": {
+                              "userPreferred": "Naisho no Hanashi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143703,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 44893,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Bakemonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 181463,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Mijikanamonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21520,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Koyomimonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 17074,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Monogatari Series: Second Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 20918,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Tsukimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143743,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Koyomimonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 106495,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Nisekoimonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 18897,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisekoi"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 54499,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Bakemonogatari Anime Complete Guidebook"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 101311,
+                    "type": "MANGA",
+                    "format": "MANGA",
+                    "title": {
+                      "userPreferred": "Bakemonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 44893,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143663,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari PV"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143704,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nekomonogatari: Kuro"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 53751,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nekomonogatari: Shiro"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 54499,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari Anime Complete Guidebook"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143703,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ALTERNATIVE",
+                  "node": {
+                    "id": 143663,
+                    "type": "ANIME",
+                    "format": "SPECIAL",
+                    "title": {
+                      "userPreferred": "Bakemonogatari PV"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 9260,
+            "type": "ANIME",
+            "format": "MOVIE",
+            "status": "FINISHED",
+            "episodes": 1,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 83,
+            "title": {
+              "userPreferred": "Kizumonogatari I: Tekketsu-hen",
+              "english": "Kizumonogatari Part 1: Tekketsu",
+              "romaji": "Kizumonogatari I: Tekketsu-hen",
+              "native": "傷物語〈Ⅰ鉄血篇〉"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx9260-cl7sczYOpTeW.png"
+            },
+            "startDate": {
+              "year": 2016,
+              "month": 1,
+              "day": 8
+            },
+            "endDate": {
+              "year": 2016,
+              "month": 1,
+              "day": 8
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 21399,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 9260,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SUMMARY",
+                          "node": {
+                            "id": 181970,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 143701,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Kizumonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 9260,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 44893,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 143703,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 181970,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 181970,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 9260,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 11597,
+            "type": "ANIME",
+            "format": "TV",
+            "status": "FINISHED",
+            "episodes": 11,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 79,
+            "title": {
+              "userPreferred": "Nisemonogatari",
+              "english": "Nisemonogatari",
+              "romaji": "Nisemonogatari",
+              "native": "偽物語"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx11597-x2vd4KSHcI1S.jpg"
+            },
+            "startDate": {
+              "year": 2012,
+              "month": 1,
+              "day": 8
+            },
+            "endDate": {
+              "year": 2012,
+              "month": 3,
+              "day": 18
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "PREQUEL",
+                  "node": {
+                    "id": 5081,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Bakemonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 15689,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nekomonogatari (Kuro)"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 44893,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 21520,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Koyomimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "OTHER",
+                          "node": {
+                            "id": 106495,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Nisekoimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 54499,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari Anime Complete Guidebook"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ALTERNATIVE",
+                          "node": {
+                            "id": 143663,
+                            "type": "ANIME",
+                            "format": "SPECIAL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari PV"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 17074,
+                    "type": "ANIME",
+                    "format": "TV",
+                    "title": {
+                      "userPreferred": "Monogatari Series: Second Season"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 53751,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nekomonogatari: Shiro"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 21520,
+                            "type": "ANIME",
+                            "format": "ONA",
+                            "title": {
+                              "userPreferred": "Koyomimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SIDE_STORY",
+                          "node": {
+                            "id": 104434,
+                            "type": "ANIME",
+                            "format": "OVA",
+                            "title": {
+                              "userPreferred": "Koyomi History"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21262,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Owarimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143720,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kabukimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143722,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Otorimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143724,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Onimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143726,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Koimonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SIDE_STORY",
+                  "node": {
+                    "id": 21520,
+                    "type": "ANIME",
+                    "format": "ONA",
+                    "title": {
+                      "userPreferred": "Koyomimonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 5081,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 17074,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Monogatari Series: Second Season"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 20918,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Tsukimonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143743,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Koyomimonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "CHARACTER",
+                  "node": {
+                    "id": 95265,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Nisemonogatari Anime Complete Guidebook"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "CHARACTER",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "OTHER",
+                  "node": {
+                    "id": 102859,
+                    "type": "ANIME",
+                    "format": "MUSIC",
+                    "title": {
+                      "userPreferred": "Naisho no Hanashi"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 143703,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Nisemonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 11597,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 143704,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nekomonogatari: Kuro"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": 21399,
+            "type": "ANIME",
+            "format": "MOVIE",
+            "status": "FINISHED",
+            "episodes": 1,
+            "chapters": null,
+            "volumes": null,
+            "averageScore": 85,
+            "title": {
+              "userPreferred": "Kizumonogatari II: Nekketsu-hen",
+              "english": "Kizumonogatari Part 2: Nekketsu",
+              "romaji": "Kizumonogatari II: Nekketsu-hen",
+              "native": "傷物語〈Ⅱ熱血篇〉"
+            },
+            "coverImage": {
+              "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21399-VTAdAqc8u5AE.png"
+            },
+            "startDate": {
+              "year": 2016,
+              "month": 8,
+              "day": 19
+            },
+            "endDate": {
+              "year": 2016,
+              "month": 8,
+              "day": 19
+            },
+            "nextAiringEpisode": null,
+            "relations": {
+              "edges": [
+                {
+                  "relationType": "PREQUEL",
+                  "node": {
+                    "id": 9260,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SUMMARY",
+                          "node": {
+                            "id": 181970,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SEQUEL",
+                  "node": {
+                    "id": 21400,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 15689,
+                            "type": "ANIME",
+                            "format": "TV",
+                            "title": {
+                              "userPreferred": "Nekomonogatari (Kuro)"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SUMMARY",
+                          "node": {
+                            "id": 181970,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "ADAPTATION",
+                  "node": {
+                    "id": 143701,
+                    "type": "MANGA",
+                    "format": "NOVEL",
+                    "title": {
+                      "userPreferred": "Kizumonogatari"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 9260,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 101311,
+                            "type": "MANGA",
+                            "format": "MANGA",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PREQUEL",
+                          "node": {
+                            "id": 44893,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Bakemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "SEQUEL",
+                          "node": {
+                            "id": 143703,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Nisemonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 181970,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "relationType": "SUMMARY",
+                  "node": {
+                    "id": 181970,
+                    "type": "ANIME",
+                    "format": "MOVIE",
+                    "title": {
+                      "userPreferred": "Kizumonogatari: Koyomi Vamp"
+                    },
+                    "relations": {
+                      "edges": [
+                        {
+                          "relationType": "ADAPTATION",
+                          "node": {
+                            "id": 143701,
+                            "type": "MANGA",
+                            "format": "NOVEL",
+                            "title": {
+                              "userPreferred": "Kizumonogatari"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 9260,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari I: Tekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21399,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari II: Nekketsu-hen"
+                            }
+                          }
+                        },
+                        {
+                          "relationType": "PARENT",
+                          "node": {
+                            "id": 21400,
+                            "type": "ANIME",
+                            "format": "MOVIE",
+                            "title": {
+                              "userPreferred": "Kizumonogatari III: Reiketsu-hen"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
