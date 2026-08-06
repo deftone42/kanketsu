@@ -1,33 +1,54 @@
-import { Anime } from "./anime";
-import { Relation } from "./relation";
+import { AnimeStatus } from "./anime";
+import {
+  AnimeWork,
+  FranchiseWork,
+  SourceWork,
+  WorkStub,
+} from "./franchise-work";
+import { RelationType } from "./relation";
 
-/**
- * Represents a complete anime franchise collected via graph traversal.
- *
- * A franchise contains:
- * - A root ID (the starting anime the user searched for)
- * - All nodes (every anime entry connected to the root, all formats)
- * - All edges (every relation edge discovered during traversal)
- * - The main timeline (ordered PREQUEL/SEQUEL chain)
- */
-export interface Franchise {
-  /** The AniList ID of the anime the user started from. */
-  rootId: number;
-  /** All anime entries in the franchise, keyed by ID for O(1) lookup. */
-  nodes: Map<number, Anime>;
-  /** All relation edges discovered during traversal (source → target). */
-  edges: FranchiseEdge[];
-  /** Ordered list of anime forming the main timeline (PREQUEL/SEQUEL chain). */
-  mainTimeline: Anime[];
+/** A directed relation between two works, hydrated or not. */
+export interface FranchiseEdge {
+  sourceId: number;
+  targetId: number;
+  relationType: RelationType;
 }
 
-/**
- * A directed relation edge within a franchise graph.
- * Source is the anime that owns this relation, target is the related anime.
- */
-export interface FranchiseEdge {
-  /** The AniList ID of the source anime. */
-  sourceId: number;
-  /** The relation edge data. */
-  relation: Relation;
+/** One batched repository response: hydrated works plus discovered topology. */
+export interface WorkBatch {
+  works: FranchiseWork[];
+  edges: FranchiseEdge[];
+  stubs: WorkStub[];
+}
+
+/** Whether the franchise's written source has concluded. */
+export type FranchiseSourceStatus = "FINISHED" | "ONGOING" | "UNKNOWN";
+
+/** The only input the watching score consumes. */
+export interface FranchiseSummary {
+  startYear: number | null;
+  endYear: number | null;
+  totalEpisodes: number;
+  averageScore: number | null;
+  status: AnimeStatus;
+  nextAiringEpisode: AnimeWork["nextAiringEpisode"];
+  sourceStatus: FranchiseSourceStatus;
+}
+
+/** A complete franchise in our own vocabulary. Nothing AniList-shaped here. */
+export interface Franchise {
+  /** The work the user selected — the entry the UI highlights. */
+  rootId: number;
+  nodes: Map<number, FranchiseWork>;
+  edges: FranchiseEdge[];
+  /** PREQUEL/SEQUEL chain in release order. */
+  timeline: AnimeWork[];
+  /** Movies, OVAs, specials and side stories outside the timeline. */
+  related: AnimeWork[];
+  sources: SourceWork[];
+  summary: FranchiseSummary;
+  /** False when traversal stopped early; the franchise is partial. */
+  isComplete: boolean;
+  /** Works known to exist that were never hydrated. */
+  unresolvedIds: number[];
 }
