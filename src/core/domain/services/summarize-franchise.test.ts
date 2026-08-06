@@ -199,6 +199,34 @@ describe("summarizeFranchise", () => {
     expect(summary.sourceStatus).toBe("FINISHED");
   });
 
+  it("reports the source format so the UI can name it", () => {
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1 })],
+      [],
+      [sourceWork({ id: 2, format: "MANGA" })],
+    );
+    expect(summary.sourceFormat).toBe("MANGA");
+  });
+
+  it("picks the predominant format when sources are mixed", () => {
+    // Monogatari adapts many light novels plus a stray manga.
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1 })],
+      [],
+      [
+        sourceWork({ id: 2, format: "NOVEL" }),
+        sourceWork({ id: 3, format: "NOVEL" }),
+        sourceWork({ id: 4, format: "MANGA" }),
+      ],
+    );
+    expect(summary.sourceFormat).toBe("NOVEL");
+  });
+
+  it("has no source format when the franchise is an original work", () => {
+    const summary = summarizeFranchise([animeWork({ id: 1 })], [], []);
+    expect(summary.sourceFormat).toBeNull();
+  });
+
   it("reports ONGOING when any source is still publishing", () => {
     const summary = summarizeFranchise(
       [animeWork({ id: 1 })],

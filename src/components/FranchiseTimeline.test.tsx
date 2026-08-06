@@ -27,7 +27,7 @@ function work(
 const renderTimeline = (timeline: AnimeWork[], selectedId: number) =>
   render(<FranchiseTimeline timeline={timeline} selectedId={selectedId} />);
 
-const strip = () => screen.queryByRole("region", { name: "Franchise timeline" });
+const strip = () => screen.queryByRole("region", { name: "Series timeline" });
 const entries = () => screen.getAllByRole("listitem");
 const selectedEntries = () =>
   screen.queryAllByRole("listitem", { current: true });

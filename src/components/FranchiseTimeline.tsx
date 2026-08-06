@@ -38,7 +38,7 @@ export function FranchiseTimeline({
   if (timeline.length < 2) return null;
 
   return (
-    <section aria-label="Franchise timeline" className="space-y-3">
+    <section aria-label="Series timeline" className="space-y-3">
       <h3 className="text-xs uppercase tracking-wider font-bold text-gray-400">
         Watch order
       </h3>

@@ -6,7 +6,7 @@ import { SeasonCard } from "@/components/SeasonCard";
 import { FranchiseCard } from "@/components/FranchiseCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
-import { Clock, Sparkles, Loader2 } from "lucide-react";
+import { Clock, Loader2 } from "lucide-react";
 
 export default function Home() {
   const {
@@ -37,11 +37,6 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto w-full space-y-10 relative z-10 my-auto">
         <header className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
-            AniList Powered Decision Engine
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white flex items-center justify-center gap-3">
             <Clock className="w-10 h-10 sm:w-14 sm:h-14 text-indigo-500" />
             Ani<span className="text-indigo-500">Time</span>
@@ -82,9 +77,7 @@ export default function Home() {
             role="alert"
             className="text-center py-8 space-y-2 text-rose-300/90"
           >
-            <p className="text-sm font-semibold">
-              Could not load this franchise.
-            </p>
+            <p className="text-sm font-semibold">Could not load this series.</p>
             <p className="text-xs text-gray-500">
               AniList may be rate-limiting us. Try again in a moment.
             </p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { FranchiseSummary } from "@/core/domain/models/franchise";
+import { SourceFormat } from "@/core/domain/models/franchise-work";
 import { ScoreLevel, TimingScore } from "@/core/domain/models/score";
 import { BookCheck, Clock, Film, PlayCircle, Star, Tv } from "lucide-react";
 
@@ -49,11 +50,26 @@ const LEVEL_STYLES: Record<
   },
 };
 
-const SOURCE_LABELS: Record<FranchiseSummary["sourceStatus"], string | null> = {
-  FINISHED: "Source finished",
-  ONGOING: "Source ongoing",
-  UNKNOWN: null,
+const SOURCE_FORMAT_NAMES: Record<SourceFormat, string> = {
+  MANGA: "Manga",
+  NOVEL: "Novel",
+  ONE_SHOT: "One-shot",
 };
+
+/**
+ * "Manga finished" tells the reader more than "Source finished", and whether
+ * the source has concluded is the strongest hint that more anime is coming.
+ */
+function sourceLabelOf(summary: FranchiseSummary): string | null {
+  if (summary.sourceStatus === "UNKNOWN" || summary.sourceFormat === null) {
+    return null;
+  }
+
+  const name = SOURCE_FORMAT_NAMES[summary.sourceFormat];
+  return summary.sourceStatus === "FINISHED"
+    ? `${name} finished`
+    : `${name} ongoing`;
+}
 
 function formatTimeRemaining(seconds: number): string {
   const days = Math.floor(seconds / 86400);
@@ -93,16 +109,16 @@ export function FranchiseCard({
 }: FranchiseCardProps) {
   const styles =
     LEVEL_STYLES[watchingScore.level] || LEVEL_STYLES.NOT_GOOD_TIME;
-  const sourceLabel = SOURCE_LABELS[summary.sourceStatus];
+  const sourceLabel = sourceLabelOf(summary);
 
   return (
     <section
-      aria-label="Franchise summary"
+      aria-label="Series summary"
       className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-4"
     >
       <div className="space-y-2">
         <p className="text-xs uppercase tracking-wider font-bold text-gray-500">
-          Franchise
+          Series
         </p>
 
         <h2 className="text-base font-bold text-white leading-tight">{name}</h2>

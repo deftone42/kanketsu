@@ -13,6 +13,7 @@ function summary(overrides: Partial<FranchiseSummary> = {}): FranchiseSummary {
     status: "FINISHED",
     nextAiringEpisode: null,
     sourceStatus: "FINISHED",
+    sourceFormat: "MANGA",
     ...overrides,
   };
 }
@@ -45,7 +46,7 @@ const renderFranchise = (
     />,
   );
 
-const card = () => screen.getByRole("region", { name: "Franchise summary" });
+const card = () => screen.getByRole("region", { name: "Series summary" });
 
 describe("FranchiseCard", () => {
   it("names itself as a landmark", () => {
@@ -118,34 +119,36 @@ describe("FranchiseCard", () => {
     expect(screen.getByText("3 seasons")).toBeInTheDocument();
   });
 
-  it("reports that the source work has finished", () => {
+  it("names the source by its format when the manga has finished", () => {
     renderFranchise(
-      "Franchise",
-      summary({ sourceStatus: "FINISHED" }),
+      "Series",
+      summary({ sourceStatus: "FINISHED", sourceFormat: "MANGA" }),
       timingScore(),
     );
 
-    expect(screen.getByText("Source finished")).toBeInTheDocument();
+    expect(screen.getByText("Manga finished")).toBeInTheDocument();
   });
 
-  it("reports that the source work is still running", () => {
+  it("names a light novel source rather than calling it a manga", () => {
     renderFranchise(
-      "Franchise",
-      summary({ sourceStatus: "ONGOING" }),
+      "Series",
+      summary({ sourceStatus: "ONGOING", sourceFormat: "NOVEL" }),
       timingScore(),
     );
 
-    expect(screen.getByText("Source ongoing")).toBeInTheDocument();
+    expect(screen.getByText("Novel ongoing")).toBeInTheDocument();
   });
 
-  it("says nothing about the source when there is none", () => {
+  it("says nothing about the source when the series is an original work", () => {
     renderFranchise(
-      "Franchise",
-      summary({ sourceStatus: "UNKNOWN" }),
+      "Series",
+      summary({ sourceStatus: "UNKNOWN", sourceFormat: null }),
       timingScore(),
     );
 
-    expect(screen.queryByText(/^Source /)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/^(Manga|Novel|One-shot|Source) /),
+    ).not.toBeInTheDocument();
   });
 
   it("shows the timing score verdict", () => {

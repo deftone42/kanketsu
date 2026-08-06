@@ -11,6 +11,7 @@ function summary(overrides: Partial<FranchiseSummary> = {}): FranchiseSummary {
     status: "FINISHED",
     nextAiringEpisode: null,
     sourceStatus: "UNKNOWN",
+    sourceFormat: null,
     ...overrides,
   };
 }
