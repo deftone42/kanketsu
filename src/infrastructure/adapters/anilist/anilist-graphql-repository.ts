@@ -100,6 +100,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const response = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
         headers: {
+          "User-Agent": "AniTime/1.0",
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -143,7 +144,10 @@ export class AniListGraphQLRepository implements AnimeRepository {
     try {
       const res = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "User-Agent": "AniTime/1.0",
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           query: MEDIA_BATCH_QUERY,
           variables: { ids: idsToFetch },
@@ -302,6 +306,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
           native: rootMedia.title?.native || null,
         },
         coverImage: rootMedia.coverImage?.large || "",
+        format: (rootMedia.format ?? null) as AnimeFormat | null,
         releaseYear: rootMedia.startDate?.year || null,
         endDate: latestMedia?.endDate?.year
           ? { year: latestMedia.endDate.year }
@@ -330,6 +335,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const response = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
         headers: {
+          "User-Agent": "AniTime/1.0",
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -361,6 +367,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
           native: media.title?.native || null,
         },
         coverImage: media.coverImage?.large || "",
+        format: (media.format ?? null) as AnimeFormat | null,
         releaseYear: media.startDate?.year || null,
         endDate: media.endDate?.year ? { year: media.endDate.year } : null,
         userScore: media.averageScore ?? null,

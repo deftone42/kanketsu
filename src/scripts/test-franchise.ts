@@ -48,12 +48,19 @@ async function main(): Promise<void> {
   console.log("               ALL NODES                  ");
   console.log("───────────────────────────────────────────\n");
 
-  const sortedNodeIds = Array.from(franchise.nodes.keys()).sort((a, b) => a - b);
+  const sortedNodeIds = Array.from(franchise.nodes.keys()).sort(
+    (a, b) => a - b,
+  );
   for (const nodeId of sortedNodeIds) {
     const anime = franchise.nodes.get(nodeId)!;
     const year = anime.releaseYear ?? "????";
-    const format = anime.relations.length > 0 ? `[${anime.relations.length} relations]` : "[no relations]";
-    console.log(`  [${nodeId}] ${anime.title.userPreferred} (${year}) ${format}`);
+    const format =
+      anime.relations.length > 0
+        ? `[${anime.relations.length} relations]`
+        : "[no relations]";
+    console.log(
+      `  [${nodeId}] ${anime.title.userPreferred} (${year}) ${format}`,
+    );
   }
 
   // Print all edges
@@ -63,7 +70,8 @@ async function main(): Promise<void> {
 
   for (const edge of franchise.edges) {
     const sourceAnime = franchise.nodes.get(edge.sourceId);
-    const sourceTitle = sourceAnime?.title.userPreferred ?? `ID:${edge.sourceId}`;
+    const sourceTitle =
+      sourceAnime?.title.userPreferred ?? `ID:${edge.sourceId}`;
     const targetTitle = edge.relation.title || `ID:${edge.relation.id}`;
     const format = edge.relation.format ?? "????";
     console.log(
@@ -84,7 +92,9 @@ async function main(): Promise<void> {
       const anime = franchise.mainTimeline[i]!;
       const year = anime.releaseYear ?? "????";
       const arrow = i < franchise.mainTimeline.length - 1 ? " →" : "";
-      console.log(`  ${i + 1}. [${anime.id}] ${anime.title.userPreferred} (${year})${arrow}`);
+      console.log(
+        `  ${i + 1}. [${anime.id}] ${anime.title.userPreferred} (${year})${arrow}`,
+      );
     }
   }
 

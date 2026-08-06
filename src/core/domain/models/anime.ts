@@ -8,8 +8,8 @@ export type AnimeFormat =
 
 export type AnimeStatus =
   | "FINISHED"
-  | "ONGOING" // Temporada en curso
-  | "NEW_SEASON_COMING" // Nueva temporada en el horizonte
+  | "ONGOING"
+  | "NEW_SEASON_COMING"
   | "NOT_RELEASED"
   | "CANCELLED"
   | "HIATUS";
@@ -24,14 +24,11 @@ export interface FranchiseMediaItem {
   releaseYear: number | null;
 }
 
-// Import Relation for use in the Anime interface
 import type { Relation } from "./relation";
 
-// Re-export Relation from its own module for convenience
 export type { Relation, RelationType } from "./relation";
 
 export interface Anime {
-  // 1. Información común (Anclada a la primera temporada / Nodo raíz)
   id: number;
   title: {
     userPreferred: string;
@@ -40,25 +37,18 @@ export interface Anime {
     native?: string | null;
   };
   coverImage: string;
+  format: AnimeFormat | null;
   releaseYear: number | null;
   endDate?: { year?: number | null } | null;
-
-  // 2. Métricas globales de la franquicia (Para el evaluador)
   userScore: number | null;
   status: AnimeStatus;
-
-  // Próximo episodio con el título de la temporada específica al que pertenece
   nextAiringEpisode?: {
     episode: number;
     timeUntilAiringSeconds: number;
     seasonTitle: string;
   } | null;
-
-  // 3. Estructura de la franquicia
   seasons: FranchiseMediaItem[];
   movies: FranchiseMediaItem[];
   totalEpisodes: number;
-
-  // 4. Relation graph edges (all relation types from this node)
   relations: Relation[];
 }
