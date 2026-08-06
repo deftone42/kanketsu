@@ -103,6 +103,12 @@ export class FranchiseCollector {
         try {
           const batch = await this.repository.getWorksByIds(adjacent);
           batch.works.forEach((work) => nodes.set(work.id, work));
+          batch.edges.forEach((edge) =>
+            edges.set(
+              `${edge.sourceId}:${edge.relationType}:${edge.targetId}`,
+              edge,
+            ),
+          );
           adjacent.forEach((id) => requested.add(id));
         } catch (error) {
           if (!(error instanceof RepositoryError)) throw error;
@@ -160,6 +166,43 @@ export class FranchiseCollector {
     return [...next];
   }
 
+  /**
+   * Ids reachable from a starting work along followed relations, in either
+   * direction — a chain is the same chain whether AniList models the link as
+   * the sequel's PREQUEL or the prequel's SEQUEL.
+   */
+  private reachableFrom(
+    rootId: number,
+    edges: Map<string, FranchiseEdge>,
+    followTypes: ReadonlySet<RelationType>,
+  ): Set<number> {
+    const followed = [...edges.values()].filter((edge) =>
+      followTypes.has(edge.relationType),
+    );
+
+    const reachable = new Set<number>([rootId]);
+    const queue: number[] = [rootId];
+
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+
+      for (const edge of followed) {
+        const neighbour =
+          edge.sourceId === current
+            ? edge.targetId
+            : edge.targetId === current
+              ? edge.sourceId
+              : null;
+
+        if (neighbour === null || reachable.has(neighbour)) continue;
+        reachable.add(neighbour);
+        queue.push(neighbour);
+      }
+    }
+
+    return reachable;
+  }
+
   /** Everything one edge away that traversal never asked for. */
   private adjacentIds(
     edges: Map<string, FranchiseEdge>,
@@ -173,9 +216,14 @@ export class FranchiseCollector {
   }
 
   /**
-   * The timeline: works joined by followed relations, restricted to timeline
-   * formats, ordered by release date. The selected work is always present so
-   * the UI can highlight it even when its format is excluded.
+   * The timeline: the chain the selected work actually belongs to, restricted
+   * to timeline formats and ordered by release date. The selected work is
+   * always present so the UI can highlight it even when its format is excluded.
+   *
+   * Membership is *reachability from the root* along followed relations, not
+   * merely touching a followed edge. Franchises routinely contain self-contained
+   * sequel chains — recap movies, chibi shorts — that would otherwise merge into
+   * the main line despite connecting to it only through a SPIN_OFF or PARENT edge.
    */
   private buildTimeline(
     rootId: number,
@@ -184,13 +232,7 @@ export class FranchiseCollector {
     followTypes: ReadonlySet<RelationType>,
     timelineFormats: ReadonlySet<AnimeFormat>,
   ): AnimeWork[] {
-    const timelineIds = new Set<number>([rootId]);
-
-    for (const edge of edges.values()) {
-      if (!followTypes.has(edge.relationType)) continue;
-      timelineIds.add(edge.sourceId);
-      timelineIds.add(edge.targetId);
-    }
+    const timelineIds = this.reachableFrom(rootId, edges, followTypes);
 
     return [...timelineIds]
       .map((id) => nodes.get(id))

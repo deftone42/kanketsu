@@ -1,49 +1,40 @@
-// src/mocks/handlers.ts
 import { http, HttpResponse } from "msw";
+import attackOnTitan from "@/test/fixtures/anilist/attack-on-titan.json";
+
+interface GraphQLRequestBody {
+  query?: string;
+  variables?: { ids?: number[]; search?: string; id?: number };
+}
+
+/** Search results are small and stable; a literal is clearer than a fixture. */
+const SEARCH_RESPONSE = {
+  data: {
+    Page: {
+      media: [
+        {
+          id: 16498,
+          title: {
+            userPreferred: "Shingeki no Kyojin",
+            english: "Attack on Titan",
+            romaji: "Shingeki no Kyojin",
+          },
+          coverImage: { medium: "https://example.test/cover.jpg" },
+          startDate: { year: 2013 },
+          averageScore: 84,
+        },
+      ],
+    },
+  },
+};
 
 export const handlers = [
   http.post("https://graphql.anilist.co", async ({ request }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const body = (await request.json()) as any;
-    const { id } = body?.variables || {};
+    const body = (await request.json()) as GraphQLRequestBody;
 
-    if (id || body?.query?.includes("Media(")) {
-      return HttpResponse.json({
-        data: {
-          Media: {
-            id: 1,
-            title: { userPreferred: "One Piece" },
-            description: "Gol D. Roger was known as the Pirate King...",
-            coverImage: {
-              large:
-                "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx21-ELSYx3yMPcKM.jpg",
-            },
-            startDate: { year: 1999 },
-            averageScore: 88,
-            episodes: 1000,
-            status: "RELEASING",
-          },
-        },
-      });
+    if (body.query?.includes("id_in")) {
+      return HttpResponse.json(attackOnTitan.response);
     }
 
-    return HttpResponse.json({
-      data: {
-        Page: {
-          media: [
-            {
-              id: 1,
-              title: { userPreferred: "One Piece" },
-              coverImage: {
-                medium:
-                  "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx21-ELSYx3yMPcKM.jpg",
-              },
-              startDate: { year: 1999 },
-              averageScore: 88,
-            },
-          ],
-        },
-      },
-    });
+    return HttpResponse.json(SEARCH_RESPONSE);
   }),
 ];

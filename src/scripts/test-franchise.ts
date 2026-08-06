@@ -5,105 +5,115 @@
  *
  * Usage:
  *   npm run test:franchise -- --id=21        # One Piece
- *   npm run test:franchise -- --id=9183      # Gintama
+ *   npm run test:franchise -- --id=918       # Gintama
+ *   npm run test:franchise -- --id=16498     # Attack on Titan
  *
- * Hits the real AniList API, runs the FranchiseCollector BFS traversal,
- * and prints the full franchise tree + main timeline.
+ * Hits the real AniList API, runs the frontier-batched traversal, and
+ * prints the collected franchise. Note that 9183 is NOT Gintama — it is a
+ * dead id that AniList 404s, kept in the fixtures as a not-found scenario.
  */
 
 import { FranchiseCollector } from "../core/domain/services/franchise-collector";
 import { AniListGraphQLRepository } from "../infrastructure/adapters/anilist/anilist-graphql-repository";
 
-// Parse --id=X from command line arguments
 const args = process.argv.slice(2);
 const idArg = args.find((a) => a.startsWith("--id="));
-const id = idArg ? parseInt(idArg.split("=")[1] ?? "", 10) : 21; // Default: One Piece
+const id = idArg ? parseInt(idArg.split("=")[1] ?? "", 10) : 21;
 
 if (Number.isNaN(id) || id <= 0) {
   console.error("Invalid ID. Usage: npm run test:franchise -- --id=21");
   process.exit(1);
 }
 
+function heading(title: string): void {
+  console.log(`\n${"─".repeat(45)}`);
+  console.log(`  ${title}`);
+  console.log("─".repeat(45));
+}
+
 async function main(): Promise<void> {
-  console.log(`\n🔍 Fetching franchise for anime ID: ${id}\n`);
+  console.log(`\n🔍 Collecting franchise for anime ID: ${id}\n`);
 
-  const repo = new AniListGraphQLRepository();
-  const collector = new FranchiseCollector(repo);
+  const repository = new AniListGraphQLRepository();
+  const collector = new FranchiseCollector(repository);
 
+  const startedAt = Date.now();
   const franchise = await collector.collect(id);
+  const elapsedMs = Date.now() - startedAt;
 
-  console.log("═══════════════════════════════════════════");
-  console.log("          FRANCHISE COLLECTED              ");
-  console.log("═══════════════════════════════════════════\n");
-
-  console.log(`  Root ID:            ${franchise.rootId}`);
-  console.log(`  Total nodes:        ${franchise.nodes.size}`);
-  console.log(`  Total edges:        ${franchise.edges.length}`);
-  console.log(
-    `  Main timeline:      ${franchise.mainTimeline.length} entries\n`,
-  );
-
-  // Print all nodes
-  console.log("───────────────────────────────────────────");
-  console.log("               ALL NODES                  ");
-  console.log("───────────────────────────────────────────\n");
-
-  const sortedNodeIds = Array.from(franchise.nodes.keys()).sort(
-    (a, b) => a - b,
-  );
-  for (const nodeId of sortedNodeIds) {
-    const anime = franchise.nodes.get(nodeId)!;
-    const year = anime.releaseYear ?? "????";
-    const format =
-      anime.relations.length > 0
-        ? `[${anime.relations.length} relations]`
-        : "[no relations]";
-    console.log(
-      `  [${nodeId}] ${anime.title.userPreferred} (${year}) ${format}`,
-    );
+  console.log("═".repeat(45));
+  console.log("            FRANCHISE COLLECTED");
+  console.log("═".repeat(45));
+  console.log(`  Root ID:        ${franchise.rootId}`);
+  console.log(`  Nodes:          ${franchise.nodes.size}`);
+  console.log(`  Edges:          ${franchise.edges.length}`);
+  console.log(`  Timeline:       ${franchise.timeline.length}`);
+  console.log(`  Related:        ${franchise.related.length}`);
+  console.log(`  Sources:        ${franchise.sources.length}`);
+  console.log(`  Complete:       ${franchise.isComplete}`);
+  if (franchise.unresolvedIds.length > 0) {
+    console.log(`  Unresolved:     ${franchise.unresolvedIds.join(", ")}`);
   }
+  console.log(`  Elapsed:        ${elapsedMs}ms`);
 
-  // Print all edges
-  console.log("\n───────────────────────────────────────────");
-  console.log("               ALL EDGES                   ");
-  console.log("───────────────────────────────────────────\n");
-
-  for (const edge of franchise.edges) {
-    const sourceAnime = franchise.nodes.get(edge.sourceId);
-    const sourceTitle =
-      sourceAnime?.title.userPreferred ?? `ID:${edge.sourceId}`;
-    const targetTitle = edge.relation.title || `ID:${edge.relation.id}`;
-    const format = edge.relation.format ?? "????";
-    console.log(
-      `  ${sourceTitle} --${edge.relation.relationType}--> ${targetTitle} [${format}]`,
-    );
-  }
-
-  // Print main timeline
-  console.log("\n───────────────────────────────────────────");
-  console.log("          MAIN TIMELINE                   ");
-  console.log("    (PREQUEL/SEQUEL, ordered by year)     ");
-  console.log("───────────────────────────────────────────\n");
-
-  if (franchise.mainTimeline.length === 0) {
-    console.log("  (empty — no main timeline nodes found)");
+  heading("TIMELINE (release order)");
+  if (franchise.timeline.length === 0) {
+    console.log("  (empty)");
   } else {
-    for (let i = 0; i < franchise.mainTimeline.length; i++) {
-      const anime = franchise.mainTimeline[i]!;
-      const year = anime.releaseYear ?? "????";
-      const arrow = i < franchise.mainTimeline.length - 1 ? " →" : "";
+    franchise.timeline.forEach((work, index) => {
+      const { year, month, day } = work.startDate;
+      const date = year
+        ? `${year}-${String(month ?? 1).padStart(2, "0")}-${String(day ?? 1).padStart(2, "0")}`
+        : "unknown";
+      const marker = work.id === franchise.rootId ? " ← you picked this" : "";
       console.log(
-        `  ${i + 1}. [${anime.id}] ${anime.title.userPreferred} (${year})${arrow}`,
+        `  ${index + 1}. [${work.id}] ${work.title.userPreferred} (${date})${marker}`,
+      );
+    });
+  }
+
+  heading("SUMMARY (feeds the watching score)");
+  const { summary } = franchise;
+  console.log(`  Years:          ${summary.startYear ?? "?"} – ${summary.endYear ?? "?"}`);
+  console.log(`  Total episodes: ${summary.totalEpisodes}`);
+  console.log(`  Average score:  ${summary.averageScore ?? "n/a"}`);
+  console.log(`  Status:         ${summary.status}`);
+  console.log(`  Source status:  ${summary.sourceStatus}`);
+  if (summary.nextAiringEpisode) {
+    const days = Math.ceil(
+      summary.nextAiringEpisode.timeUntilAiringSeconds / 86400,
+    );
+    console.log(
+      `  Next episode:   ${summary.nextAiringEpisode.episode} of "${summary.nextAiringEpisode.seasonTitle}" in ${days}d`,
+    );
+  }
+
+  heading("RELATED (movies, OVAs, specials)");
+  if (franchise.related.length === 0) {
+    console.log("  (none)");
+  } else {
+    for (const work of franchise.related) {
+      console.log(
+        `  [${work.id}] ${work.title.userPreferred} (${work.format ?? "?"}, ${work.startDate.year ?? "?"})`,
       );
     }
   }
 
-  console.log("\n═══════════════════════════════════════════");
-  console.log("               DONE!                       ");
-  console.log("═══════════════════════════════════════════\n");
+  heading("SOURCES (manga, novels)");
+  if (franchise.sources.length === 0) {
+    console.log("  (none — original work)");
+  } else {
+    for (const work of franchise.sources) {
+      console.log(
+        `  [${work.id}] ${work.title.userPreferred} (${work.format}, ${work.status}, ${work.chapters ?? "?"} ch)`,
+      );
+    }
+  }
+
+  console.log(`\n${"═".repeat(45)}\n`);
 }
 
-main().catch((error) => {
+main().catch((error: unknown) => {
   console.error("\n❌ Error:", error);
   process.exit(1);
 });

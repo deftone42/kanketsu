@@ -140,6 +140,25 @@ describe("FranchiseCollector", () => {
     expect(franchise.summary.sourceStatus).toBe("ONGOING");
   });
 
+  it("excludes a sequel chain that is disconnected from the root", async () => {
+    // Attack on Titan's chibi shorts form their own PREQUEL/SEQUEL chain,
+    // reachable from nothing. They must not merge into the main timeline
+    // just because their internal edges are of a followed type.
+    const repo = new InMemoryAnimeRepository()
+      .addWork(anime(1, "Season 1", date(2013)))
+      .addWork(anime(2, "Season 2", date(2017)))
+      .addWork(anime(50, "Chibi Theater", date(2018), "SPECIAL"))
+      .addWork(anime(51, "Chibi Theater Part 2", date(2019), "SPECIAL"))
+      .addEdge(1, "SEQUEL", 2)
+      .addEdge(1, "SPIN_OFF", 50)
+      .addEdge(50, "SEQUEL", 51);
+
+    const franchise = await new FranchiseCollector(repo).collect(1);
+
+    expect(franchise.timeline.map((work) => work.id)).toEqual([1, 2]);
+    expect(franchise.related.map((work) => work.id)).toContain(50);
+  });
+
   it("survives a cycle", async () => {
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(1, "A", date(2010)))

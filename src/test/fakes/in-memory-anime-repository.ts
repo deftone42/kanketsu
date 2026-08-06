@@ -39,7 +39,8 @@ export class InMemoryAnimeRepository implements AnimeRepository {
     return this;
   }
 
-  async searchAnime(_query: string): Promise<AnimeSearchResult[]> {
+  /** Search is not exercised by collector tests. */
+  async searchAnime(): Promise<AnimeSearchResult[]> {
     return [];
   }
 

@@ -26,13 +26,16 @@ Node `>=22` is enforced via `.nvmrc` + `engines` with `engine-strict=true` (`.np
 
 Hexagonal, with a single port. Dependency direction: `app`/`components`/`hooks` → `core/ports` → `core/domain`, and `infrastructure` → `core/domain`. The domain imports nothing outside itself (no React, no Next, no fetch). `@/*` maps to `src/*`.
 
-**Port** — `src/core/ports/anime-repository.ts` declares three methods, and the distinction between the last two matters:
+**Port** — `src/core/ports/anime-repository.ts` declares two methods:
 
 - `searchAnime(query)` → lightweight `AnimeSearchResult[]` for the dropdown.
-- `getAnimeById(id)` → a **franchise-aggregated** `Anime`: the adapter recursively walks PREQUEL/SEQUEL edges itself and folds the whole franchise into one entity (`seasons`, `movies`, summed `totalEpisodes`, averaged `userScore`, franchise-level derived `status`). The returned `id`/`title` are the *earliest TV entry*, not necessarily the id you passed.
-- `getAnimeWithRelations(id)` → a **single** entry with raw `relations` edges and empty `seasons`/`movies`. Exists purely to feed `FranchiseCollector`'s traversal.
+- `getWorksByIds(ids)` → a batched `WorkBatch` of hydrated works plus discovered relation topology. Throws `RepositoryError` subclasses (`RateLimitedError`, `WorkNotFoundError`, `RepositoryUnavailableError`) — it never returns `null` for a failure, so a rate limit cannot be mistaken for a missing anime.
 
-**Two franchise implementations currently coexist.** `AniListGraphQLRepository.getAnimeById` does its own recursive batch fetch (`MEDIA_BATCH_QUERY`, `id_in`, 50/page) and is what the live UI uses. `src/core/domain/services/franchise-collector.ts` is the newer, tested, domain-level BFS (`FranchiseCollector`, depth-limited, cycle-safe, error-resilient, returns a `Franchise` graph of nodes + edges + `mainTimeline`) and is currently only exercised by its unit test and the `test:franchise` script. It is not wired into the UI yet — check which one a change belongs in before editing.
+**One franchise implementation.** `src/core/domain/services/franchise-collector.ts` (`FranchiseCollector`) is the single path: a frontier-batched traversal that fetches every unvisited work at the current depth in one request. It returns a `Franchise` — `timeline` (PREQUEL/SEQUEL chain in release order), `related` (movies, OVAs, specials), `sources` (manga/novels), `summary`, and `isComplete`/`unresolvedIds` when traversal stopped early. `rootId` is always the id you passed, so the UI can highlight the entry the user selected.
+
+Two AniList facts the batching depends on: the API shares **one ID space** across anime and manga (so omitting the `type` filter returns source works for free), and it rate-limits **per request, not per query complexity** (so `FRANCHISE_BATCH_QUERY` nests `relations` three deep at no cost). Nested nodes are *topology stubs* — they reveal ids for planning the next frontier and never become hydrated nodes.
+
+**Aggregation lives in the domain.** `summarizeFranchise` folds the collected works into the `FranchiseSummary` that `evaluateWatchingScore` consumes. It is pure and unit-tested; nothing about franchise-level totals or status lives in the adapter any more.
 
 **Scoring** — `evaluateWatchingScore(anime)` in `src/core/domain/services/evaluate-score.ts` is a pure function branching on the franchise-level `AnimeStatus`, starting from `BASE_SCORE = 70` and applying deltas plus a quality bonus, clamped to 0–100. `NEW_SEASON_COMING` within `HYPE_WINDOW_DAYS` (60) and `ONGOING` past `MEGA_SERIES_EPISODE_THRESHOLD` (150) are the two special windows. `docs/SCORING-SYSTEM.md` documents the intent. Note the domain status vocabulary differs from AniList's (`RELEASING` → `ONGOING`; `NEW_SEASON_COMING` is derived by the adapter, never returned by the API).
 
@@ -44,7 +47,9 @@ Hexagonal, with a single port. Dependency direction: `app`/`components`/`hooks` 
 
 Vitest + happy-dom + RTL, globals on. Setup files: `src/test/setup.ts` (MSW lifecycle, `onUnhandledRequest: "error"`) and `vitest.setup.tsx` (mocks `next/image` → plain `<img>`). MSW handlers in `src/mocks/handlers.ts` branch on the GraphQL body to serve either a search page or a media detail; when you change `graphql/queries.ts` or the DTOs, update the handlers or every integration test starts failing on unmocked requests.
 
-Docs drift warning: `docs/TESTING.md` and `docs/ARCHITECTURE.md` describe `src/core/domain/services/evaluate-score.test.ts` and `src/app/__tests__/` fixtures (Gintama, Frieren, One Piece, Sacred Seven) that **do not currently exist** in the tree — the only test file is `franchise-collector.test.ts`. Verify before citing those docs.
+**Fixtures are recorded, never hand-written.** `npm run record:fixtures` hits the real API and writes `src/test/fixtures/anilist/*.json`; tests replay those offline. Re-record when `FRANCHISE_BATCH_QUERY` changes. Each fixture pins a hazard found against the live API: One Piece reports `episodes: null` while airing, Monogatari's sequels adapt five *different* source novels, Steins;Gate has no source work at all, and **id 9183 is a dead id** (AniList 404s it — real Gintama is `918`, and `docs/` may still cite 9183 wrongly).
+
+Docs drift warning: `docs/ARCHITECTURE.md` and `docs/TESTING.md` still describe the old `Anime`-based model and `src/app/__tests__/` fixtures that do not exist. Verify against the tree before citing them.
 
 ## Docs
 
