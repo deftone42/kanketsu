@@ -1,180 +1,207 @@
-import { Anime, AnimeFormat } from "../models/anime";
+import { AnimeFormat } from "../models/anime";
 import { Franchise, FranchiseEdge } from "../models/franchise";
+import {
+  AnimeWork,
+  FranchiseWork,
+  SourceWork,
+  isAnimeWork,
+  isSourceWork,
+} from "../models/franchise-work";
+import { comparePartialDates } from "../models/partial-date";
 import { MAIN_TIMELINE_RELATIONS, RelationType } from "../models/relation";
+import { RepositoryError } from "../errors/repository-errors";
 import { AnimeRepository } from "../../ports/anime-repository";
+import { summarizeFranchise } from "./summarize-franchise";
 
 export interface FranchiseCollectorOptions {
-  /** Maximum BFS traversal depth. Default: 10. Safety valve to prevent infinite traversal. */
+  /** Maximum traversal depth. Safety valve against malformed graphs. */
   maxDepth?: number;
-  /**
-   * Which relation types to traverse (add to BFS queue).
-   * Default: PREQUEL and SEQUEL (main timeline).
-   * All relation types are still SAVED on each node regardless of this setting.
-   */
+  /** Relation types that extend the timeline. Default: PREQUEL and SEQUEL. */
   followRelationTypes?: ReadonlySet<RelationType>;
-  /**
-   * Which anime formats to include in the main timeline.
-   * Default: TV, TV_SHORT, MOVIE, SPECIAL (excludes OVA and ONA).
-   * All formats are still collected as nodes and edges regardless of this setting.
-   * Set to undefined to include all formats in the main timeline.
-   */
-  mainTimelineFormats?: ReadonlySet<AnimeFormat>;
+  /** Formats allowed on the timeline. Others are collected as related works. */
+  timelineFormats?: ReadonlySet<AnimeFormat>;
 }
 
 const DEFAULT_MAX_DEPTH = 10;
-const DEFAULT_FOLLOW_TYPES: ReadonlySet<RelationType> = MAIN_TIMELINE_RELATIONS;
-const DEFAULT_MAIN_TIMELINE_FORMATS: ReadonlySet<AnimeFormat> = new Set([
-  "TV",
-  "TV_SHORT",
-  "MOVIE",
-  "SPECIAL",
-]);
+const DEFAULT_TIMELINE_FORMATS: ReadonlySet<AnimeFormat> = new Set<AnimeFormat>(
+  ["TV", "TV_SHORT", "MOVIE", "SPECIAL"],
+);
 
 /**
- * Domain service that collects a complete anime franchise via BFS graph traversal.
+ * Collects a complete franchise into our own model.
  *
- * Algorithm:
- * 1. Start from a root anime ID (the season the user searched for).
- * 2. Fetch the anime with its full relation edges via the repository port.
- * 3. Save ALL relation edges (metadata for future use).
- * 4. But only TRAVERSE (add to BFS queue) nodes connected via followRelationTypes
- *    (default: PREQUEL/SEQUEL — the main timeline).
- * 5. Repeat until the queue is empty or maxDepth is reached.
- * 6. Build the ordered main timeline (sorted by release year), filtered by format.
+ * Traverses one *frontier* at a time rather than one node at a time: every
+ * unvisited work at the current depth is fetched in a single batched read.
+ * Nested topology in each response reveals ids further ahead, so a linear
+ * chain costs roughly one request per three entries instead of one per entry.
  *
- * Guarantees:
- * - Never visits the same node twice (cycle detection via Set).
- * - Never duplicates nodes or edges.
- * - Error-resilient: failed fetches are logged and skipped, traversal continues.
- * - Depth-limited: safety valve prevents infinite traversal on malformed graphs.
- * - Format-filtered: main timeline only includes specified formats (default: TV, MOVIE, SPECIAL).
+ * Honesty guarantees:
+ * - A work that genuinely does not exist is skipped; traversal continues.
+ * - A rate limit or outage stops traversal and sets `isComplete: false`
+ *   with the outstanding ids in `unresolvedIds`. A partial franchise is
+ *   never presented as a whole one.
  */
 export class FranchiseCollector {
-  constructor(private readonly repo: AnimeRepository) {}
+  constructor(private readonly repository: AnimeRepository) {}
 
   async collect(
     rootId: number,
     options?: FranchiseCollectorOptions,
   ): Promise<Franchise> {
     const maxDepth = options?.maxDepth ?? DEFAULT_MAX_DEPTH;
-    const followTypes = options?.followRelationTypes ?? DEFAULT_FOLLOW_TYPES;
-    const mainTimelineFormats =
-      options?.mainTimelineFormats ?? DEFAULT_MAIN_TIMELINE_FORMATS;
+    const followTypes = options?.followRelationTypes ?? MAIN_TIMELINE_RELATIONS;
+    const timelineFormats = options?.timelineFormats ?? DEFAULT_TIMELINE_FORMATS;
 
-    const nodes = new Map<number, Anime>();
-    const edges: FranchiseEdge[] = [];
-    const visited = new Set<number>();
+    const nodes = new Map<number, FranchiseWork>();
+    const edges = new Map<string, FranchiseEdge>();
+    const requested = new Set<number>();
+    const unresolved = new Set<number>();
 
-    // BFS queue: { id, depth }
-    const queue: { id: number; depth: number }[] = [{ id: rootId, depth: 0 }];
+    let frontier: number[] = [rootId];
+    let depth = 0;
+    let isComplete = true;
 
-    while (queue.length > 0) {
-      const { id, depth } = queue.shift()!;
-
-      // Cycle detection: skip if already visited
-      if (visited.has(id)) continue;
-      visited.add(id);
-
-      // Depth limit: safety valve
+    while (frontier.length > 0) {
       if (depth > maxDepth) {
-        console.warn(
-          `[FranchiseCollector] Skipping node ${id} at depth ${depth} (exceeds maxDepth ${maxDepth})`,
-        );
-        continue;
+        frontier.forEach((id) => unresolved.add(id));
+        isComplete = false;
+        break;
       }
 
-      // Fetch the anime with relations (error-resilient)
-      let anime: Anime | null;
+      frontier.forEach((id) => requested.add(id));
+
       try {
-        anime = await this.repo.getAnimeWithRelations(id);
-      } catch (error) {
-        console.error(
-          `[FranchiseCollector] Failed to fetch anime ${id}:`,
-          error,
+        const batch = await this.repository.getWorksByIds(frontier);
+
+        batch.works.forEach((work) => nodes.set(work.id, work));
+        batch.edges.forEach((edge) =>
+          edges.set(
+            `${edge.sourceId}:${edge.relationType}:${edge.targetId}`,
+            edge,
+          ),
         );
-        continue;
+      } catch (error) {
+        if (error instanceof RepositoryError) {
+          frontier
+            .filter((id) => !nodes.has(id))
+            .forEach((id) => unresolved.add(id));
+          isComplete = false;
+          break;
+        }
+        throw error;
       }
 
-      if (!anime) {
-        console.warn(`[FranchiseCollector] Anime ${id} not found, skipping`);
-        continue;
-      }
+      frontier = this.nextFrontier(edges, nodes, requested, followTypes);
+      depth += 1;
+    }
 
-      // Save the node
-      nodes.set(id, anime);
-
-      // Save ALL relation edges + queue up traversable ones
-      for (const relation of anime.relations) {
-        edges.push({ sourceId: id, relation });
-
-        // Only traverse followTypes (default: PREQUEL/SEQUEL)
-        if (followTypes.has(relation.relationType)) {
-          if (!visited.has(relation.id)) {
-            queue.push({ id: relation.id, depth: depth + 1 });
-          }
+    // One final read hydrates everything adjacent that we never traversed:
+    // movies, OVAs, specials and the written sources.
+    if (isComplete) {
+      const adjacent = this.adjacentIds(edges, requested);
+      if (adjacent.length > 0) {
+        try {
+          const batch = await this.repository.getWorksByIds(adjacent);
+          batch.works.forEach((work) => nodes.set(work.id, work));
+          adjacent.forEach((id) => requested.add(id));
+        } catch (error) {
+          if (!(error instanceof RepositoryError)) throw error;
+          adjacent.forEach((id) => unresolved.add(id));
+          isComplete = false;
         }
       }
     }
 
-    // Build the ordered main timeline
-    const mainTimeline = this.buildMainTimeline(
+    const timeline = this.buildTimeline(
       rootId,
       nodes,
       edges,
       followTypes,
-      mainTimelineFormats,
+      timelineFormats,
     );
+    const timelineIds = new Set(timeline.map((work) => work.id));
 
-    return { rootId, nodes, edges, mainTimeline };
+    const related = [...nodes.values()]
+      .filter(isAnimeWork)
+      .filter((work) => !timelineIds.has(work.id))
+      .sort((a, b) => comparePartialDates(a.startDate, b.startDate));
+
+    const sources: SourceWork[] = [...nodes.values()].filter(isSourceWork);
+
+    return {
+      rootId,
+      nodes,
+      edges: [...edges.values()],
+      timeline,
+      related,
+      sources,
+      summary: summarizeFranchise(timeline, related, sources),
+      isComplete,
+      unresolvedIds: [...unresolved],
+    };
+  }
+
+  /** Unvisited works reachable from what we have, along followed relations. */
+  private nextFrontier(
+    edges: Map<string, FranchiseEdge>,
+    nodes: Map<number, FranchiseWork>,
+    requested: Set<number>,
+    followTypes: ReadonlySet<RelationType>,
+  ): number[] {
+    const next = new Set<number>();
+
+    for (const edge of edges.values()) {
+      if (!followTypes.has(edge.relationType)) continue;
+      if (!nodes.has(edge.sourceId) && !requested.has(edge.sourceId)) continue;
+      if (requested.has(edge.targetId)) continue;
+      next.add(edge.targetId);
+    }
+
+    return [...next];
+  }
+
+  /** Everything one edge away that traversal never asked for. */
+  private adjacentIds(
+    edges: Map<string, FranchiseEdge>,
+    requested: Set<number>,
+  ): number[] {
+    const adjacent = new Set<number>();
+    for (const edge of edges.values()) {
+      if (!requested.has(edge.targetId)) adjacent.add(edge.targetId);
+    }
+    return [...adjacent];
   }
 
   /**
-   * Builds the ordered main timeline from collected nodes and edges.
-   *
-   * The main timeline consists of all nodes connected via followRelationTypes
-   * (default: PREQUEL/SEQUEL), filtered by mainTimelineFormats (default: TV, TV_SHORT,
-   * MOVIE, SPECIAL), sorted by release year.
-   *
-   * The root node is always included, even if it has no PREQUEL/SEQUEL relations
-   * or if its format is not in mainTimelineFormats.
+   * The timeline: works joined by followed relations, restricted to timeline
+   * formats, ordered by release date. The selected work is always present so
+   * the UI can highlight it even when its format is excluded.
    */
-  private buildMainTimeline(
+  private buildTimeline(
     rootId: number,
-    nodes: Map<number, Anime>,
-    edges: FranchiseEdge[],
+    nodes: Map<number, FranchiseWork>,
+    edges: Map<string, FranchiseEdge>,
     followTypes: ReadonlySet<RelationType>,
-    mainTimelineFormats: ReadonlySet<AnimeFormat> | undefined,
-  ): Anime[] {
-    // Collect all node IDs connected via followTypes
-    const mainTimelineIds = new Set<number>([rootId]);
+    timelineFormats: ReadonlySet<AnimeFormat>,
+  ): AnimeWork[] {
+    const timelineIds = new Set<number>([rootId]);
 
-    for (const edge of edges) {
-      if (followTypes.has(edge.relation.relationType)) {
-        mainTimelineIds.add(edge.sourceId);
-        mainTimelineIds.add(edge.relation.id);
-      }
+    for (const edge of edges.values()) {
+      if (!followTypes.has(edge.relationType)) continue;
+      timelineIds.add(edge.sourceId);
+      timelineIds.add(edge.targetId);
     }
 
-    // Filter to only include nodes that were actually fetched,
-    // then filter by format (if mainTimelineFormats is specified),
-    // then sort by year. Root node is always included regardless of format.
-    return Array.from(mainTimelineIds)
+    return [...timelineIds]
       .map((id) => nodes.get(id))
-      .filter((a): a is Anime => a !== undefined)
-      .filter((a) => {
-        // Root node is always included
-        if (a.id === rootId) return true;
-        // If no format filter, include all
-        if (!mainTimelineFormats) return true;
-        // If format is null, include it (unknown format, don't exclude)
-        if (a.format === null) return true;
-        // Otherwise, check if format is in the allowed set
-        return mainTimelineFormats.has(a.format);
-      })
-      .sort((a, b) => {
-        const yearA = a.releaseYear ?? 9999;
-        const yearB = b.releaseYear ?? 9999;
-        return yearA - yearB;
-      });
+      .filter((work): work is FranchiseWork => work !== undefined)
+      .filter(isAnimeWork)
+      .filter(
+        (work) =>
+          work.id === rootId ||
+          work.format === null ||
+          timelineFormats.has(work.format),
+      )
+      .sort((a, b) => comparePartialDates(a.startDate, b.startDate));
   }
 }
