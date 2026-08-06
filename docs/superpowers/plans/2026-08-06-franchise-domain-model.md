@@ -49,7 +49,7 @@
 
 **Deleted:** `MEDIA_BATCH_QUERY`, `getAnimeById`, `getAnimeWithRelations`, `GET_ANIME_BY_ID_QUERY`, `SEARCH_LATEST_BY_NAME_QUERY`, `SEARCH_FRANCHISE_MEDIA_QUERY`, `GET_ANIME_WITH_RELATIONS_QUERY`, and — in the Task 9 sweep — the `Anime` interface, `FranchiseMediaItem`, the single-media DTOs, and `Relation` if nothing still consumes it.
 
-**Out of scope (follow-up plan):** the season carousel. `Franchise.timeline` + `Franchise.rootId` give it everything it needs — ordered release-order chain plus the entry to highlight — but the component itself gets its own spec and design pass.
+**Season carousel:** Task 10 — a scope marker only, deliberately left unplanned. `Franchise.timeline` + `Franchise.rootId` already give it everything it needs; we design it properly once Tasks 1–9 are green and there is real data on screen to look at.
 
 ---
 
@@ -2177,7 +2177,7 @@ Then substitute per the table above throughout the JSX. Two spots need care:
 - The `<Image>` `src` must not be an empty string — Next throws on that. Guard the whole block: `{franchiseHead && franchiseHead.coverImage && ( …<Image …/>… )}`.
 - `anime.userScore !== null && anime.userScore !== undefined` becomes `summary.averageScore !== null`; `summary.averageScore` is typed `number | null`, never `undefined`.
 
-**Known interim limitation, by design:** the card shows the franchise head's title and cover, which is what it shows today, so nothing visibly regresses. It does **not** yet indicate which entry the user selected — that arrives with the carousel follow-up, which is the whole point of keeping `rootId` on the model.
+**Known interim limitation:** the card shows the franchise head's title and cover, which is what it shows today, so nothing visibly regresses. It does **not** yet indicate which entry the user selected — Task 10 adds that, and it is the whole point of keeping `rootId` on the model.
 
 - [ ] **Step 4: Update `page.tsx`**
 
@@ -2342,7 +2342,23 @@ git commit -m "refactor: remove the model and DTOs left dead by the franchise mi
 
 ---
 
+### Task 10: Season carousel — not yet planned
+
+**Do not implement from this section.** It is a placeholder so the work is not lost, not a specification. Once Tasks 1–9 are green we will brainstorm this properly and either extend this plan or write its own.
+
+**What it is:** the franchise shown as a carousel or list in release order, with the entry the user selected highlighted in place. This is the payoff the model was reshaped for, and the thing that resolves the JJK-vs-Fate problem — the user sees both what they picked and where the franchise starts.
+
+**Data is ready:** `Franchise.timeline` is the ordered chain and `Franchise.rootId` is the entry to mark. No further domain work is needed; this is purely a UI task.
+
+**Open questions for that session:** horizontal scroll vs grid vs list; what each card shows; how "you are here" reads visually and to a screen reader; what happens with a 40-entry franchise; whether `related` (movies, OVAs) gets its own strip.
+
+**Sequencing:** last. Building it against a model that already works means the UI decisions are made while looking at real franchise data on screen.
+
+---
+
 ## Self-Review
+
+**Task 10 is intentionally unspecified.** Every other task in this plan is executable as written; Task 10 is a marker recording deferred work, at the user's explicit direction. Implementers should stop after Task 9.
 
 **Spec coverage:** Domain model → Task 3. Port + batching → Task 5. Traversal → Task 6. Error handling → Tasks 2, 5, 6. Summary/scoring → Tasks 3, 7. Recorded fixtures → Task 4. Ordering fix → Tasks 1, 6. Root-node fix → Task 6 (`rootId` preserved). Deletions → Tasks 5, 8, 9. Harness + docs → Task 8. No gaps.
 
