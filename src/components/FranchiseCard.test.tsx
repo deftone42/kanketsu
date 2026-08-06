@@ -88,6 +88,21 @@ describe("FranchiseCard", () => {
     expect(screen.getByText("1999 – present")).toBeInTheDocument();
   });
 
+  it("labels the average so it is not mistaken for one season's rating", () => {
+    renderFranchise("Series", summary({ averageScore: 85 }));
+
+    expect(screen.getByText("85%")).toBeInTheDocument();
+    expect(screen.getByText("Seasons average user score")).toBeInTheDocument();
+  });
+
+  it("omits the average when no entry is scored", () => {
+    renderFranchise("Series", summary({ averageScore: null }));
+
+    expect(
+      screen.queryByText("Seasons average user score"),
+    ).not.toBeInTheDocument();
+  });
+
   it("counts seasons and movies", () => {
     renderFranchise("Franchise", summary(), 8, 4);
 

@@ -73,20 +73,22 @@ describe("SeasonCard", () => {
     expect(screen.getByText("Episodes TBA")).toBeInTheDocument();
   });
 
-  it("shows the score when the season has one", () => {
+  it("labels the score so it reads as the users' rating", () => {
     const work = season({ score: 86 });
 
     renderSeason(work);
 
     expect(screen.getByText("86%")).toBeInTheDocument();
+    expect(screen.getByText("User score")).toBeInTheDocument();
   });
 
-  it("omits the score when the season has none", () => {
+  it("omits the score entirely when the season has none", () => {
     const work = season({ score: null });
 
     renderSeason(work);
 
     expect(screen.queryByText(/%$/)).not.toBeInTheDocument();
+    expect(screen.queryByText("User score")).not.toBeInTheDocument();
   });
 
   it("shows the release year", () => {

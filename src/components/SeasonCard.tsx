@@ -63,7 +63,10 @@ export function SeasonCard({ season }: SeasonCardProps) {
             {season.score !== null && (
               <span className="flex items-center gap-1 text-amber-400 font-semibold bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
                 <Star className="w-3 h-3 fill-current" />
-                {season.score}%
+                <span>{season.score}%</span>
+                <span className="font-medium text-amber-400/70">
+                  User score
+                </span>
               </span>
             )}
           </div>
