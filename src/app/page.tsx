@@ -2,8 +2,10 @@
 
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
 import { SearchBar } from "@/components/SearchBar";
-import { AnimeDetailCard } from "@/components/AnimeDetailCard";
+import { SeasonCard } from "@/components/SeasonCard";
+import { FranchiseCard } from "@/components/FranchiseCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
+import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { Clock, Sparkles, Loader2 } from "lucide-react";
 
 export default function Home() {
@@ -18,6 +20,15 @@ export default function Home() {
     selectAnime,
     clearSelection,
   } = useAnimeSearch();
+
+  const selectedWork = franchise?.nodes.get(franchise.rootId);
+  const selectedSeason =
+    selectedWork && isAnimeWork(selectedWork) ? selectedWork : null;
+
+  // The first entry names the franchise: "Shingeki no Kyojin", not "Season 3".
+  const franchiseName = franchise?.timeline[0]?.title.userPreferred ?? "";
+  const movieCount =
+    franchise?.related.filter((work) => work.format === "MOVIE").length ?? 0;
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden">
@@ -61,26 +72,58 @@ export default function Home() {
           </div>
         )}
 
-        {!isFetchingDetail && franchise && score && (
-          <section
-            aria-label="Anime detail card"
-            className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6"
+        {/*
+          A failed first request still yields a Franchise — empty, but with a
+          summary that scores as "Completed Story". Never show a verdict we
+          have no data behind.
+        */}
+        {!isFetchingDetail && franchise && franchise.timeline.length === 0 && (
+          <div
+            role="alert"
+            className="text-center py-8 space-y-2 text-rose-300/90"
           >
-            <AnimeDetailCard franchise={franchise} watchingScore={score} />
-
-            <FranchiseTimeline
-              timeline={franchise.timeline}
-              selectedId={franchise.rootId}
-            />
-
-            {!franchise.isComplete && (
-              <p className="text-center text-xs text-amber-400/80">
-                Some entries could not be loaded (
-                {franchise.unresolvedIds.length} missing).
-              </p>
-            )}
-          </section>
+            <p className="text-sm font-semibold">
+              Could not load this franchise.
+            </p>
+            <p className="text-xs text-gray-500">
+              AniList may be rate-limiting us. Try again in a moment.
+            </p>
+          </div>
         )}
+
+        {!isFetchingDetail &&
+          franchise &&
+          score &&
+          franchise.timeline.length > 0 && (
+            <section
+              aria-label="Anime detail card"
+              className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6"
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
+                {selectedSeason && <SeasonCard season={selectedSeason} />}
+
+                <FranchiseCard
+                  name={franchiseName}
+                  summary={franchise.summary}
+                  watchingScore={score}
+                  seasonCount={franchise.timeline.length}
+                  movieCount={movieCount}
+                />
+              </div>
+
+              <FranchiseTimeline
+                timeline={franchise.timeline}
+                selectedId={franchise.rootId}
+              />
+
+              {!franchise.isComplete && (
+                <p className="text-center text-xs text-amber-400/80">
+                  Some entries could not be loaded (
+                  {franchise.unresolvedIds.length} missing).
+                </p>
+              )}
+            </section>
+          )}
 
         {!isFetchingDetail && !franchise && (
           <div className="text-center py-8 text-gray-600 text-xs uppercase tracking-wider font-semibold">
