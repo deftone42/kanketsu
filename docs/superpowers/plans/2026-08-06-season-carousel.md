@@ -17,6 +17,11 @@
 - **Conditional classNames use template literals**, matching `AnimeDetailCard.tsx`. `AGENTS.md` references a `cn()` helper at `src/lib/utils.ts` — **that file does not exist**. Do not import it and do not add `clsx`/`tailwind-merge`; `AGENTS.md` forbids introducing dependencies without an explicit request.
 - Dark theme, matching existing components: `bg-gray-900`, `border-gray-800`, indigo accents (`indigo-500`/`indigo-400`/`indigo-300`).
 - The component **must not sort**. Ordering is guaranteed by `buildTimeline` and covered by domain tests.
+- **Accessibility is part of the deliverable, not a follow-up.** Every landmark and every entry carries an `aria-label`; selection is conveyed by `aria-current`, never by colour alone.
+- **Tests query semantically** — by role and accessible name (`getByRole`, `getByAltText`), never by class, `data-testid`, or raw `getAttribute`. If an assertion cannot be expressed semantically, the component's accessibility is wrong: fix the component, not the query.
+- **Tests follow Arrange–Act–Assert**, separated by blank lines. Do **not** label the phases with comments — a semantic test already reads as its own documentation, and `// Act` above a `renderTimeline(...)` call adds nothing.
+- **Actions go through helpers** (`renderTimeline`, `entries`, `selectedEntries`), not repeated inline JSX, so each test reads as its intent rather than its plumbing.
+- **Comment only what the code cannot say.** Real-world context earns a comment ("Next throws on an empty src"); restating the line below it does not.
 - CI order: `lint` → `tsc --noEmit` → `test` → `build`.
 
 ## File Structure
@@ -70,6 +75,18 @@ function work(
   };
 }
 
+// --- action helpers -------------------------------------------------------
+// Every test drives the component through these, so a test body reads as its
+// intent rather than its plumbing.
+
+const renderTimeline = (timeline: AnimeWork[], selectedId: number) =>
+  render(<FranchiseTimeline timeline={timeline} selectedId={selectedId} />);
+
+const strip = () => screen.queryByRole("region", { name: "Franchise timeline" });
+const entries = () => screen.getAllByRole("listitem");
+const selectedEntries = () =>
+  screen.queryAllByRole("listitem", { current: true });
+
 const seasons = [
   work(1, "Jujutsu Kaisen", 2020),
   work(2, "Jujutsu Kaisen 2nd Season", 2023),
@@ -78,84 +95,92 @@ const seasons = [
 
 describe("FranchiseTimeline", () => {
   it("lists every entry in the order given", () => {
-    render(<FranchiseTimeline timeline={seasons} selectedId={2} />);
+    const timeline = seasons;
 
-    const items = screen.getAllByRole("listitem");
-    expect(items).toHaveLength(3);
-    expect(items[0]).toHaveTextContent("Jujutsu Kaisen");
-    expect(items[2]).toHaveTextContent("3rd Season");
+    renderTimeline(timeline, 2);
+
+    expect(entries()).toHaveLength(3);
+    expect(entries()[0]).toHaveAccessibleName("1. Jujutsu Kaisen, 2020");
+    expect(entries()[2]).toHaveAccessibleName(
+      "3. Jujutsu Kaisen 3rd Season, 2026",
+    );
   });
 
   it("marks the selected entry for assistive technology", () => {
-    render(<FranchiseTimeline timeline={seasons} selectedId={2} />);
+    const selectedId = 2;
 
-    const selected = screen.getByRole("listitem", { current: true });
-    expect(selected).toHaveTextContent("Jujutsu Kaisen 2nd Season");
+    renderTimeline(seasons, selectedId);
+
+    expect(
+      screen.getByRole("listitem", { current: true }),
+    ).toHaveAccessibleName("2. Jujutsu Kaisen 2nd Season, 2023");
   });
 
   it("marks exactly one entry as selected", () => {
-    render(<FranchiseTimeline timeline={seasons} selectedId={2} />);
+    const selectedId = 2;
 
-    const marked = screen
-      .getAllByRole("listitem")
-      .filter((item) => item.getAttribute("aria-current") === "true");
-    expect(marked).toHaveLength(1);
+    renderTimeline(seasons, selectedId);
+
+    expect(selectedEntries()).toHaveLength(1);
   });
 
-  it("shows each entry's release year", () => {
-    render(<FranchiseTimeline timeline={seasons} selectedId={1} />);
+  it("names the strip so it can be found as a landmark", () => {
+    const timeline = seasons;
 
-    expect(screen.getByText("2020")).toBeInTheDocument();
-    expect(screen.getByText("2026")).toBeInTheDocument();
+    renderTimeline(timeline, 1);
+
+    expect(strip()).toBeInTheDocument();
   });
 
-  it("falls back to TBA when a year is unknown", () => {
+  it("announces an unknown release date instead of leaving it blank", () => {
     // Real case: BORUTO: NARUTO NEXT GENERATIONS Part 2 has no announced date.
-    render(
-      <FranchiseTimeline
-        timeline={[...seasons, work(4, "Unannounced Season", null)]}
-        selectedId={1}
-      />,
-    );
+    const timeline = [...seasons, work(4, "Unannounced Season", null)];
 
-    expect(screen.getByText("TBA")).toBeInTheDocument();
+    renderTimeline(timeline, 1);
+
+    expect(
+      screen.getByRole("listitem", {
+        name: "4. Unannounced Season, release date to be announced",
+      }),
+    ).toBeInTheDocument();
   });
 
   it("renders an entry that has no cover art", () => {
-    render(
-      <FranchiseTimeline
-        timeline={[...seasons, work(5, "No Art Yet", 2027, "")]}
-        selectedId={1}
-      />,
-    );
+    // Next throws on an empty src, so the image must be omitted entirely.
+    const timeline = [...seasons, work(5, "No Art Yet", 2027, "")];
 
-    expect(screen.getByText("No Art Yet")).toBeInTheDocument();
-    // Next throws on an empty src, so no image element may be emitted for it.
-    const images = screen.getAllByRole("img");
-    expect(images.every((img) => img.getAttribute("src") !== "")).toBe(true);
+    renderTimeline(timeline, 1);
+
+    expect(
+      screen.getByRole("listitem", { name: "4. No Art Yet, 2027" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByAltText("No Art Yet")).not.toBeInTheDocument();
+    expect(screen.getByAltText("Jujutsu Kaisen")).toBeInTheDocument();
   });
 
   it("marks nothing when the selected id is absent from the timeline", () => {
-    render(<FranchiseTimeline timeline={seasons} selectedId={999} />);
+    const absentId = 999;
 
-    const marked = screen
-      .getAllByRole("listitem")
-      .filter((item) => item.getAttribute("aria-current") === "true");
-    expect(marked).toHaveLength(0);
+    renderTimeline(seasons, absentId);
+
+    expect(entries()).toHaveLength(3);
+    expect(selectedEntries()).toHaveLength(0);
   });
 
   it("renders nothing for a single-entry franchise", () => {
     // One Piece and Death Note both have a timeline of one.
-    const { container } = render(
-      <FranchiseTimeline timeline={[work(1, "Death Note", 2006)]} selectedId={1} />,
-    );
+    const timeline = [work(1, "Death Note", 2006)];
+
+    const { container } = renderTimeline(timeline, 1);
+
     expect(container).toBeEmptyDOMElement();
   });
 
   it("renders nothing for an empty timeline", () => {
-    const { container } = render(
-      <FranchiseTimeline timeline={[]} selectedId={1} />,
-    );
+    const timeline: AnimeWork[] = [];
+
+    const { container } = renderTimeline(timeline, 1);
+
     expect(container).toBeEmptyDOMElement();
   });
 });
@@ -180,6 +205,16 @@ interface FranchiseTimelineProps {
   timeline: AnimeWork[];
   /** The entry the user selected — highlighted in place. */
   selectedId: number;
+}
+
+/** Without this a card reads as three fragments: "1", "Jujutsu Kaisen", "2020". */
+function entryLabel(work: AnimeWork, position: number): string {
+  const releasedOn =
+    work.startDate.year === null
+      ? "release date to be announced"
+      : String(work.startDate.year);
+
+  return `${position}. ${work.title.userPreferred}, ${releasedOn}`;
 }
 
 /**
@@ -212,6 +247,7 @@ export function FranchiseTimeline({
           return (
             <li
               key={work.id}
+              aria-label={entryLabel(work, index + 1)}
               aria-current={isSelected ? "true" : undefined}
               className={`flex-shrink-0 w-32 snap-start rounded-2xl border p-2 space-y-2 transition-colors ${
                 isSelected
@@ -229,7 +265,10 @@ export function FranchiseTimeline({
                     className="object-cover"
                   />
                 )}
-                <span className="absolute top-1 left-1 bg-gray-950/80 text-gray-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                <span
+                  aria-hidden="true"
+                  className="absolute top-1 left-1 bg-gray-950/80 text-gray-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                >
                   {index + 1}
                 </span>
               </div>
