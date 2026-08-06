@@ -3,6 +3,7 @@
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
 import { SearchBar } from "@/components/SearchBar";
 import { AnimeDetailCard } from "@/components/AnimeDetailCard";
+import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { Clock, Sparkles, Loader2 } from "lucide-react";
 
 export default function Home() {
@@ -63,9 +64,14 @@ export default function Home() {
         {!isFetchingDetail && franchise && score && (
           <section
             aria-label="Anime detail card"
-            className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4"
+            className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6"
           >
             <AnimeDetailCard franchise={franchise} watchingScore={score} />
+
+            <FranchiseTimeline
+              timeline={franchise.timeline}
+              selectedId={franchise.rootId}
+            />
 
             {!franchise.isComplete && (
               <p className="text-center text-xs text-amber-400/80">
