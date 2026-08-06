@@ -2,53 +2,15 @@
 
 import { FranchiseSummary } from "@/core/domain/models/franchise";
 import { SourceFormat } from "@/core/domain/models/franchise-work";
-import { ScoreLevel, TimingScore } from "@/core/domain/models/score";
-import { BookCheck, Clock, Film, PlayCircle, Star, Tv } from "lucide-react";
+import { BookCheck, Clock, Film, Star, Tv } from "lucide-react";
 
 interface FranchiseCardProps {
-  /** Display name of the franchise — the first entry's title. */
+  /** Display name of the series — the first entry's title. */
   name: string;
   summary: FranchiseSummary;
-  watchingScore: TimingScore;
   seasonCount: number;
   movieCount: number;
 }
-
-const LEVEL_STYLES: Record<
-  ScoreLevel,
-  { bg: string; text: string; border: string }
-> = {
-  PERFECT_TIME: {
-    bg: "bg-emerald-500/10",
-    text: "text-emerald-400",
-    border: "border-emerald-500/30",
-  },
-  GOOD_TIME: {
-    bg: "bg-teal-500/10",
-    text: "text-teal-400",
-    border: "border-teal-500/30",
-  },
-  IF_CANT_WAIT: {
-    bg: "bg-orange-500/10",
-    text: "text-orange-400",
-    border: "border-orange-500/30",
-  },
-  RISK_INCOMPLETE: {
-    bg: "bg-amber-500/10",
-    text: "text-amber-400",
-    border: "border-amber-500/30",
-  },
-  NOT_GOOD_TIME: {
-    bg: "bg-rose-500/10",
-    text: "text-rose-400",
-    border: "border-rose-500/30",
-  },
-  NOT_RECOMMENDED: {
-    bg: "bg-red-950/40",
-    text: "text-red-400",
-    border: "border-red-500/30",
-  },
-};
 
 const SOURCE_FORMAT_NAMES: Record<SourceFormat, string> = {
   MANGA: "Manga",
@@ -99,16 +61,13 @@ function yearRange(
   return startYear === endYear ? String(startYear) : `${startYear} – ${endYear}`;
 }
 
-/** The whole franchise folded into one verdict: what the app is actually for. */
+/** The series as a whole: everything the selected entry alone cannot tell you. */
 export function FranchiseCard({
   name,
   summary,
-  watchingScore,
   seasonCount,
   movieCount,
 }: FranchiseCardProps) {
-  const styles =
-    LEVEL_STYLES[watchingScore.level] || LEVEL_STYLES.NOT_GOOD_TIME;
   const sourceLabel = sourceLabelOf(summary);
 
   return (
@@ -190,38 +149,6 @@ export function FranchiseCard({
         </div>
       )}
 
-      <div
-        className={`p-4 rounded-2xl border ${styles.bg} ${styles.border} space-y-2`}
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 opacity-80">
-            <PlayCircle className={`w-4 h-4 ${styles.text}`} />
-            <span className="text-[11px] uppercase tracking-wider font-bold text-gray-400">
-              AniTime Watching Score
-            </span>
-          </div>
-
-          <div className="flex items-baseline gap-0.5">
-            <span className={`text-2xl font-black ${styles.text}`}>
-              {watchingScore.score}
-            </span>
-            <span className="text-xs font-semibold text-gray-400">/100</span>
-          </div>
-        </div>
-
-        <p className={`text-lg font-bold ${styles.text}`}>
-          {watchingScore.badgeText}
-        </p>
-
-        <div className="space-y-1">
-          <p className="text-sm font-semibold text-white">
-            {watchingScore.summary}
-          </p>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            {watchingScore.details}
-          </p>
-        </div>
-      </div>
     </section>
   );
 }

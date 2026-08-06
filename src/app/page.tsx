@@ -4,6 +4,7 @@ import { useAnimeSearch } from "@/hooks/useAnimeSearch";
 import { SearchBar } from "@/components/SearchBar";
 import { SeasonCard } from "@/components/SeasonCard";
 import { FranchiseCard } from "@/components/FranchiseCard";
+import { ScoreCard } from "@/components/ScoreCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { Clock, Loader2 } from "lucide-react";
@@ -98,11 +99,12 @@ export default function Home() {
                 <FranchiseCard
                   name={franchiseName}
                   summary={franchise.summary}
-                  watchingScore={score}
                   seasonCount={franchise.timeline.length}
                   movieCount={movieCount}
                 />
               </div>
+
+              <ScoreCard score={score} />
 
               <FranchiseTimeline
                 timeline={franchise.timeline}
