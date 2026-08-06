@@ -43,7 +43,7 @@
 - `src/infrastructure/adapters/anilist/graphql/queries.ts` — nested batch query
 - `src/infrastructure/adapters/anilist/anilist-graphql-repository.ts` — shrinks substantially
 - `src/mocks/handlers.ts` — serves recorded fixtures
-- `src/app/hooks/useAnimeSearch.ts` — consumes `Franchise`
+- `src/hooks/useAnimeSearch.ts` — consumes `Franchise`
 - `src/scripts/test-franchise.ts` — updated output, correct default id
 - `CLAUDE.md` — corrected id reference, single implementation
 
@@ -2041,7 +2041,9 @@ git commit -m "refactor: score the franchise summary instead of a synthesised an
 ### Task 8: Wire it up and delete the old path
 
 **Files:**
-- Modify: `src/app/hooks/useAnimeSearch.ts`
+- Modify: `src/hooks/useAnimeSearch.ts`
+- Modify: `src/components/AnimeDetailCard.tsx`
+- Modify: `src/app/page.tsx`
 - Modify: `src/mocks/handlers.ts`
 - Modify: `src/scripts/test-franchise.ts`
 - Modify: `src/infrastructure/adapters/anilist/graphql/queries.ts` (delete dead queries)
@@ -2095,7 +2097,7 @@ export const handlers = [
 
 - [ ] **Step 2: Update the hook**
 
-In `src/app/hooks/useAnimeSearch.ts`, replace the detail-fetching parts:
+In `src/hooks/useAnimeSearch.ts`, replace the detail-fetching parts:
 
 ```ts
 import { Franchise } from "@/core/domain/models/franchise";
@@ -2130,34 +2132,107 @@ Replace the `selectedAnime` state and `selectAnime` callback with:
 
 Update `clearSelection` to `setFranchise(null)` and the returned object to expose `franchise` instead of `selectedAnime`.
 
-- [ ] **Step 3: Fix any component consuming `selectedAnime`**
+- [ ] **Step 3: Migrate `AnimeDetailCard` to the franchise model**
 
-Run: `npx tsc --noEmit`
-Expected: errors listing each component that reads `selectedAnime`. For each, read `franchise.timeline`, `franchise.summary` and `franchise.rootId` instead. The franchise header should use `franchise.timeline[0]` for the franchise name and `franchise.rootId` to highlight the selected entry.
+This component reads eight fields off the deleted `Anime` type. Task 9 removes that type, so this migration is mandatory, not optional. Field-by-field mapping:
 
-- [ ] **Step 4: Update the harness**
+| Was | Becomes |
+|---|---|
+| `anime.coverImage` | `franchise.timeline[0]?.coverImage ?? ""` |
+| `anime.title.userPreferred` | `franchise.timeline[0]?.title.userPreferred ?? ""` |
+| `anime.userScore` | `franchise.summary.averageScore` |
+| `anime.status` | `franchise.summary.status` |
+| `anime.seasons.length` | `franchise.timeline.length` |
+| `anime.movies.length` | `franchise.related.filter((w) => w.format === "MOVIE").length` |
+| `anime.releaseYear` | `franchise.summary.startYear` |
+| `anime.totalEpisodes` | `franchise.summary.totalEpisodes` |
+| `anime.nextAiringEpisode` | `franchise.summary.nextAiringEpisode` |
+
+Change the imports and props:
+
+```tsx
+import { Franchise } from "@/core/domain/models/franchise";
+import { ScoreLevel, TimingScore } from "@/core/domain/models/score";
+
+interface AnimeDetailCardProps {
+  franchise: Franchise;
+  watchingScore: TimingScore;
+}
+```
+
+Replace the top of the component body:
+
+```tsx
+export function AnimeDetailCard({ franchise, watchingScore }: AnimeDetailCardProps) {
+  const styles = LEVEL_STYLES[watchingScore.level] || LEVEL_STYLES.NOT_GOOD_TIME;
+
+  const { summary, timeline, related } = franchise;
+  const franchiseHead = timeline[0] ?? null;
+  const seasonsCount = timeline.length;
+  const moviesCount = related.filter((work) => work.format === "MOVIE").length;
+```
+
+Then substitute per the table above throughout the JSX. Two spots need care:
+
+- The `<Image>` `src` must not be an empty string — Next throws on that. Guard the whole block: `{franchiseHead && franchiseHead.coverImage && ( …<Image …/>… )}`.
+- `anime.userScore !== null && anime.userScore !== undefined` becomes `summary.averageScore !== null`; `summary.averageScore` is typed `number | null`, never `undefined`.
+
+**Known interim limitation, by design:** the card shows the franchise head's title and cover, which is what it shows today, so nothing visibly regresses. It does **not** yet indicate which entry the user selected — that arrives with the carousel follow-up, which is the whole point of keeping `rootId` on the model.
+
+- [ ] **Step 4: Update `page.tsx`**
+
+Rename the destructured value and the prop:
+
+```tsx
+  const {
+    query, setQuery, results, isSearching,
+    franchise, score, isFetchingDetail, selectAnime, clearSelection,
+  } = useAnimeSearch();
+```
+
+Replace the three `selectedAnime` references with `franchise`, and pass `<AnimeDetailCard franchise={franchise} watchingScore={score} />`.
+
+Optionally surface partial results — the model now makes this expressible, where before it was silently impossible:
+
+```tsx
+{!isFetchingDetail && franchise && !franchise.isComplete && (
+  <p className="text-center text-xs text-amber-400/80">
+    Some entries could not be loaded ({franchise.unresolvedIds.length} missing).
+  </p>
+)}
+```
+
+- [ ] **Step 5: Verify the UI compiles and renders**
+
+Run: `npx tsc --noEmit && npm run build`
+Expected: both PASS with no reference to `selectedAnime`, `Anime`, `seasons` or `movies` remaining.
+
+Run: `npm run dev`, search "Attack on Titan", select it.
+Expected: the card renders with 8 seasons, a franchise score, and total episodes — no blank image, no `NaN`, no crash.
+
+- [ ] **Step 6: Update the harness**
 
 In `src/scripts/test-franchise.ts`: change the docstring's `--id=9183 # Gintama` to `--id=918 # Gintama` (9183 is a dead id that returns a genuine 404), and print `franchise.timeline`, `franchise.related`, `franchise.sources`, `franchise.summary`, and `isComplete` / `unresolvedIds`.
 
-- [ ] **Step 5: Delete dead queries**
+- [ ] **Step 7: Delete dead queries**
 
 From `src/infrastructure/adapters/anilist/graphql/queries.ts` remove `GET_ANIME_BY_ID_QUERY`, `SEARCH_LATEST_BY_NAME_QUERY`, `SEARCH_FRANCHISE_MEDIA_QUERY` and `GET_ANIME_WITH_RELATIONS_QUERY` — nothing references them once Task 5 lands.
 
-- [ ] **Step 6: Update CLAUDE.md**
+- [ ] **Step 8: Update CLAUDE.md**
 
 Replace the "Two franchise implementations currently coexist" paragraph with a description of the single `FranchiseCollector` + `getWorksByIds` path, and correct `npm run test:franchise -- --id=21` examples. Remove the docs-drift warning about `evaluate-score.test.ts` not existing — it exists as of Task 7.
 
-- [ ] **Step 7: Run the full CI sequence**
+- [ ] **Step 9: Run the full CI sequence**
 
 Run: `npm run lint && npx tsc --noEmit && npm run test && npm run build`
 Expected: all four PASS.
 
-- [ ] **Step 8: Smoke-test against the real API**
+- [ ] **Step 10: Smoke-test against the real API**
 
 Run: `npm run test:franchise -- --id=16498`
 Expected: 8-entry timeline in release order, `isComplete: true`, and **fewer than 6 requests**.
 
-- [ ] **Step 9: Commit**
+- [ ] **Step 11: Commit**
 
 ```bash
 git add -A
@@ -2271,7 +2346,9 @@ git commit -m "refactor: remove the model and DTOs left dead by the franchise mi
 
 **Spec coverage:** Domain model → Task 3. Port + batching → Task 5. Traversal → Task 6. Error handling → Tasks 2, 5, 6. Summary/scoring → Tasks 3, 7. Recorded fixtures → Task 4. Ordering fix → Tasks 1, 6. Root-node fix → Task 6 (`rootId` preserved). Deletions → Tasks 5, 8, 9. Harness + docs → Task 8. No gaps.
 
-**Correction applied during review:** `AnimeWork.relations` was removed from the model. The mapper set it to `[]` unconditionally because relation topology lives on `Franchise.edges`, so the field was always empty — dead weight that invited a future reader to populate it and create a second, competing source of truth. Removed from Task 3's model, Task 5's mapper, and Task 6's test helper.
+**UI continuity:** the only components touching the domain model are `AnimeDetailCard` (nine fields, all mapped explicitly in Task 8 Step 3) and `page.tsx` (renames `selectedAnime` → `franchise`). `SearchBar` consumes `AnimeSearchResult`, which is unchanged, so it needs no work. Task 8 must land before Task 9, since Task 9 deletes the `Anime` type `AnimeDetailCard` currently imports.
+
+**Corrections applied during review:** the hook lives at `src/hooks/useAnimeSearch.ts`, not `src/app/hooks/` — the original path would have created a duplicate hook and left the real one broken. And `AnimeWork.relations` was removed from the model. The mapper set it to `[]` unconditionally because relation topology lives on `Franchise.edges`, so the field was always empty — dead weight that invited a future reader to populate it and create a second, competing source of truth. Removed from Task 3's model, Task 5's mapper, and Task 6's test helper.
 
 **Ordering note:** Task 4 depends on `FRANCHISE_BATCH_QUERY` from Task 5 Step 1, and Task 5's mapper tests depend on Task 4's fixtures. Execute **Task 5 Step 1 → Task 4 → rest of Task 5**. This is flagged inline at Task 4 Step 3.
 
