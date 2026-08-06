@@ -37,7 +37,10 @@
   - Matters more than it looks: a franchise can have a `timeline` of 1 and still be huge. One Piece is a single continuous series with **108 related works** (35 movies, 37 specials, 14 TV); Death Note has 3. For those, `related` *is* the franchise.
 - [ ] **Timing Score refinement:**
   - Consume `summary.sourceStatus` — *"has the manga finished?"* is a strong signal that more anime is coming. Currently collected and exposed but deliberately **not** scored, so model changes and scoring changes stay separately traceable.
-  - Revisit the constants (`BASE_SCORE`, `HYPE_WINDOW_DAYS`, `MEGA_SERIES_EPISODE_THRESHOLD`) against real franchises now that the summary is trustworthy.
+  - **A finished series must not score below an unfinished one on timing alone.** Observed: a completed series scores 85 while Jujutsu Kaisen — still running — scores 90. `FINISHED` gives `+15` and `NEW_SEASON_COMING` inside the hype window gives `+25`, so anticipation currently outweighs the certainty of a complete story. Decide what the app is actually optimising for and rebalance the deltas in `evaluate-score.ts`.
+  - **Penalise poorly-rated series and say so.** A low `averageScore` should pull the Timing Score down and surface a short caveat under the verdict — wording along the lines of *"Not well rated by users"*. Today `getQualityBonus` only applies −5 below 50, which is too blunt and invisible to the reader.
+  - Revisit the constants (`BASE_SCORE`, `HYPE_WINDOW_DAYS`, `MEGA_SERIES_EPISODE_THRESHOLD`) against real series now that the summary is trustworthy.
+  - Guard rail worth keeping: for a single-season series the seasons average must equal that season's own score. Fixed once already — the average used to include movies and specials, which made Sacred Seven report a score its only season never had.
 - [ ] **New season release date display**
 - [ ] **Genre & Format Recommendation Engine:**
   - **Domain:** Extend domain models to include `genres` (Action, Romance, Sci-Fi, etc.) and explicit `format` classification (TV, Movie, OVA, Special, ONA).

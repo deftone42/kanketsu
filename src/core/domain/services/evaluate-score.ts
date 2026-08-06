@@ -20,9 +20,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
   const { status, averageScore, nextAiringEpisode, totalEpisodes } = summary;
   const qualityBonus = getQualityBonus(averageScore);
 
-  // =========================================================================
-  // 1. ESTADOS ESPECIALES (CANCELLED, HIATUS, NOT_RELEASED)
-  // =========================================================================
   if (status === "CANCELLED") {
     return {
       score: clampScore(BASE_SCORE - 60 + qualityBonus),
@@ -53,9 +50,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
     };
   }
 
-  // =========================================================================
-  // 2. NUEVA TEMPORADA EN EL HORIZONTE (NEW_SEASON_COMING)
-  // =========================================================================
   if (status === "NEW_SEASON_COMING") {
     if (nextAiringEpisode) {
       const daysLeft = Math.ceil(
@@ -91,9 +85,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
     };
   }
 
-  // =========================================================================
-  // 3. EN EMISIÓN ACTUALMENTE (ONGOING)
-  // =========================================================================
   if (status === "ONGOING") {
     if (
       totalEpisodes === null ||
@@ -117,9 +108,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
     };
   }
 
-  // =========================================================================
-  // 4. FINALIZADO (FINISHED)
-  // =========================================================================
   if (status === "FINISHED") {
     return {
       score: clampScore(BASE_SCORE + 15 + qualityBonus),
@@ -130,7 +118,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
     };
   }
 
-  // Fallback por defecto
   return {
     score: 50,
     level: "NOT_GOOD_TIME",

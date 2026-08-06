@@ -127,7 +127,9 @@ export function summarizeFranchise(
       (total, work) => total + releasedEpisodes(work),
       0,
     ),
-    averageScore: averageScore(watchable),
+    // Seasons only. Including movies and specials makes a single-season
+    // series report a score its one season never had.
+    averageScore: averageScore(timeline),
     status: deriveStatus(timeline),
     nextAiringEpisode: soonestUpcomingEpisode(watchable),
     sourceStatus: deriveSourceStatus(sources),
