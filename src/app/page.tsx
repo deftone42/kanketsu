@@ -8,6 +8,7 @@ import { ScoreCard } from "@/components/ScoreCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { Clock, Loader2 } from "lucide-react";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   const {
@@ -33,6 +34,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden">
+      <Analytics />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
