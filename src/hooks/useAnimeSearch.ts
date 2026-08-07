@@ -68,7 +68,7 @@ export function useAnimeSearch() {
     try {
       const collected = await collector.collect(id);
       setFranchise(collected);
-      setScore(evaluateWatchingScore(collected.summary));
+      setScore(evaluateWatchingScore(collected.summary, new Date()));
     } catch (error) {
       console.error("Could not collect the franchise:", error);
       setFranchise(null);
