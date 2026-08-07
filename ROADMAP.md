@@ -10,7 +10,7 @@
 - **Styling:** Tailwind CSS
 - **Architecture:** Hexagonal (Domain, Ports, Adapters)
 - **Environment:** Node.js `>=22.0.0` (Enforced via `.nvmrc` and `engines` with `engine-strict=true`)
-- **Deployment & Distribution:** Local build / Static Export (GitHub Pages and automated Releases are currently on hold/disabled).
+- **Deployment & Distribution:** Static Export deployed to **Vercel** (Hobby) from the private repo — push to `main` ships production, every PR gets a preview URL. GitHub Pages was ruled out: publishing from a private repo requires a paid GitHub plan. Vercel's build runs `build` only; quality is gated by CI on PRs. Automated GitHub Releases (`releases.yml`) stay as they are, independent of hosting.
 - **Testing:** Fixtures are **recorded from the real AniList API** (`npm run record:fixtures`) and replayed offline — CI never hits the network. Hand-written mocks encode what we *assume* the API returns and would have hidden every shape that actually mattered: `episodes: null` on an airing One Piece, Monogatari's five distinct source novels, Steins;Gate having no source work at all, and id `9183` being a dead id (real Gintama is `918`).
 
 ---
@@ -54,8 +54,6 @@
 
 ## 🔮 Phase 2: Optimization & Advanced Features (Backlog)
 
-- [ ] **Deployment Pipeline Re-activation:**
-  - Re-enable GitHub Actions deployment for GitHub Pages static output.
 - [ ] **Client Caching / LocalStorage:**
   - Temporary client-side caching to minimize API requests for repeated searches.
   - Now cheaper to justify: AniList is throttled to **30 req/min** (down from 90), and a franchise costs 3–10 requests. Caching collected franchises would make repeat searches free.

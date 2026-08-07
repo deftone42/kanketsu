@@ -41,7 +41,7 @@ Two AniList facts the batching depends on: the API shares **one ID space** acros
 
 **App layer** — `useAnimeSearch` is the only orchestration point: it instantiates the repository at module scope, debounces 350ms with cancellation, gates results at ≥3 chars, and on selection fetches detail then computes the score. Components stay presentational.
 
-**Static export** — `next.config.ts` sets `output: "export"` with `basePath`/`assetPrefix` of `/anitime` under `NODE_ENV=production`. No server runtime exists: all AniList calls are client-side, so avoid server actions, route handlers, or anything requiring a Node server.
+**Static export** — `next.config.ts` sets `output: "export"`, and Vercel serves the resulting `out/` at the domain root, so there is no `basePath`/`assetPrefix` (they used to point at `/anitime` for GitHub Pages; that host was dropped because publishing a private repo needs a paid plan). No server runtime exists: all AniList calls are client-side, so avoid server actions, route handlers, or anything requiring a Node server.
 
 ## Testing
 
