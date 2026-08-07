@@ -76,6 +76,30 @@ describe("ScoreCard", () => {
     }
   });
 
+  it("shows the modifier notes under the verdict", () => {
+    renderScore(
+      timingScore({
+        notes: [
+          "Season 2 premieres in 12 days.",
+          "The manga is still being published.",
+        ],
+      }),
+    );
+
+    expect(
+      screen.getByText("Season 2 premieres in 12 days."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("The manga is still being published."),
+    ).toBeInTheDocument();
+  });
+
+  it("renders no note list when nothing modified the score", () => {
+    renderScore(timingScore({ notes: [] }));
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
   it("shows a zero score rather than hiding it", () => {
     renderScore(timingScore({ score: 0, level: "NOT_RECOMMENDED" }));
 
