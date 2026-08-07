@@ -80,6 +80,17 @@ export function ScoreCard({ score }: ScoreCardProps) {
         <p className="text-sm font-semibold text-white">{score.summary}</p>
         <p className="text-sm text-gray-300 leading-relaxed">{score.details}</p>
       </div>
+
+      {/* Omitted rather than rendered empty, so no list is announced with no items. */}
+      {score.notes.length > 0 && (
+        <ul className="space-y-1 border-t border-white/10 pt-3">
+          {score.notes.map((note) => (
+            <li key={note} className="text-xs text-gray-400">
+              {note}
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

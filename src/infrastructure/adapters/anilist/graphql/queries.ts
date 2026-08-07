@@ -1,7 +1,7 @@
 export const SEARCH_ANIME_QUERY = `
   query ($search: String) {
     Page(page: 1, perPage: 5) {
-      media(search: $search, type: ANIME, isAdult: false, sort: [SEARCH_MATCH, POPULARITY_DESC]) {
+      media(search: $search, type: ANIME, isAdult: false, format_in: [TV, MOVIE], sort: [SEARCH_MATCH, POPULARITY_DESC]) {
         id
         title {
           userPreferred

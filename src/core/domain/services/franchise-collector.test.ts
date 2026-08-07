@@ -117,6 +117,42 @@ describe("FranchiseCollector", () => {
     ).toBe(true);
   });
 
+  it("does not follow a crossover into somebody else's franchise", async () => {
+    // Observed against the live API: One Piece links by CHARACTER to a Nissin
+    // commercial, which links by CHARACTER to Sazae-san. Sazae-san airs weekly,
+    // so it won the "soonest upcoming episode" pick and the card announced
+    // episode 2844 of a franchise that has no such episode.
+    const repo = new InMemoryAnimeRepository()
+      .addWork(anime(21, "One Piece", date(1999), "TV", "ONGOING"))
+      .addWork(anime(101099, "HUNGRY DAYS", date(2019), "SPECIAL"))
+      .addWork(anime(2406, "Sazae-san", date(1969), "TV", "ONGOING"))
+      .addEdge(21, "CHARACTER", 101099)
+      .addEdge(101099, "CHARACTER", 2406);
+
+    const franchise = await new FranchiseCollector(repo).collect(21);
+
+    expect(franchise.nodes.has(101099)).toBe(true);
+    expect(franchise.nodes.has(2406)).toBe(false);
+    expect(franchise.related.map((work) => work.id)).not.toContain(2406);
+  });
+
+  it("does not adopt source works reachable only through a crossover", async () => {
+    // Same leak, other symptom: Steins;Gate pulled in Saya no Uta and reported
+    // the franchise's source as still publishing.
+    const repo = new InMemoryAnimeRepository()
+      .addWork(anime(9253, "Steins;Gate", date(2011)))
+      .addWork(anime(10519, "Steins;Gate OVA", date(2011), "OVA"))
+      .addWork(source(47517, "Steins;Gate manga"))
+      .addWork(source(145924, "Saya no Uta"))
+      .addEdge(9253, "SIDE_STORY", 10519)
+      .addEdge(9253, "ADAPTATION", 47517)
+      .addEdge(10519, "CHARACTER", 145924);
+
+    const franchise = await new FranchiseCollector(repo).collect(9253);
+
+    expect(franchise.sources.map((work) => work.id)).toEqual([47517]);
+  });
+
   it("hydrates related works outside the timeline", async () => {
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(1, "Series", date(2013)))

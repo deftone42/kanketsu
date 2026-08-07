@@ -10,6 +10,7 @@ function timingScore(overrides: Partial<TimingScore> = {}): TimingScore {
     badgeText: "Completed Story",
     summary: "Available to watch in full.",
     details: "All episodes and movies are released.",
+    notes: [],
     ...overrides,
   };
 }
@@ -73,6 +74,30 @@ describe("ScoreCard", () => {
 
       unmount();
     }
+  });
+
+  it("shows the modifier notes under the verdict", () => {
+    renderScore(
+      timingScore({
+        notes: [
+          "Season 2 premieres in 12 days.",
+          "The manga is still being published.",
+        ],
+      }),
+    );
+
+    expect(
+      screen.getByText("Season 2 premieres in 12 days."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("The manga is still being published."),
+    ).toBeInTheDocument();
+  });
+
+  it("renders no note list when nothing modified the score", () => {
+    renderScore(timingScore({ notes: [] }));
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
   it("shows a zero score rather than hiding it", () => {

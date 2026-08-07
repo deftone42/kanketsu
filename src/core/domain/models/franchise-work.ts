@@ -3,7 +3,6 @@ import { PartialDate } from "./partial-date";
 
 export type WorkKind = "ANIME" | "SOURCE";
 
-/** Publication status of a written source work. */
 export type SourceStatus = "FINISHED" | "RELEASING" | "HIATUS" | "CANCELLED";
 
 export type SourceFormat = "MANGA" | "NOVEL" | "ONE_SHOT";
@@ -21,7 +20,6 @@ export interface NextEpisode {
   seasonTitle: string;
 }
 
-/** A watchable entry: season, movie, OVA, ONA or special. */
 export interface AnimeWork {
   kind: "ANIME";
   id: number;
@@ -36,7 +34,6 @@ export interface AnimeWork {
   nextAiringEpisode: NextEpisode | null;
 }
 
-/** A written work an anime adapts. Never traversed, only hydrated. */
 export interface SourceWork {
   kind: "SOURCE";
   id: number;

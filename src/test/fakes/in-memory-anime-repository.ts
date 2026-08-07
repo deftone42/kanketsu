@@ -56,8 +56,7 @@ export class InMemoryAnimeRepository implements AnimeRepository {
       .map((id) => this.works.get(id))
       .filter((work): work is FranchiseWork => work !== undefined);
 
-    const requested = new Set(ids);
-    const edges = this.edges.filter((edge) => requested.has(edge.sourceId));
+    const edges = this.topologyAround(ids);
 
     const hydrated = new Set(works.map((work) => work.id));
     const stubs: WorkStub[] = edges
@@ -74,5 +73,21 @@ export class InMemoryAnimeRepository implements AnimeRepository {
       });
 
     return { works, edges, stubs };
+  }
+
+  /**
+   * Edges the real adapter would report for these ids. `FRANCHISE_BATCH_QUERY`
+   * nests `relations` three deep, so a response carries edges leaving the
+   * requested works *and* edges leaving their immediate neighbours. Modelling
+   * only the first hop would hide the crossover leak this fake exists to catch.
+   */
+  private topologyAround(ids: number[]): FranchiseEdge[] {
+    const sources = new Set(ids);
+
+    for (const edge of this.edges) {
+      if (ids.includes(edge.sourceId)) sources.add(edge.targetId);
+    }
+
+    return this.edges.filter((edge) => sources.has(edge.sourceId));
   }
 }
