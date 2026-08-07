@@ -132,7 +132,7 @@ export class FranchiseCollector {
       .filter((work) => !timelineIds.has(work.id))
       .sort((a, b) => comparePartialDates(a.startDate, b.startDate));
 
-    const sources: SourceWork[] = [...nodes.values()].filter(isSourceWork);
+    const sources = this.collectSources(nodes, edges);
 
     return {
       rootId,
@@ -224,6 +224,43 @@ export class FranchiseCollector {
       if (!requested.has(edge.targetId)) adjacent.add(edge.targetId);
     }
     return [...adjacent];
+  }
+
+  /**
+   * The written works the franchise actually adapts.
+   *
+   * AniList separates the two kinds of book in a franchise by relation type:
+   * from an anime, ADAPTATION points at the work it was adapted *from*, while
+   * a manga drawn from that same book hangs off the anime as ALTERNATIVE.
+   * Taking every source-kind node instead let Durarara!!'s three derived manga
+   * outvote its one light novel, so a novel finished in 2014 was summarised as
+   * "Manga ongoing" — one of those manga is still running.
+   *
+   * The edge is read in either direction: a chain is the same chain whether
+   * AniList reports it from the anime or from the book.
+   */
+  private collectSources(
+    nodes: Map<number, FranchiseWork>,
+    edges: Map<string, FranchiseEdge>,
+  ): SourceWork[] {
+    const sources = new Map<number, SourceWork>();
+
+    for (const edge of edges.values()) {
+      if (edge.relationType !== "ADAPTATION") continue;
+
+      const ends = [nodes.get(edge.sourceId), nodes.get(edge.targetId)];
+      const adapted = ends.find(
+        (work): work is SourceWork => work !== undefined && isSourceWork(work),
+      );
+      const adapting = ends.find(
+        (work): work is AnimeWork => work !== undefined && isAnimeWork(work),
+      );
+
+      if (adapted === undefined || adapting === undefined) continue;
+      sources.set(adapted.id, adapted);
+    }
+
+    return [...sources.values()];
   }
 
   /**
