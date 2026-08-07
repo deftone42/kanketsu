@@ -203,13 +203,24 @@ export class FranchiseCollector {
     return reachable;
   }
 
-  /** Everything one edge away that traversal never asked for. */
+  /**
+   * Everything one edge away *from a work we actually collected*, that
+   * traversal never asked for.
+   *
+   * The source check is the whole point. A batch response nests `relations`
+   * three deep, so it also reports edges leaving works that merely neighbour
+   * the franchise. Taking every target regardless of origin walks two hops
+   * through a crossover into an unrelated series: One Piece links by CHARACTER
+   * to a Nissin commercial, which links by CHARACTER to Sazae-san, whose
+   * weekly episode then won the franchise's "next episode" pick.
+   */
   private adjacentIds(
     edges: Map<string, FranchiseEdge>,
     requested: Set<number>,
   ): number[] {
     const adjacent = new Set<number>();
     for (const edge of edges.values()) {
+      if (!requested.has(edge.sourceId)) continue;
       if (!requested.has(edge.targetId)) adjacent.add(edge.targetId);
     }
     return [...adjacent];
