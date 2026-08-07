@@ -27,6 +27,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Cancelled Series",
       summary: "Production was officially cancelled.",
       details: "This franchise was cancelled before completing its story.",
+      notes: [],
     };
   }
 
@@ -37,6 +38,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Indefinite Hiatus",
       summary: "Production is currently frozen.",
       details: "The project is on an indefinite pause with no return date.",
+      notes: [],
     };
   }
 
@@ -47,6 +49,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Not Yet Released",
       summary: "Broadcast hasn't started.",
       details: "This series has not premiered yet.",
+      notes: [],
     };
   }
 
@@ -64,6 +67,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
           badgeText: "Hype Window Active!",
           summary: `${seasonName} premieres in ${daysLeft} days!`,
           details: `"${seasonName}" debuts in about ${daysLeft} days. Perfect timing to binge now!`,
+          notes: [],
         };
       }
 
@@ -73,6 +77,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
         badgeText: "Good time to catch up",
         summary: `${seasonName} has been officially announced.`,
         details: `"${seasonName}" is scheduled in roughly ${daysLeft} days. Great time to catch up.`,
+        notes: [],
       };
     }
 
@@ -82,6 +87,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Sequel Announced!",
       summary: "A new season is officially in production.",
       details: `Catch up on all ${totalEpisodes || "available"} released episodes before the upcoming continuation drops!`,
+      notes: [],
     };
   }
 
@@ -96,6 +102,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
         badgeText: "Great Backlog!",
         summary: "Massive episode backlog available.",
         details: `With over ${totalEpisodes || "150+"} episodes ongoing across the franchise, you can binge continuously.`,
+        notes: [],
       };
     }
 
@@ -105,6 +112,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Watch if impatient",
       summary: "Currently releasing weekly.",
       details: "Episodes drop week by week.",
+      notes: [],
     };
   }
 
@@ -115,6 +123,7 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
       badgeText: "Completed Story",
       summary: "Available to watch in full.",
       details: `All available episodes and movies (${totalEpisodes || "complete"}) are released. Great time to experience the whole journey.`,
+      notes: [],
     };
   }
 
@@ -124,5 +133,6 @@ export function evaluateWatchingScore(summary: FranchiseSummary): TimingScore {
     badgeText: "Status Unknown",
     summary: "Insufficient data.",
     details: "Anime status details are unclear.",
+    notes: [],
   };
 }

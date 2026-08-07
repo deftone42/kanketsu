@@ -12,4 +12,6 @@ export interface TimingScore {
   badgeText: string;
   summary: string;
   details: string;
+  /** Secondary lines contributed by score modifiers. Empty when none applied. */
+  notes: string[];
 }

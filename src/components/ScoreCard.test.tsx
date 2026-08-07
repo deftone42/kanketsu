@@ -10,6 +10,7 @@ function timingScore(overrides: Partial<TimingScore> = {}): TimingScore {
     badgeText: "Completed Story",
     summary: "Available to watch in full.",
     details: "All episodes and movies are released.",
+    notes: [],
     ...overrides,
   };
 }
