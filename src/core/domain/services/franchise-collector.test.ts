@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { FranchiseCollector } from "./franchise-collector";
 import { InMemoryAnimeRepository } from "@/test/fakes/in-memory-anime-repository";
-import { AnimeWork, SourceWork } from "../models/franchise-work";
+import {
+  AnimeWork,
+  SourceFormat,
+  SourceStatus,
+  SourceWork,
+} from "../models/franchise-work";
 import { AnimeFormat, AnimeStatus } from "../models/anime";
 import { PartialDate } from "../models/partial-date";
 import { RateLimitedError } from "../errors/repository-errors";
@@ -28,13 +33,18 @@ function anime(
   };
 }
 
-function source(id: number, title: string): SourceWork {
+function source(
+  id: number,
+  title: string,
+  format: SourceFormat = "MANGA",
+  status: SourceStatus = "RELEASING",
+): SourceWork {
   return {
     kind: "SOURCE",
     id,
     title: { userPreferred: title, english: null, romaji: null, native: null },
-    format: "MANGA",
-    status: "RELEASING",
+    format,
+    status,
     chapters: null,
     volumes: null,
   };
@@ -174,6 +184,29 @@ describe("FranchiseCollector", () => {
 
     expect(franchise.sources.map((work) => work.id)).toEqual([99]);
     expect(franchise.summary.sourceStatus).toBe("ONGOING");
+  });
+
+  it("ignores manga drawn from the source when picking the source material", async () => {
+    // Durarara!! adapts a light novel that finished in 2014, but AniList also
+    // hangs three manga *drawn from that same novel* off the anime, as
+    // ALTERNATIVE, and one of them is still running. Counting them as sources
+    // outvoted the single novel and the card read "Manga ongoing".
+    const repo = new InMemoryAnimeRepository()
+      .addWork(anime(6746, "Durarara!!", date(2010, 1, 8)))
+      .addWork(source(46816, "Durarara!! novel", "NOVEL", "FINISHED"))
+      .addWork(source(44841, "Durarara!! manga", "MANGA", "FINISHED"))
+      .addWork(source(64335, "Durarara!!: Saika-hen", "MANGA", "FINISHED"))
+      .addWork(source(93748, "Durarara!!: RE;Dollars-hen", "MANGA", "RELEASING"))
+      .addEdge(6746, "ADAPTATION", 46816)
+      .addEdge(6746, "ALTERNATIVE", 44841)
+      .addEdge(6746, "ALTERNATIVE", 64335)
+      .addEdge(6746, "ALTERNATIVE", 93748);
+
+    const franchise = await new FranchiseCollector(repo).collect(6746);
+
+    expect(franchise.sources.map((work) => work.id)).toEqual([46816]);
+    expect(franchise.summary.sourceFormat).toBe("NOVEL");
+    expect(franchise.summary.sourceStatus).toBe("FINISHED");
   });
 
   it("excludes a sequel chain that is disconnected from the root", async () => {
