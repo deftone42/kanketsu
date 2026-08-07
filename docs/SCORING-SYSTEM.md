@@ -1,183 +1,113 @@
 # 🎯 AniTime Scoring System (Timing Score)
 
-The **Timing Score** answers one question: _"Is it the right moment to start watching this anime?"_
+The **Timing Score** answers one question: _"Is now a good moment to start watching this franchise?"_
 
-It is computed by the pure domain function `evaluateWatchingScore(anime: Anime): TimingScore` located at `src/core/domain/services/evaluate-score.ts`.
+It deliberately does **not** answer "is this anime good". The AniList community rating is displayed alongside the score and never enters the calculation — whether a show is worth your time is your call, not the app's.
 
----
+Two pure domain functions produce it:
 
-## 📊 Score Levels
+- `deriveWatchingSituation(summary, now)` — `src/core/domain/services/watching-situation.ts`
+- `evaluateWatchingScore(summary, now)` — `src/core/domain/services/evaluate-score.ts`
 
-| Level             | Meaning                                            | Typical Range |
-| :---------------- | :------------------------------------------------- | :------------ |
-| `PERFECT_TIME`    | Ideal moment — binge or huge backlog available     | ~90–100       |
-| `GOOD_TIME`       | Good moment — completed season or announced sequel | ~80–85        |
-| `IF_CANT_WAIT`    | Watch only if impatient — weekly release           | ~55–60        |
-| `RISK_INCOMPLETE` | Risky — production limbo, incomplete arc risk      | ~40–45        |
-| `NOT_GOOD_TIME`   | Bad moment — hiatus, unreleased, or status unclear | ~20–50        |
-| `NOT_RECOMMENDED` | Avoid — officially cancelled                       | ~10–15        |
-
-Each result also includes a human-readable `badgeText`, `summary`, and `details`.
+Both take a `FranchiseSummary` (produced by `summarizeFranchise`) and the current time. The clock is a parameter because the domain must stay pure and testable without mocking time; `useAnimeSearch` injects it.
 
 ---
 
-## ⚙️ Core Constants
+## 🧮 The model
 
-| Constant                        | Value | Purpose                                     |
-| :------------------------------ | :---- | :------------------------------------------ |
-| `BASE_SCORE`                    | `70`  | Starting point for all evaluations          |
-| `LIMBO_THRESHOLD_YEARS`         | `3`   | Years without news → production limbo       |
-| `MEGA_SERIES_EPISODE_THRESHOLD` | `150` | Episodes needed to qualify as a mega-series |
-| `HYPE_WINDOW_DAYS`              | `60`  | Days before a sequel airs → hype window     |
+Three steps:
 
----
+1. **Situation** — the franchise is classified into one of eight mutually exclusive situations.
+2. **Base score** — fixed by the situation.
+3. **Modifiers** — small deltas that also contribute a user-facing note.
 
-## ➕ Quality Bonus
+The result is clamped to 0–100.
 
-The community score (AniList `averageScore`) nudges the result:
+### Situations and base scores
 
-| User Score       | Bonus |
-| :--------------- | :---- |
-| `≥ 85`           | `+5`  |
-| `≤ 50`           | `-5`  |
-| otherwise / null | `0`   |
+| Situation             | Base | Meaning                                                    |
+| :-------------------- | ---: | :--------------------------------------------------------- |
+| `FINISHED`            |  100 | The story is closed and watchable in full                   |
+| `MEGA_SERIES_ONGOING` |   80 | Still airing, but ≥150 episodes of backlog exist            |
+| `SEQUEL_ANNOUNCED`    |   70 | A continuation is on the way; the story is not closed       |
+| `ONGOING`             |   50 | Airing weekly with no meaningful backlog                    |
+| `DE_FACTO_HIATUS`     |   30 | Looks finished, but was quietly abandoned                   |
+| `OFFICIAL_HIATUS`     |   20 | AniList reports production frozen                           |
+| `NOT_RELEASED`        |   15 | Has not premiered                                           |
+| `CANCELLED`           |    5 | Cancelled before completing its story                       |
 
-Example: a `FINISHED` season with `userScore = 91` → `70 + 10 + 5 = 85`.
+**A closed story is the only route to 100.** No amount of backlog beats a story you can actually finish. This is the central inversion from the previous system, which ranked a hype window (95) and a mega-series (90) above a completed franchise (85), leaving nothing able to reach 100.
 
----
+The large gap between 50 and 70 is deliberate: above it you can watch something right now without waiting week to week, below it you cannot.
 
-## 🧮 Evaluation Cases (in priority order)
+### Modifiers
 
-The function evaluates the anime **top to bottom** and returns on the **first matching case**.
+| Condition                                     | Delta | Note added                                    |
+| :-------------------------------------------- | ----: | :-------------------------------------------- |
+| `sourceStatus === "ONGOING"`                   |  `-5` | "The {manga/novel/one-shot} is still being published." |
+| Next episode within `HYPE_WINDOW_DAYS`         | `+15` | "{Season title} premieres in N days."         |
 
-### Case 1 — CANCELLED 🚫 (`NOT_RECOMMENDED`)
+The notes land in `TimingScore.notes` and render as secondary lines under the verdict on the `ScoreCard`.
 
-```
-score = 70 - 60 + qualityBonus  →  ≈ 10–15
-badge: "Cancelled Series"
-```
+Two rules govern them:
 
-Production was officially cancelled before completing the story.
+- **The hype bonus only applies to `SEQUEL_ANNOUNCED`.** Applying it to a closed story would break the invariant that closure is the ceiling.
+- **`DE_FACTO_HIATUS` never takes the source penalty.** Its base of 30 already accounts for the source outrunning the adaptation; charging the −5 as well would count the same fact twice.
 
-### Case 2 — HIATUS ⏸️ (`NOT_GOOD_TIME`)
-
-```
-score = 70 - 40 + qualityBonus  →  ≈ 30–35
-badge: "Indefinite Hiatus"
-```
-
-Production is frozen with no announced return date.
-
-### Case 3 — NOT_YET_RELEASED 🕐 (`NOT_GOOD_TIME`)
-
-```
-score = 70 - 50  →  20
-badge: "Not Yet Released"
-```
-
-Broadcast hasn't started yet.
-
-### Case 4 — Hype Window 🔥 (`PERFECT_TIME`)
-
-Trigger: a `SEQUEL` relation with `status === "NOT_YET_RELEASED"` airing **within 60 days**.
-
-```
-score = 70 + 25 + qualityBonus  →  ≈ 95–100
-badge: "Hype Window Active!"
-summary: "New season premieres in X days!"
-```
-
-Perfect timing — binge now and join weekly broadcasts.
-
-### Case 5 — Sequel Confirmed ✅ (`GOOD_TIME`)
-
-Trigger: a `SEQUEL` relation with `status === "NOT_YET_RELEASED"` but **outside the hype window** (or unknown date).
-
-```
-score = 70 + 10 + qualityBonus  →  ≈ 80–85
-badge: "Good time to catch up"
-```
-
-A continuation is scheduled/in production. Catch up now.
-
-### Case 6 — RELEASING 📺
-
-**Sub-case A: Mega-series** (`PERFECT_TIME`)
-Trigger: `episodes === null` OR `episodes >= 150` (One Piece, Detective Conan…).
-
-```
-score = 70 + 20 + qualityBonus  →  ≈ 90–95
-badge: "Great Backlog!"
-```
-
-Massive backlog → binge without week-to-week waiting.
-
-**Sub-case B: Short season airing weekly** (`IF_CANT_WAIT`)
-
-```
-score = 70 - 15 + qualityBonus  →  ≈ 55–60
-badge: "Watch if impatient"
-```
-
-Episodes drop weekly. Watch for live discussions or wait for the season to finish.
-
-### Case 7 — FINISHED 🏁
-
-Three sub-cases, evaluated in order:
-
-**Sub-case A: Production Limbo** (`RISK_INCOMPLETE`)
-Trigger: ended **≥ 3 years ago** (`CURRENT_YEAR - endDate.year >= 3`) **and** no finished sequel.
-
-```
-score = 70 - 30 + qualityBonus  →  ≈ 40–45
-badge: "Production Limbo"
-```
-
-Example: **Sacred Seven** (ended 2011, user score 61) → `40`.
-
-**Sub-case B: Completed Franchise** (`PERFECT_TIME`)
-Trigger: has a `SEQUEL` relation with `status === "FINISHED"` **and** no upcoming sequel.
-
-```
-score = 70 + 25 + qualityBonus  →  up to 100
-badge: "Completed Story!"
-```
-
-Example: **Gintama** (201 episodes, sequels finished, user score 85) → `70 + 25 + 5 = 100`.
-
-**Sub-case C: Season Complete, Story Ongoing** (`GOOD_TIME`)
-The recent season ended, but no sequel is confirmed yet.
-
-```
-score = 70 + 10 + qualityBonus  →  ≈ 80–85
-badge: "Season Complete"
-```
-
-Example: **Frieren** (28 episodes, ended 2024, user score 91) → `70 + 10 + 5 = 85`.
+`sourceStatus === "UNKNOWN"` — an original series with no source work linked in AniList, such as the recorded Steins;Gate fixture — takes no penalty and gets no note. There is no source that could be left unfinished, so a completed original scores a clean 100.
 
 ---
 
-## 🛟 Fallback
+## 📊 Score levels
 
-If no case matches (unknown status), the function returns:
+The `ScoreLevel` follows the **final score**, not the situation, so a modifier that lifts a franchise into a better band lifts its label with it. A single source of truth means no special case is needed when a modifier crosses a boundary.
 
-```
-score: 50
-level: "NOT_GOOD_TIME"
-badge: "Status Unknown"
-summary: "Insufficient data."
-```
+| Final score | Level             |
+| :---------- | :---------------- |
+| `≥ 90`      | `PERFECT_TIME`    |
+| `≥ 75`      | `GOOD_TIME`       |
+| `≥ 60`      | `RISK_INCOMPLETE` |
+| `≥ 40`      | `IF_CANT_WAIT`    |
+| `≥ 10`      | `NOT_GOOD_TIME`   |
+| below       | `NOT_RECOMMENDED` |
+
+There is no unknown-status fallback. `WatchingSituation` is a closed union and the score table is a `Record` over it, so the compiler proves every case is handled; an unreachable fallback would only hide a future gap.
 
 ---
 
-## 🧪 Verified Scenarios (test fixtures)
+## ⚙️ Constants
 
-| Series           | Status      | Key Signal                           | Result                               | Score |
-| :--------------- | :---------- | :----------------------------------- | :----------------------------------- | :---- |
-| **Gintama**      | `FINISHED`  | Finished sequels, franchise complete | `PERFECT_TIME` "Completed Story!"    | 100   |
-| **Frieren**      | `FINISHED`  | Recent season, story ongoing         | `GOOD_TIME` "Season Complete"        | 85    |
-| **One Piece**    | `RELEASING` | Mega-series backlog                  | `PERFECT_TIME` "Great Backlog!"      | 95    |
-| **Sacred Seven** | `FINISHED`  | Limbo > 3 years, no sequel           | `RISK_INCOMPLETE` "Production Limbo" | 40    |
+| Constant                        | Value | Purpose                                            |
+| :------------------------------ | :---- | :------------------------------------------------- |
+| `MEGA_SERIES_EPISODE_THRESHOLD` | `150` | Episodes past which airing means backlog, not wait |
+| `HYPE_WINDOW_DAYS`              | `60`  | Days before a premiere that earn the bonus         |
+| `DE_FACTO_HIATUS_YEARS`         | `5`   | Years of silence that mean abandonment             |
+| `HYPE_WINDOW_BONUS`             | `15`  | The hype modifier                                  |
+| `UNFINISHED_SOURCE_PENALTY`     | `-5`  | The unfinished-source modifier                     |
 
-Fixtures: `src/app/__tests__/fixtures/{gintama,frieren,one-piece,sacred-seven}.ts`
-Tests: `src/core/domain/services/evaluate-score.test.ts`
+`DE_FACTO_HIATUS_YEARS` is deliberately conservative. Two to three years is the **normal** production gap between seasons, so a shorter window would flag the most common case in the industry and the score would lie about it. At five years, only flagrant abandonment triggers.
+
+---
+
+## 🕳️ The de facto hiatus
+
+AniList has no status for _"the studio quietly stopped"_. A franchise whose last season aired eight years ago, whose manga is still running, and which has no sequel announced, reports as plain `FINISHED`.
+
+The old system gave that case the badge "Completed Story" and a top score — the highest possible mark for the situation a viewer most wants to avoid.
+
+We infer it instead: **`FINISHED` + source still publishing + last episode aired ≥5 years ago**. All three are required. Without an `endYear` the age cannot be measured and the franchise stays `FINISHED`; without a living source there is nothing left to adapt.
+
+---
+
+## 🚧 Known gap
+
+A franchise whose **source has finished** but whose anime never adapted all of it still scores 100 as a completed story. Detecting it would need adapted-versus-published chapter counts, which AniList does not report reliably. Deliberately out of scope.
+
+---
+
+## 🧪 Tests
+
+- `src/core/domain/services/watching-situation.test.ts` — one test per situation, plus the 150-episode and 5-year boundaries.
+- `src/core/domain/services/evaluate-score.test.ts` — the score table above made executable: one test per row asserting the exact number, plus the modifiers, the band boundaries and the clamp.
+
+Every test pins a fixed `now`. Nothing in `src/core/domain/` calls `new Date()`.
