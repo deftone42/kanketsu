@@ -256,6 +256,26 @@ describe("evaluateWatchingScore", () => {
       expect(result.badgeText).toBe("Stalled Adaptation");
     });
 
+    /**
+     * The scenario the de facto hiatus exists for. The anime ended in 2014 but
+     * the manga never concluded, so the adaptation stops mid-arc and there is
+     * no ending to watch. `sourceStatus` reads ONGOING rather than HIATUS
+     * because deriveSourceStatus only reports FINISHED when every source has
+     * finished — a paused manga is an unfinished manga.
+     */
+    it("calls HUNTER×HUNTER's adaptation stalled rather than complete", () => {
+      const result = score({
+        status: "FINISHED",
+        endYear: 2014,
+        sourceStatus: "ONGOING",
+        sourceFormat: "MANGA",
+        totalEpisodes: 148,
+      });
+
+      expect(result.score).toBe(30);
+      expect(result.badgeText).toBe("Stalled Adaptation");
+    });
+
     it("ignores the AniList rating entirely, judging the moment not the show", () => {
       const acclaimed = score({ status: "FINISHED", averageScore: 95 });
       const panned = score({ status: "FINISHED", averageScore: 30 });

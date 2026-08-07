@@ -97,6 +97,23 @@ The old system gave that case the badge "Completed Story" and a top score — th
 
 We infer it instead: **`FINISHED` + source still publishing + last episode aired ≥5 years ago**. All three are required. Without an `endYear` the age cannot be measured and the franchise stays `FINISHED`; without a living source there is nothing left to adapt.
 
+### Reference scenario: HUNTER×HUNTER (2011)
+
+The case this rule exists for. The anime is `FINISHED` — it ended in 2014 — but the manga never concluded and the adaptation simply stops mid-arc. There is no ending to watch.
+
+| Signal         | Value                                          |
+| :------------- | :--------------------------------------------- |
+| `status`       | `FINISHED`                                     |
+| `endYear`      | `2014`                                         |
+| `sourceStatus` | `ONGOING` (the manga is itself on hiatus)      |
+| Result         | `DE_FACTO_HIATUS` → **30**, "Stalled Adaptation" |
+
+Note why `sourceStatus` reads `ONGOING` rather than `HIATUS`: `deriveSourceStatus` collapses source works to `FINISHED` only when *every* one has finished. A paused manga is an unfinished manga, which is exactly the signal we want.
+
+`FINISHED` anime **+** a source that outlives it is not a completed story; it is an abandoned one, and it belongs next to the official hiatus at 20, not at the top. The measure is distinct from the two that ask *how much* content exists — this one asks whether it **concludes**.
+
+Pinned by a test in `evaluate-score.test.ts`.
+
 ---
 
 ## 🚧 Known gap
