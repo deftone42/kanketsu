@@ -21,8 +21,8 @@ const BASE_SCORES: Record<WatchingSituation, number> = {
   FINISHED: 100,
   MEGA_SERIES_ONGOING: 80,
   SEQUEL_ANNOUNCED: 70,
+  DE_FACTO_HIATUS: 55,
   ONGOING: 50,
-  DE_FACTO_HIATUS: 30,
   OFFICIAL_HIATUS: 20,
   NOT_RELEASED: 15,
   CANCELLED: 5,
@@ -63,7 +63,7 @@ const COPY: Record<WatchingSituation, SituationCopy> = {
     badgeText: "Stalled Adaptation",
     summary: "No continuation in years.",
     details:
-      "The last season aired years ago and the source keeps going, with no sequel announced. This adaptation may never be finished.",
+      "The last season aired years ago and the source keeps going, with no sequel announced. It may have closed an arc, or stopped mid-story — worth checking before you commit.",
   },
   OFFICIAL_HIATUS: {
     badgeText: "Indefinite Hiatus",

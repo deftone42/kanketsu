@@ -185,6 +185,37 @@ describe("summarizeFranchise", () => {
     expect(summary.endYear).toBe(2023);
   });
 
+  it("reads both ends of the year range from the timeline alone", () => {
+    // Searching HUNTER×HUNTER (1999) reported "1999 – 2014": the start came
+    // from the timeline and the end from `related`, where the 2011 remake
+    // lives. The range described neither the entry picked nor the franchise.
+    const summary = summarizeFranchise(
+      [
+        animeWork({
+          id: 136,
+          startDate: { year: 1999, month: 10, day: 16 },
+          endDate: { year: 2001, month: 3, day: 31 },
+        }),
+      ],
+      [
+        animeWork({
+          id: 10189,
+          startDate: { year: 1998, month: 8, day: 27 },
+          endDate: { year: 1998, month: 8, day: 27 },
+        }),
+        animeWork({
+          id: 11061,
+          startDate: { year: 2011, month: 10, day: 2 },
+          endDate: { year: 2014, month: 9, day: 24 },
+        }),
+      ],
+      [],
+    );
+
+    expect(summary.startYear).toBe(1999);
+    expect(summary.endYear).toBe(2001);
+  });
+
   it("surfaces the soonest upcoming episode", () => {
     const summary = summarizeFranchise(
       [

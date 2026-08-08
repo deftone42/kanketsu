@@ -86,7 +86,7 @@ describe("evaluateWatchingScore", () => {
       expect(result.level).toBe("IF_CANT_WAIT");
     });
 
-    it("scores a stalled adaptation at 30", () => {
+    it("scores a stalled adaptation at 55", () => {
       const result = score({
         status: "FINISHED",
         sourceStatus: "ONGOING",
@@ -94,8 +94,8 @@ describe("evaluateWatchingScore", () => {
         endYear: 2015,
       });
 
-      expect(result.score).toBe(30);
-      expect(result.level).toBe("NOT_GOOD_TIME");
+      expect(result.score).toBe(55);
+      expect(result.level).toBe("IF_CANT_WAIT");
     });
 
     it("scores an official hiatus at 20", () => {
@@ -182,7 +182,7 @@ describe("evaluateWatchingScore", () => {
         endYear: 2015,
       });
 
-      expect(result.score).toBe(30);
+      expect(result.score).toBe(55);
       expect(result.notes).toEqual([]);
     });
 
@@ -272,8 +272,29 @@ describe("evaluateWatchingScore", () => {
         totalEpisodes: 148,
       });
 
-      expect(result.score).toBe(30);
+      expect(result.score).toBe(55);
       expect(result.badgeText).toBe("Stalled Adaptation");
+    });
+
+    /**
+     * The counterweight to HUNTER×HUNTER, and why the situation is worth 55
+     * rather than 30. Baccano!'s anime adapts three arcs and closes them; its
+     * light novel simply never ends, so it lands in the same situation as an
+     * adaptation abandoned mid-story. Nothing in AniList separates the two —
+     * that needs adapted-versus-published chapters — so the band says "if you
+     * can't wait" instead of pretending to know which one this is.
+     */
+    it("does not bury a franchise whose source merely never ends", () => {
+      const result = score({
+        status: "FINISHED",
+        endYear: 2008,
+        sourceStatus: "ONGOING",
+        sourceFormat: "NOVEL",
+        totalEpisodes: 16,
+      });
+
+      expect(result.score).toBe(55);
+      expect(result.level).toBe("IF_CANT_WAIT");
     });
 
     it("ignores the AniList rating entirely, judging the moment not the show", () => {
