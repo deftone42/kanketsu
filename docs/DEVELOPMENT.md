@@ -130,13 +130,13 @@ Runs on every PR against `main`:
 
 ---
 
-## 🧱 Coding Standards (from `AGENTS.md`)
+## 🧱 Coding Standards (from `CLAUDE.md`)
 
 1. **Hexagonal architecture** — domain stays pure; adapters implement ports.
 2. **Strict TypeScript** — `strict: true`, **zero `any`** policy.
-3. **Tailwind CSS** — use the `cn()` helper for conditional classnames.
+3. **Tailwind CSS** — conditional classes are template literals with ternaries. There is no `cn()` helper, and neither `clsx` nor `tailwind-merge` is a dependency.
 4. **No heavy dependencies** without explicit request.
-5. **Validation gate** — `AGENTS.md` asks for `npm run lint` + `npm run build`; CI is stricter and also runs `npx tsc --noEmit` and `npm run test`. Match CI, not the minimum.
+5. **Validation gate** — the full CI order: `npm run lint` → `npx tsc --noEmit` → `npm run test` → `npm run build`.
 
 ---
 
