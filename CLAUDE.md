@@ -45,11 +45,13 @@ Two AniList facts the batching depends on: the API shares **one ID space** acros
 
 ## Testing
 
-Vitest + happy-dom + RTL, globals on. Setup files: `src/test/setup.ts` (MSW lifecycle, `onUnhandledRequest: "error"`) and `vitest.setup.tsx` (mocks `next/image` → plain `<img>`). MSW handlers in `src/mocks/handlers.ts` branch on the GraphQL body to serve either a search page or a media detail; when you change `graphql/queries.ts` or the DTOs, update the handlers or every integration test starts failing on unmocked requests.
+Vitest + happy-dom + RTL, globals on. Setup files: `src/test/setup.ts` (MSW lifecycle, `onUnhandledRequest: "error"`) and `vitest.setup.tsx` (mocks `next/image` → plain `<img>`). MSW handlers in `src/mocks/handlers.ts` branch on the GraphQL body (a query containing `id_in` gets the recorded Attack on Titan batch, anything else a literal search page) — but **no test currently reaches them**: nothing renders `page.tsx`, `useAnimeSearch` or the real adapter, so the integration test of the full journey is still missing and a stale handler fails nothing.
+
+Domain traversal tests use `InMemoryAnimeRepository` (`src/test/fakes/`) instead — it answers batched reads like the real adapter, models the three-hop topology so crossover leaks are catchable, and counts requests.
 
 **Fixtures are recorded, never hand-written.** `npm run record:fixtures` hits the real API and writes `src/test/fixtures/anilist/*.json`; tests replay those offline. Re-record when `FRANCHISE_BATCH_QUERY` changes. Each fixture pins a hazard found against the live API: One Piece reports `episodes: null` while airing, Monogatari's sequels adapt five *different* source novels, Steins;Gate has no source work at all, and **id 9183 is a dead id** (AniList 404s it — real Gintama is `918`, and `docs/` may still cite 9183 wrongly).
 
-Docs drift warning: `docs/ARCHITECTURE.md` and `docs/TESTING.md` still describe the old `Anime`-based model and `src/app/__tests__/` fixtures that do not exist. Verify against the tree before citing them.
+`docs/ARCHITECTURE.md` and `docs/TESTING.md` were rewritten against the current tree and are safe to cite.
 
 ## Docs
 

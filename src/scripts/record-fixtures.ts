@@ -19,7 +19,6 @@ import { FRANCHISE_BATCH_QUERY } from "../infrastructure/adapters/anilist/graphq
 const ANILIST_ENDPOINT = "https://graphql.anilist.co";
 const FIXTURE_DIR = join(process.cwd(), "src/test/fixtures/anilist");
 
-/** Each scenario pins one hazard. See docs/superpowers/specs for why. */
 const SCENARIOS: { name: string; ids: number[] }[] = [
   { name: "attack-on-titan", ids: [16498, 20958, 99147] }, // linear chain
   { name: "monogatari", ids: [5081, 11597, 9260, 21399] }, // same-year ties
