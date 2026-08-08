@@ -39,9 +39,9 @@ export function FranchiseTimeline({
 
   return (
     <section aria-label="Series timeline" className="space-y-3">
-      <h3 className="text-xs uppercase tracking-wider font-bold text-gray-400">
+      <h2 className="text-xs uppercase tracking-wider font-bold text-gray-400">
         Watch order
-      </h3>
+      </h2>
 
       <ol className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory">
         {timeline.map((work, index) => {
@@ -85,7 +85,7 @@ export function FranchiseTimeline({
                 {work.title.userPreferred}
               </p>
 
-              <p className="text-[10px] text-gray-500 font-medium">
+              <p className="text-[10px] text-gray-400 font-medium">
                 {work.startDate.year ?? "TBA"}
               </p>
 

@@ -17,7 +17,7 @@ const SECONDS_PER_DAY = 86_400;
  * the score answers "is this a good moment to watch?", and no amount of
  * backlog beats a story you can finish.
  */
-const BASE_SCORES: Record<WatchingSituation, number> = {
+export const BASE_SCORES: Record<WatchingSituation, number> = {
   FINISHED: 100,
   MEGA_SERIES_ONGOING: 80,
   SEQUEL_ANNOUNCED: 70,
@@ -28,13 +28,13 @@ const BASE_SCORES: Record<WatchingSituation, number> = {
   CANCELLED: 5,
 };
 
-interface SituationCopy {
+export interface SituationCopy {
   badgeText: string;
   summary: string;
   details: string;
 }
 
-const COPY: Record<WatchingSituation, SituationCopy> = {
+export const SITUATION_COPY: Record<WatchingSituation, SituationCopy> = {
   FINISHED: {
     badgeText: "Completed Story",
     summary: "Available to watch in full.",

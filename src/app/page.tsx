@@ -62,7 +62,10 @@ export default function Home() {
         </section>
 
         {isFetchingDetail && (
-          <div className="flex flex-col items-center justify-center py-12 space-y-3">
+          <div
+            role="status"
+            className="flex flex-col items-center justify-center py-12 space-y-3"
+          >
             <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
             <p className="text-sm text-gray-400 font-medium animate-pulse">
               Analyzing seasons, sequels, and release status...
@@ -81,7 +84,7 @@ export default function Home() {
             className="text-center py-8 space-y-2 text-rose-300/90"
           >
             <p className="text-sm font-semibold">Could not load this series.</p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-400">
               AniList may be rate-limiting us. Try again in a moment.
             </p>
           </div>
@@ -123,13 +126,13 @@ export default function Home() {
           )}
 
         {!isFetchingDetail && !franchise && (
-          <div className="text-center py-8 text-gray-600 text-xs uppercase tracking-wider font-semibold">
+          <div className="text-center py-8 text-gray-400 text-xs uppercase tracking-wider font-semibold">
             Search for any title above to calculate the watch timing
           </div>
         )}
       </div>
 
-      <footer className="text-center text-xs text-gray-600 py-6 relative z-10">
+      <footer className="text-center text-xs text-gray-400 py-6 relative z-10">
         AniTime &copy; {new Date().getFullYear()} &bull; Built with Next.js &
         AniList GraphQL API
       </footer>
