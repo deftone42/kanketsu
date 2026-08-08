@@ -30,8 +30,8 @@ The result is clamped to 0–100.
 | `FINISHED`            |  100 | The story is closed and watchable in full                   |
 | `MEGA_SERIES_ONGOING` |   80 | Still airing, but ≥150 episodes of backlog exist            |
 | `SEQUEL_ANNOUNCED`    |   70 | A continuation is on the way; the story is not closed       |
+| `DE_FACTO_HIATUS`     |   55 | Looks finished; the source outran it and nothing followed   |
 | `ONGOING`             |   50 | Airing weekly with no meaningful backlog                    |
-| `DE_FACTO_HIATUS`     |   30 | Looks finished, but was quietly abandoned                   |
 | `OFFICIAL_HIATUS`     |   20 | AniList reports production frozen                           |
 | `NOT_RELEASED`        |   15 | Has not premiered                                           |
 | `CANCELLED`           |    5 | Cancelled before completing its story                       |
@@ -39,6 +39,8 @@ The result is clamped to 0–100.
 **A closed story is the only route to 100.** No amount of backlog beats a story you can actually finish. This is the central inversion from the previous system, which ranked a hype window (95) and a mega-series (90) above a completed franchise (85), leaving nothing able to reach 100.
 
 The large gap between 50 and 70 is deliberate: above it you can watch something right now without waiting week to week, below it you cannot.
+
+**`DE_FACTO_HIATUS` sits just above `ONGOING`, and that is the point.** Every episode is already out and there is nothing left to wait for. It was 30 until the situation was found to hold two different franchises that the data cannot tell apart: HUNTER×HUNTER, abandoned mid-arc with no ending to watch, and Baccano!, whose anime closes the arcs it adapts while Narita's light novel simply never ends. Both read as "finished anime, living source, years of silence". Separating them needs adapted-versus-published chapter counts, which AniList does not report reliably, so the band says *"if you can't wait"* rather than pretending to know which one it is looking at. The copy carries the same hedge: the adaptation *may* have closed an arc, or *may* have stopped mid-story.
 
 ### Modifiers
 
@@ -52,7 +54,7 @@ The notes land in `TimingScore.notes` and render as secondary lines under the ve
 Two rules govern them:
 
 - **The hype bonus only applies to `SEQUEL_ANNOUNCED`.** Applying it to a closed story would break the invariant that closure is the ceiling.
-- **`DE_FACTO_HIATUS` never takes the source penalty.** Its base of 30 already accounts for the source outrunning the adaptation; charging the −5 as well would count the same fact twice.
+- **`DE_FACTO_HIATUS` never takes the source penalty.** Its base of 55 already accounts for the source outrunning the adaptation; charging the −5 as well would count the same fact twice.
 
 `sourceStatus === "UNKNOWN"` — an original series with no source work linked in AniList, such as the recorded Steins;Gate fixture — takes no penalty and gets no note. There is no source that could be left unfinished, so a completed original scores a clean 100.
 
@@ -106,13 +108,19 @@ The case this rule exists for. The anime is `FINISHED` — it ended in 2014 — 
 | `status`       | `FINISHED`                                     |
 | `endYear`      | `2014`                                         |
 | `sourceStatus` | `ONGOING` (the manga is itself on hiatus)      |
-| Result         | `DE_FACTO_HIATUS` → **30**, "Stalled Adaptation" |
+| Result         | `DE_FACTO_HIATUS` → **55**, "Stalled Adaptation" |
 
 Note why `sourceStatus` reads `ONGOING` rather than `HIATUS`: `deriveSourceStatus` collapses source works to `FINISHED` only when *every* one has finished. A paused manga is an unfinished manga, which is exactly the signal we want.
 
-`FINISHED` anime **+** a source that outlives it is not a completed story; it is an abandoned one, and it belongs next to the official hiatus at 20, not at the top. The measure is distinct from the two that ask *how much* content exists — this one asks whether it **concludes**.
+`FINISHED` anime **+** a source that outlives it is not a completed story. The measure is distinct from the two that ask *how much* content exists — this one asks whether it **concludes**.
 
-Pinned by a test in `evaluate-score.test.ts`.
+### Counterweight: Baccano!
+
+Why the situation is worth 55 and not 30. Baccano!'s anime ended in 2008 and its light novel is still `RELEASING` — Narita never concluded it — so it reads identically to HUNTER×HUNTER. But the anime adapts three arcs and closes them: nothing was abandoned.
+
+The rule cannot see the difference, because the difference is *how much of the source the anime covered*, and AniList does not report it. So the score stops short of condemning: 55 puts both in "if you can't wait" instead of burying a complete adaptation next to a cancelled one.
+
+Both scenarios are pinned by tests in `evaluate-score.test.ts`.
 
 ---
 

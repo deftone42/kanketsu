@@ -122,7 +122,15 @@ export function summarizeFranchise(
 
   return {
     startYear: timeline[0]?.startDate.year ?? null,
-    endYear: latestEndYear(watchable),
+    // Both ends read the timeline, and only the timeline. Taking the end from
+    // `related` too built the range out of two different populations: searching
+    // HUNTER×HUNTER (1999) reported "1999 – 2014", the end year belonging to
+    // the 2011 remake, while its episode count and score described the 1999
+    // series. `related` holds what does not advance the story — side stories,
+    // OVAs, remakes — so it does not date the story either. A sequel film does
+    // advance it, and DEFAULT_TIMELINE_FORMATS already keeps films on the
+    // timeline.
+    endYear: latestEndYear(timeline),
     totalEpisodes: timeline.reduce(
       (total, work) => total + releasedEpisodes(work),
       0,
