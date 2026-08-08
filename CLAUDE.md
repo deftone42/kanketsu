@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Zero `any`.** TypeScript runs in strict mode; type the DTOs and the mocks too.
 - **No heavy dependencies without asking.** Runtime deps are deliberately four: `next`, `react`, `react-dom`, `lucide-react`, plus `@vercel/analytics`. Reach for the platform before a package.
 - **Tailwind for styling.** Conditional classes are plain template literals with ternaries (see `FranchiseTimeline.tsx`); there is no `cn()` helper and no `clsx`/`tailwind-merge`, so don't import one.
-- **Comments explain *why*, not *what*.** The existing ones record the API hazard or the rejected alternative that made the code look the way it does — match that.
+- **Don't add comments.** Prefer semantic code: name the function, the variable or the type so the intent reads off the code itself. If a comment feels necessary, that is usually a naming or decomposition problem. The rare exception is a non-obvious external constraint (an API hazard, a rejected alternative) that no name can carry — put that in `docs/`, not inline.
 
 ## Commands
 
