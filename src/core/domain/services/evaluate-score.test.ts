@@ -10,6 +10,7 @@ function summary(overrides: Partial<FranchiseSummary> = {}): FranchiseSummary {
   return {
     startYear: 2013,
     endYear: 2023,
+    lastEndDate: { year: 2023, month: 11, day: 4 },
     totalEpisodes: 87,
     averageScore: 80,
     status: "FINISHED",

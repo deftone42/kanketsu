@@ -29,6 +29,7 @@ function anime(
     episodes: 12,
     score: 80,
     status,
+    genres: [],
     description: null,
     nextAiringEpisode: null,
   };

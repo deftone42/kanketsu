@@ -1,4 +1,5 @@
 import { AnimeFormat, AnimeStatus } from "@/core/domain/models/anime";
+import { Genre } from "@/core/domain/models/genre";
 import { PartialDate } from "@/core/domain/models/partial-date";
 import { RelationType } from "@/core/domain/models/relation";
 import { FranchiseEdge, WorkBatch } from "@/core/domain/models/franchise";
@@ -52,6 +53,38 @@ const RELATION_TYPES: ReadonlySet<string> = new Set([
   "ADAPTATION",
   "SOURCE",
 ]);
+
+/**
+ * AniList tags freely and adds genres over time, so an unknown label is
+ * expected traffic rather than a defect: it is dropped, never leaked raw.
+ */
+const GENRES_BY_ANILIST_LABEL: ReadonlyMap<string, Genre> = new Map([
+  ["Action", "ACTION"],
+  ["Adventure", "ADVENTURE"],
+  ["Comedy", "COMEDY"],
+  ["Drama", "DRAMA"],
+  ["Ecchi", "ECCHI"],
+  ["Fantasy", "FANTASY"],
+  ["Hentai", "HENTAI"],
+  ["Horror", "HORROR"],
+  ["Mahou Shoujo", "MAHOU_SHOUJO"],
+  ["Mecha", "MECHA"],
+  ["Music", "MUSIC"],
+  ["Mystery", "MYSTERY"],
+  ["Psychological", "PSYCHOLOGICAL"],
+  ["Romance", "ROMANCE"],
+  ["Sci-Fi", "SCI_FI"],
+  ["Slice of Life", "SLICE_OF_LIFE"],
+  ["Sports", "SPORTS"],
+  ["Supernatural", "SUPERNATURAL"],
+  ["Thriller", "THRILLER"],
+]);
+
+function mapGenres(genres: string[] | null | undefined): Genre[] {
+  return (genres ?? [])
+    .map((label) => GENRES_BY_ANILIST_LABEL.get(label))
+    .filter((genre): genre is Genre => genre !== undefined);
+}
 
 function mapTitle(title: AniListTitle | undefined): Title {
   return {
@@ -141,6 +174,7 @@ function toAnimeWork(media: AniListBatchMediaItem): AnimeWork {
     episodes: media.episodes ?? null,
     score: media.averageScore ?? null,
     status: mapAnimeStatus(media.status),
+    genres: mapGenres(media.genres),
     description: toPlainText(media.description),
     nextAiringEpisode: nextAiring
       ? {

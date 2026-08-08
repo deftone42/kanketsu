@@ -22,6 +22,7 @@ function work(
     episodes: 12,
     score: 80,
     status: "FINISHED",
+    genres: [],
     description: null,
     nextAiringEpisode: null,
   };

@@ -20,20 +20,15 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
   - Frontier-batched traversal: One Piece went from ~50 requests to **3**. AniList shares one ID space across anime and manga, and rate-limits per request rather than per query complexity, so source works and 3-hop nesting are free.
   - Typed errors (`RateLimitedError`, `WorkNotFoundError`, `RepositoryUnavailableError`). A rate limit sets `isComplete: false` + `unresolvedIds` instead of silently returning a truncated franchise.
   - `rootId` is always the entry the user selected, so the UI can highlight it.
-- [x] **Franchise & Sequel Breakdown (UI)** (PR #4) — `FranchiseTimeline` renders `franchise.timeline` as a horizontal strip in release order with `rootId` marked in place; a single-entry franchise renders nothing.
-  - Decided against a single "face" entry for the franchise: JJK S2 is a _season_ of one work while Fate/Zero is a _standalone work_, and no rule serves both. Showing the selected entry **plus** its entry point sidesteps the choice entirely.
 - [x] **Per-entry detail view** — the timeline strip is interactive: clicking an entry swaps `SeasonCard` to that entry's own run dates, next-episode countdown and synopsis, with no extra request (`franchise.timeline` is already hydrated). The franchise-level score deliberately does not move.
   - **One mark, not two.** The active entry is the one you are viewing, seeded from `rootId`. A second marker for "the entry you originally searched" was rejected as a concept the UI would have to explain; the searched entry stays one click away in its release position.
   - `AnimeWork.description` came along for the ride — AniList returns markup even with `asHtml: false`, so the mapper flattens it to plain text and no component ever needs `dangerouslySetInnerHTML`.
   - Fixed on the way past: the strip was `overflow-x-auto` with nothing focusable inside, so it could not be scrolled by keyboard at all. Real buttons make tabbing scroll it.
-- [ ] **Extra franchise information (UI TBD):**
-  - Spin-offs, movies, OVAs and specials — everything in `franchise.related` — plus the source works in `franchise.sources`. All already collected; only the presentation is undecided.
-  - Matters more than it looks: a franchise can have a `timeline` of 1 and still be huge. One Piece is a single continuous series with **108 related works** (35 movies, 37 specials, 14 TV); Death Note has 3. For those, `related` _is_ the franchise.
 - [x] **Timing Score refinement** (PR #5) — closure-first redesign: `summary.sourceStatus` is scored, a closed story is the only route to 100, and abandoned adaptations are inferred as `DE_FACTO_HIATUS` instead of passing as completed stories. The full table and its rationale live in `docs/SCORING-SYSTEM.md`.
   - **Quality left the calculation deliberately.** The old plan was to penalise poorly-rated series harder; instead `averageScore` was removed from scoring and shown beside the verdict as its own piece of information — the score answers _"is now a good moment"_, not _"is this good"_.
   - Guard rail worth keeping: for a single-season series the seasons average must equal that season's own score. Fixed once already — the average used to include movies and specials, which made Sacred Seven report a score its only season never had.
 - [ ] **Genre & Format Recommendation Engine:**
-  - **Domain:** Extend domain models to include `genres` (Action, Romance, Sci-Fi, etc.) and explicit `format` classification (TV, Movie, OVA, Special, ONA).
+  - **Domain:** ✅ `Genre` is our own token vocabulary (`SCI_FI`, `SLICE_OF_LIFE`), not AniList's display labels — the mapper translates and drops anything outside it, so recommendations never compare API spellings. `AnimeWork.genres` is hydrated and `franchiseGenres` ranks a franchise's by how many entries share them. `format` was already classified.
   - **Infrastructure:** Parameterized AniList GraphQL queries to retrieve related/recommended series by genre and format.
   - **Domain Service:** Recommendation sorting algorithm prioritizing shows with a favorable **Timing Score** ("Ideal to watch now").
   - **UI:** Interactive carousel/section for "Similar shows worth watching right now".
@@ -50,3 +45,6 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
 - [ ] **Custom Timing Score Filters:**
   - User preference toggles (e.g., "Prefer finished series", "Tolerate ongoing series if few episodes remain", "Filter recommendations strictly by Movies or TV Series").
 - [ ] **Dedicated Design**
+- [ ] **Proper icon for the hero and the favicon:**
+  - The hero still borrows lucide's `Clock` and `src/app/favicon.ico` is the Next.js default. Neither says what the app is.
+  - One mark has to serve both: legible at 16px in a tab and at 56px beside the title.

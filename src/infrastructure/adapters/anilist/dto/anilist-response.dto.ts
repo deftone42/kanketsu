@@ -62,6 +62,7 @@ export interface AniListBatchMediaItem {
   chapters?: number | null;
   volumes?: number | null;
   averageScore?: number | null;
+  genres?: string[] | null;
   description?: string | null;
   title?: AniListTitle;
   coverImage?: AniListCoverImage;

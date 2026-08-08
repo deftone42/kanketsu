@@ -1,23 +1,121 @@
 "use client";
 
+import { Fragment } from "react";
+import { AnimeFormat } from "@/core/domain/models/anime";
 import { FranchiseSummary } from "@/core/domain/models/franchise";
-import { SourceFormat } from "@/core/domain/models/franchise-work";
-import { BookCheck, Clock, Film, Star, Tv } from "lucide-react";
+import {
+  AnimeWork,
+  SourceFormat,
+  SourceWork,
+} from "@/core/domain/models/franchise-work";
+import { Genre } from "@/core/domain/models/genre";
+import {
+  BookCheck,
+  BookOpen,
+  Clock,
+  Disc,
+  Film,
+  History,
+  MonitorPlay,
+  Sparkles,
+  Star,
+  Tv,
+} from "lucide-react";
+import { formatMonthsElapsed } from "./format-elapsed";
 import { formatTimeRemaining } from "./format-time-remaining";
 
 interface FranchiseCardProps {
   /** Display name of the series — the first entry's title. */
   name: string;
   summary: FranchiseSummary;
+  /** What the franchise as a whole is about, most representative first. */
+  genres: Genre[];
   seasonCount: number;
-  movieCount: number;
+  /** Everything outside the timeline: movies, OVAs, specials, ONAs. */
+  related: AnimeWork[];
+  sources: SourceWork[];
+  monthsSinceLastRelease: number | null;
 }
+
+const GENRE_NAMES: Record<Genre, string> = {
+  ACTION: "Action",
+  ADVENTURE: "Adventure",
+  COMEDY: "Comedy",
+  DRAMA: "Drama",
+  ECCHI: "Ecchi",
+  FANTASY: "Fantasy",
+  HENTAI: "Hentai",
+  HORROR: "Horror",
+  MAHOU_SHOUJO: "Mahou Shoujo",
+  MECHA: "Mecha",
+  MUSIC: "Music",
+  MYSTERY: "Mystery",
+  PSYCHOLOGICAL: "Psychological",
+  ROMANCE: "Romance",
+  SCI_FI: "Sci-Fi",
+  SLICE_OF_LIFE: "Slice of Life",
+  SPORTS: "Sports",
+  SUPERNATURAL: "Supernatural",
+  THRILLER: "Thriller",
+};
 
 const SOURCE_FORMAT_NAMES: Record<SourceFormat, string> = {
   MANGA: "Manga",
   NOVEL: "Novel",
   ONE_SHOT: "One-shot",
 };
+
+interface RelatedFormat {
+  format: AnimeFormat;
+  singular: string;
+  plural: string;
+  Icon: typeof Film;
+}
+
+const COUNTED_RELATED_FORMATS: RelatedFormat[] = [
+  { format: "MOVIE", singular: "movie", plural: "movies", Icon: Film },
+  { format: "OVA", singular: "OVA", plural: "OVAs", Icon: Disc },
+  { format: "SPECIAL", singular: "special", plural: "specials", Icon: Sparkles },
+  { format: "ONA", singular: "ONA", plural: "ONAs", Icon: MonitorPlay },
+];
+
+function countOf(related: AnimeWork[], format: AnimeFormat): number {
+  return related.filter((work) => work.format === format).length;
+}
+
+/**
+ * Chapter and volume counts only mean something when they describe one work.
+ * Monogatari adapts five separate light novels, and their sum would be a
+ * number no book has.
+ */
+function soleSourceOf(sources: SourceWork[]): SourceWork | null {
+  return sources.length === 1 ? sources[0] : null;
+}
+
+function sourceSizeLabels(source: SourceWork): string[] {
+  const labels: string[] = [];
+
+  if (source.chapters !== null) {
+    labels.push(
+      source.chapters === 1 ? "1 chapter" : `${source.chapters} chapters`,
+    );
+  }
+  if (source.volumes !== null) {
+    labels.push(
+      source.volumes === 1 ? "1 volume" : `${source.volumes} volumes`,
+    );
+  }
+
+  return labels;
+}
+
+/**
+ * How long the wait has been only reads as a wait once the franchise has
+ * stopped: beside a countdown to the next episode it contradicts itself.
+ */
+function isWaiting(status: FranchiseSummary["status"]): boolean {
+  return status !== "ONGOING" && status !== "NEW_SEASON_COMING";
+}
 
 /**
  * "Manga finished" tells the reader more than "Source finished", and whether
@@ -59,10 +157,17 @@ function yearRange(
 export function FranchiseCard({
   name,
   summary,
+  genres,
   seasonCount,
-  movieCount,
+  related,
+  sources,
+  monthsSinceLastRelease,
 }: FranchiseCardProps) {
   const sourceLabel = sourceLabelOf(summary);
+  const soleSource = soleSourceOf(sources);
+  const sizeLabels = soleSource === null ? [] : sourceSizeLabels(soleSource);
+  const showsWait =
+    monthsSinceLastRelease !== null && isWaiting(summary.status);
 
   return (
     <section
@@ -76,17 +181,40 @@ export function FranchiseCard({
 
         <h2 className="text-base font-bold text-white leading-tight">{name}</h2>
 
+        {genres.length > 0 && (
+          <ul aria-label="Genres" className="flex flex-wrap gap-1.5">
+            {genres.map((genre) => (
+              <li
+                key={genre}
+                className="text-[11px] font-medium text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full"
+              >
+                {GENRE_NAMES[genre]}
+              </li>
+            ))}
+          </ul>
+        )}
+
         <div className="flex flex-wrap gap-2 text-[11px] text-gray-400">
           <span className="flex items-center gap-1 bg-gray-800 px-2 py-0.5 rounded-full border border-gray-700">
             <Tv className="w-3 h-3" />
             {seasonCount === 1 ? "1 season" : `${seasonCount} seasons`}
           </span>
 
-          {movieCount > 0 && (
-            <span className="flex items-center gap-1 bg-gray-800 px-2 py-0.5 rounded-full border border-gray-700">
-              <Film className="w-3 h-3" />
-              {movieCount === 1 ? "1 movie" : `${movieCount} movies`}
-            </span>
+          {COUNTED_RELATED_FORMATS.map(
+            ({ format, singular, plural, Icon }) => {
+              const count = countOf(related, format);
+              if (count === 0) return null;
+
+              return (
+                <span
+                  key={format}
+                  className="flex items-center gap-1 bg-gray-800 px-2 py-0.5 rounded-full border border-gray-700"
+                >
+                  <Icon className="w-3 h-3" />
+                  {count === 1 ? `1 ${singular}` : `${count} ${plural}`}
+                </span>
+              );
+            },
           )}
 
           {summary.averageScore !== null && (
@@ -116,6 +244,28 @@ export function FranchiseCard({
             {yearRange(summary.startYear, summary.endYear, summary.status)}
           </span>
         </div>
+
+        {soleSource !== null && sizeLabels.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-400">
+            <BookOpen className="w-3.5 h-3.5 text-gray-500" />
+            <span>{SOURCE_FORMAT_NAMES[soleSource.format]}</span>
+            {sizeLabels.map((label) => (
+              <Fragment key={label}>
+                <span aria-hidden="true" className="text-gray-600">
+                  ·
+                </span>
+                <span>{label}</span>
+              </Fragment>
+            ))}
+          </div>
+        )}
+
+        {showsWait && (
+          <p className="flex items-center gap-1.5 text-xs text-gray-400">
+            <History className="w-3.5 h-3.5 text-gray-500" />
+            <span>Last entry {formatMonthsElapsed(monthsSinceLastRelease)}</span>
+          </p>
+        )}
       </div>
 
       {summary.nextAiringEpisode && (

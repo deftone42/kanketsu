@@ -6,6 +6,7 @@ import {
   SourceWork,
 } from "../models/franchise-work";
 import { FranchiseSourceStatus, FranchiseSummary } from "../models/franchise";
+import { comparePartialDates, PartialDate } from "../models/partial-date";
 
 /**
  * Episodes a single entry contributes to the franchise total.
@@ -71,12 +72,16 @@ function soonestUpcomingEpisode(works: AnimeWork[]): NextEpisode | null {
     );
 }
 
-function latestEndYear(works: AnimeWork[]): number | null {
-  const years = works
-    .map((work) => work.endDate?.year ?? null)
-    .filter((year): year is number => year !== null);
+function latestEndDate(works: AnimeWork[]): PartialDate | null {
+  const endDates = works
+    .map((work) => work.endDate)
+    .filter((date): date is PartialDate => date !== null && date.year !== null);
 
-  return years.length === 0 ? null : Math.max(...years);
+  return endDates.reduce<PartialDate | null>(
+    (latest, date) =>
+      latest === null || comparePartialDates(latest, date) < 0 ? date : latest,
+    null,
+  );
 }
 
 /**
@@ -119,6 +124,7 @@ export function summarizeFranchise(
   sources: SourceWork[],
 ): FranchiseSummary {
   const watchable = [...timeline, ...related];
+  const lastEndDate = latestEndDate(timeline);
 
   return {
     startYear: timeline[0]?.startDate.year ?? null,
@@ -130,7 +136,8 @@ export function summarizeFranchise(
     // OVAs, remakes — so it does not date the story either. A sequel film does
     // advance it, and DEFAULT_TIMELINE_FORMATS already keeps films on the
     // timeline.
-    endYear: latestEndYear(timeline),
+    endYear: lastEndDate?.year ?? null,
+    lastEndDate,
     totalEpisodes: timeline.reduce(
       (total, work) => total + releasedEpisodes(work),
       0,

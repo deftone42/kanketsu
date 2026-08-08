@@ -8,6 +8,7 @@ import { ScoreCard } from "@/components/ScoreCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { ScoringGuide } from "@/components/ScoringGuide";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
+import { franchiseGenres } from "@/core/domain/services/franchise-genres";
 import { Clock, Loader2 } from "lucide-react";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -20,6 +21,7 @@ export default function Home() {
     franchise,
     score,
     viewedId,
+    monthsSinceLastEntry,
     isFetchingDetail,
     selectAnime,
     clearSelection,
@@ -28,12 +30,10 @@ export default function Home() {
 
   const viewedWork =
     viewedId === null ? undefined : franchise?.nodes.get(viewedId);
-  const viewedSeason = viewedWork && isAnimeWork(viewedWork) ? viewedWork : null;
+  const viewedSeason =
+    viewedWork && isAnimeWork(viewedWork) ? viewedWork : null;
 
-  // The first entry names the franchise: "Shingeki no Kyojin", not "Season 3".
   const franchiseName = franchise?.timeline[0]?.title.userPreferred ?? "";
-  const movieCount =
-    franchise?.related.filter((work) => work.format === "MOVIE").length ?? 0;
 
   return (
     <main className="bg-gray-950 text-gray-100">
@@ -84,24 +84,21 @@ export default function Home() {
             </div>
           )}
 
-          {/*
-            A failed first request still yields a Franchise — empty, but with a
-            summary that scores as "Completed Story". Never show a verdict we
-            have no data behind.
-          */}
-          {!isFetchingDetail && franchise && franchise.timeline.length === 0 && (
-            <div
-              role="alert"
-              className="text-center py-8 space-y-2 text-rose-300/90"
-            >
-              <p className="text-sm font-semibold">
-                Could not load this series.
-              </p>
-              <p className="text-xs text-gray-400">
-                AniList may be rate-limiting us. Try again in a moment.
-              </p>
-            </div>
-          )}
+          {!isFetchingDetail &&
+            franchise &&
+            franchise.timeline.length === 0 && (
+              <div
+                role="alert"
+                className="text-center py-8 space-y-2 text-rose-300/90"
+              >
+                <p className="text-sm font-semibold">
+                  Could not load this series.
+                </p>
+                <p className="text-xs text-gray-400">
+                  AniList may be rate-limiting us. Try again in a moment.
+                </p>
+              </div>
+            )}
 
           {!isFetchingDetail &&
             franchise &&
@@ -117,8 +114,11 @@ export default function Home() {
                   <FranchiseCard
                     name={franchiseName}
                     summary={franchise.summary}
+                    genres={franchiseGenres(franchise.timeline)}
                     seasonCount={franchise.timeline.length}
-                    movieCount={movieCount}
+                    related={franchise.related}
+                    sources={franchise.sources}
+                    monthsSinceLastRelease={monthsSinceLastEntry}
                   />
                 </div>
 
