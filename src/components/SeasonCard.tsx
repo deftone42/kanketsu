@@ -27,7 +27,7 @@ export function SeasonCard({ season }: SeasonCardProps) {
       aria-label="Selected season"
       className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-4"
     >
-      <p className="text-xs uppercase tracking-wider font-bold text-gray-500">
+      <p className="text-xs uppercase tracking-wider font-bold text-gray-400">
         You selected
       </p>
 
@@ -45,9 +45,9 @@ export function SeasonCard({ season }: SeasonCardProps) {
         </div>
 
         <div className="space-y-2 min-w-0">
-          <h3 className="text-base font-bold text-white leading-tight">
+          <h2 className="text-base font-bold text-white leading-tight">
             {season.title.userPreferred}
-          </h3>
+          </h2>
 
           <div className="flex flex-wrap gap-2 text-[11px] text-gray-400">
             <span className="flex items-center gap-1 bg-gray-800 px-2 py-0.5 rounded-full border border-gray-700">

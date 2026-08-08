@@ -76,7 +76,7 @@ export function FranchiseCard({
       className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-4"
     >
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-wider font-bold text-gray-500">
+        <p className="text-xs uppercase tracking-wider font-bold text-gray-400">
           Series
         </p>
 
