@@ -132,6 +132,9 @@ describe("FranchiseCollector", () => {
     // commercial, which links by CHARACTER to Sazae-san. Sazae-san airs weekly,
     // so it won the "soonest upcoming episode" pick and the card announced
     // episode 2844 of a franchise that has no such episode.
+    //
+    // The first hop used to be allowed, and admitted the commercial itself.
+    // A shared character is a cameo, not membership, so neither hop is taken.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(21, "One Piece", date(1999), "TV", "ONGOING"))
       .addWork(anime(101099, "HUNGRY DAYS", date(2019), "SPECIAL"))
@@ -141,9 +144,33 @@ describe("FranchiseCollector", () => {
 
     const franchise = await new FranchiseCollector(repo).collect(21);
 
-    expect(franchise.nodes.has(101099)).toBe(true);
+    expect(franchise.nodes.has(101099)).toBe(false);
     expect(franchise.nodes.has(2406)).toBe(false);
-    expect(franchise.related.map((work) => work.id)).not.toContain(2406);
+    expect(franchise.related).toEqual([]);
+    // The edge is still recorded: it is true topology, just not membership.
+    expect(
+      franchise.edges.some((edge) => edge.relationType === "CHARACTER"),
+    ).toBe(true);
+  });
+
+  it("does not adopt a sibling series that only shares characters", async () => {
+    // Baccano! and Durarara!! are separate series by one author, linked on
+    // AniList by CHARACTER alone. Adopting Durarara!! pushed Baccano!'s
+    // endYear from 2008 to 2010, and the card claimed a franchise that ended
+    // in 2008 ran until 2010.
+    const repo = new InMemoryAnimeRepository()
+      .addWork(anime(2251, "Baccano!", date(2007, 7, 27)))
+      .addWork(
+        anime(3901, "Baccano! Bangai-hen", date(2008, 2, 27), "SPECIAL"),
+      )
+      .addWork(anime(6746, "Durarara!!", date(2010, 1, 8)))
+      .addEdge(2251, "SIDE_STORY", 3901)
+      .addEdge(2251, "CHARACTER", 6746);
+
+    const franchise = await new FranchiseCollector(repo).collect(2251);
+
+    expect(franchise.nodes.has(6746)).toBe(false);
+    expect(franchise.related.map((work) => work.id)).toEqual([3901]);
   });
 
   it("does not adopt source works reachable only through a crossover", async () => {

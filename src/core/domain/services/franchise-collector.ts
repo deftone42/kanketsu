@@ -8,7 +8,11 @@ import {
   isSourceWork,
 } from "../models/franchise-work";
 import { comparePartialDates } from "../models/partial-date";
-import { MAIN_TIMELINE_RELATIONS, RelationType } from "../models/relation";
+import {
+  CROSSOVER_RELATIONS,
+  MAIN_TIMELINE_RELATIONS,
+  RelationType,
+} from "../models/relation";
 import { RepositoryError } from "../errors/repository-errors";
 import { AnimeRepository } from "../../ports/anime-repository";
 import { summarizeFranchise } from "./summarize-franchise";
@@ -213,6 +217,12 @@ export class FranchiseCollector {
    * through a crossover into an unrelated series: One Piece links by CHARACTER
    * to a Nissin commercial, which links by CHARACTER to Sazae-san, whose
    * weekly episode then won the franchise's "next episode" pick.
+   *
+   * One hop along a CHARACTER edge is no better, only nearer: it is how
+   * Dragon Ball Z joined One Piece and Durarara!! joined Baccano!, dragging
+   * Durarara!!'s 2010 into a franchise that ended in 2008. `related` feeds
+   * `endYear` and `nextAiringEpisode`, so a cameo can suppress the
+   * DE_FACTO_HIATUS window or hijack a premiere countdown.
    */
   private adjacentIds(
     edges: Map<string, FranchiseEdge>,
@@ -220,6 +230,7 @@ export class FranchiseCollector {
   ): number[] {
     const adjacent = new Set<number>();
     for (const edge of edges.values()) {
+      if (CROSSOVER_RELATIONS.has(edge.relationType)) continue;
       if (!requested.has(edge.sourceId)) continue;
       if (!requested.has(edge.targetId)) adjacent.add(edge.targetId);
     }
