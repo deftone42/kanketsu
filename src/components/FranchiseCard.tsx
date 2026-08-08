@@ -3,6 +3,7 @@
 import { FranchiseSummary } from "@/core/domain/models/franchise";
 import { SourceFormat } from "@/core/domain/models/franchise-work";
 import { BookCheck, Clock, Film, Star, Tv } from "lucide-react";
+import { formatTimeRemaining } from "./format-time-remaining";
 
 interface FranchiseCardProps {
   /** Display name of the series — the first entry's title. */
@@ -31,13 +32,6 @@ function sourceLabelOf(summary: FranchiseSummary): string | null {
   return summary.sourceStatus === "FINISHED"
     ? `${name} finished`
     : `${name} ongoing`;
-}
-
-function formatTimeRemaining(seconds: number): string {
-  const days = Math.floor(seconds / 86400);
-  const hours = Math.floor((seconds % 86400) / 3600);
-  if (days > 0) return `${days}d ${hours}h`;
-  return `${hours}h`;
 }
 
 function episodeLabel(totalEpisodes: number): string {
