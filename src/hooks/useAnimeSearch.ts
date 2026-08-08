@@ -21,6 +21,7 @@ export function useAnimeSearch() {
 
   const [franchise, setFranchise] = useState<Franchise | null>(null);
   const [score, setScore] = useState<TimingScore | null>(null);
+  const [viewedId, setViewedId] = useState<number | null>(null);
   const [isFetchingDetail, setIsFetchingDetail] = useState(false);
 
   const results = useMemo(() => {
@@ -68,11 +69,13 @@ export function useAnimeSearch() {
     try {
       const collected = await collector.collect(id);
       setFranchise(collected);
+      setViewedId(collected.rootId);
       setScore(evaluateWatchingScore(collected.summary, new Date()));
     } catch (error) {
       console.error("Could not collect the franchise:", error);
       setFranchise(null);
       setScore(null);
+      setViewedId(null);
     } finally {
       setIsFetchingDetail(false);
     }
@@ -81,8 +84,13 @@ export function useAnimeSearch() {
   const clearSelection = useCallback(() => {
     setFranchise(null);
     setScore(null);
+    setViewedId(null);
     setQuery("");
     setRawResults([]);
+  }, []);
+
+  const viewEntry = useCallback((id: number) => {
+    setViewedId(id);
   }, []);
 
   return {
@@ -92,8 +100,10 @@ export function useAnimeSearch() {
     isSearching,
     franchise,
     score,
+    viewedId,
     isFetchingDetail,
     selectAnime,
     clearSelection,
+    viewEntry,
   };
 }

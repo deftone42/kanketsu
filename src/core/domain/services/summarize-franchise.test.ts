@@ -19,6 +19,7 @@ function animeWork(overrides: Partial<AnimeWork> & { id: number }): AnimeWork {
     episodes: 25,
     score: 80,
     status: "FINISHED" as AnimeStatus,
+    description: null,
     nextAiringEpisode: null,
     ...overrides,
   };

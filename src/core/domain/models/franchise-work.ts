@@ -31,6 +31,7 @@ export interface AnimeWork {
   episodes: number | null;
   score: number | null;
   status: AnimeStatus;
+  description: string | null;
   nextAiringEpisode: NextEpisode | null;
 }
 

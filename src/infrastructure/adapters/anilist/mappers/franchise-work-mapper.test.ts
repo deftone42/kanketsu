@@ -77,4 +77,35 @@ describe("mapBatchResponse", () => {
 
     expect(new Set(keys).size).toBe(keys.length);
   });
+
+  it("hydrates a per-entry synopsis as plain text", () => {
+    const batch = mapBatchResponse(asResponse(jujutsuKaisen));
+    const work = batch.works.find((candidate) => candidate.id === 113415);
+
+    expect(work && isAnimeWork(work) && work.description).toBeTruthy();
+    expect(work && isAnimeWork(work) && work.description).not.toMatch(/<[^>]+>/);
+  });
+
+  it("maps a missing synopsis to null rather than an empty string", () => {
+    const response: AniListBatchResponse = {
+      data: {
+        Page: {
+          media: [
+            {
+              id: 1,
+              type: "ANIME",
+              format: "TV",
+              status: "FINISHED",
+              title: { userPreferred: "No Synopsis Yet" },
+            },
+          ],
+        },
+      },
+    };
+
+    const batch = mapBatchResponse(response);
+    const work = batch.works.find((candidate) => candidate.id === 1);
+
+    expect(work && isAnimeWork(work) && work.description).toBeNull();
+  });
 });

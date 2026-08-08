@@ -19,14 +19,16 @@ export default function Home() {
     isSearching,
     franchise,
     score,
+    viewedId,
     isFetchingDetail,
     selectAnime,
     clearSelection,
+    viewEntry,
   } = useAnimeSearch();
 
-  const selectedWork = franchise?.nodes.get(franchise.rootId);
-  const selectedSeason =
-    selectedWork && isAnimeWork(selectedWork) ? selectedWork : null;
+  const viewedWork =
+    viewedId === null ? undefined : franchise?.nodes.get(viewedId);
+  const viewedSeason = viewedWork && isAnimeWork(viewedWork) ? viewedWork : null;
 
   // The first entry names the franchise: "Shingeki no Kyojin", not "Season 3".
   const franchiseName = franchise?.timeline[0]?.title.userPreferred ?? "";
@@ -110,7 +112,7 @@ export default function Home() {
                 className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6"
               >
                 <div className="grid gap-6 sm:grid-cols-2">
-                  {selectedSeason && <SeasonCard season={selectedSeason} />}
+                  {viewedSeason && <SeasonCard season={viewedSeason} />}
 
                   <FranchiseCard
                     name={franchiseName}
@@ -124,7 +126,8 @@ export default function Home() {
 
                 <FranchiseTimeline
                   timeline={franchise.timeline}
-                  selectedId={franchise.rootId}
+                  selectedId={viewedId ?? franchise.rootId}
+                  onSelectEntry={viewEntry}
                 />
 
                 {!franchise.isComplete && (

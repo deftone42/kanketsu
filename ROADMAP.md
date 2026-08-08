@@ -22,8 +22,10 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
   - `rootId` is always the entry the user selected, so the UI can highlight it.
 - [x] **Franchise & Sequel Breakdown (UI)** (PR #4) — `FranchiseTimeline` renders `franchise.timeline` as a horizontal strip in release order with `rootId` marked in place; a single-entry franchise renders nothing.
   - Decided against a single "face" entry for the franchise: JJK S2 is a _season_ of one work while Fate/Zero is a _standalone work_, and no rule serves both. Showing the selected entry **plus** its entry point sidesteps the choice entirely.
-- [ ] **Per-entry detail view:**
-  - Open a single season/movie from the timeline and see its own metadata (episodes, score, dates, synopsis) without leaving the franchise view. The timeline strip ships non-interactive precisely because the franchise-level score does not change when you pick a different entry — a per-entry view is what would make clicking meaningful.
+- [x] **Per-entry detail view** — the timeline strip is interactive: clicking an entry swaps `SeasonCard` to that entry's own run dates, next-episode countdown and synopsis, with no extra request (`franchise.timeline` is already hydrated). The franchise-level score deliberately does not move.
+  - **One mark, not two.** The active entry is the one you are viewing, seeded from `rootId`. A second marker for "the entry you originally searched" was rejected as a concept the UI would have to explain; the searched entry stays one click away in its release position.
+  - `AnimeWork.description` came along for the ride — AniList returns markup even with `asHtml: false`, so the mapper flattens it to plain text and no component ever needs `dangerouslySetInnerHTML`.
+  - Fixed on the way past: the strip was `overflow-x-auto` with nothing focusable inside, so it could not be scrolled by keyboard at all. Real buttons make tabbing scroll it.
 - [ ] **Extra franchise information (UI TBD):**
   - Spin-offs, movies, OVAs and specials — everything in `franchise.related` — plus the source works in `franchise.sources`. All already collected; only the presentation is undecided.
   - Matters more than it looks: a franchise can have a `timeline` of 1 and still be huge. One Piece is a single continuous series with **108 related works** (35 movies, 37 specials, 14 TV); Death Note has 3. For those, `related` _is_ the franchise.

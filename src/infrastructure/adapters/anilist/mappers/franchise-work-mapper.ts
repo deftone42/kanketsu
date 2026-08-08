@@ -20,6 +20,7 @@ import {
   AniListNestedNode,
   AniListTitle,
 } from "../dto/anilist-response.dto";
+import { toPlainText } from "./to-plain-text";
 
 const ANIME_FORMATS: ReadonlySet<string> = new Set([
   "TV",
@@ -140,6 +141,7 @@ function toAnimeWork(media: AniListBatchMediaItem): AnimeWork {
     episodes: media.episodes ?? null,
     score: media.averageScore ?? null,
     status: mapAnimeStatus(media.status),
+    description: toPlainText(media.description),
     nextAiringEpisode: nextAiring
       ? {
           episode: nextAiring.episode,
