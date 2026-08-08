@@ -44,7 +44,7 @@ export function FranchiseTimeline({
                 aria-label={entryLabel(work, index + 1)}
                 aria-current={isSelected ? "true" : undefined}
                 aria-controls={SEASON_CARD_ID}
-                className={`w-full text-left rounded-2xl border p-2 space-y-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 ${
+                className={`w-full text-left cursor-pointer rounded-2xl border p-2 space-y-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 ${
                   isSelected
                     ? "bg-indigo-500/10 border-indigo-500/50"
                     : "bg-gray-900 border-gray-800 hover:border-gray-700"

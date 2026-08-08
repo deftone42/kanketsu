@@ -39,10 +39,6 @@ function monthAndYear(date: PartialDate): string | null {
   return `${MONTH_NAMES[date.month - 1]} ${date.year}`;
 }
 
-/**
- * An entry still airing has no end date, which reads as an open range rather
- * than a missing value.
- */
 function runLabel(startDate: PartialDate, endDate: PartialDate | null): string {
   const start = monthAndYear(startDate);
   if (start === null) return "TBA";
