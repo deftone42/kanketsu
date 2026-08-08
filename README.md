@@ -10,7 +10,7 @@
 - **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict mode)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **Data Source:** [AniList GraphQL API](https://anilist.gitbook.io/anilist-apiv2-docs/)
-- **Deployment:** Automated deployment via **GitHub Pages** (Static Export)
+- **Deployment:** Static Export deployed to **Vercel** — push to `main` ships production, every PR gets a preview URL
 
 ---
 
@@ -56,6 +56,9 @@ In the project directory, you can run:
 | `npm run build` | `next build` | Compiles the app and generates static HTML export for production |
 | `npm run start` | `next start` | Starts a Node.js production server to serve the build            |
 | `npm run lint`  | `eslint`     | Runs ESLint to identify code style and syntax issues             |
+| `npm run test`  | `vitest run` | Runs the test suite once (watch mode: `npm run test:watch`)      |
+
+> `npm run lint` does not type check. CI runs `lint` → `npx tsc --noEmit` → `test` → `build`; match that before calling work done.
 
 ---
 

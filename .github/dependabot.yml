@@ -1,0 +1,85 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Madrid"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+    groups:
+      next:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+        update-types: ["minor", "patch"]
+
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+        update-types: ["minor", "patch"]
+
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitejs/plugin-react"
+          - "@testing-library/*"
+          - "@types/jest"
+          - "happy-dom"
+          - "jsdom"
+          - "msw"
+        update-types: ["minor", "patch"]
+
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/postcss"
+        update-types: ["minor", "patch"]
+
+      linting:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+        update-types: ["minor", "patch"]
+
+      typescript:
+        patterns:
+          - "typescript"
+          - "tsx"
+          - "@types/node"
+        update-types: ["minor", "patch"]
+
+      misc:
+        patterns:
+          - "*"
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Madrid"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types: ["minor", "patch"]
