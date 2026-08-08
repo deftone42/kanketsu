@@ -2,15 +2,14 @@
 
 import Image from "next/image";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
+import { SEASON_CARD_ID } from "./SeasonCard";
 
 interface FranchiseTimelineProps {
-  /** The franchise chain, already in release order. */
   timeline: AnimeWork[];
-  /** The entry the user selected — highlighted in place. */
   selectedId: number;
+  onSelectEntry: (id: number) => void;
 }
 
-/** Without this a card reads as three fragments: "1", "Jujutsu Kaisen", "2020". */
 function entryLabel(work: AnimeWork, position: number): string {
   const releasedOn =
     work.startDate.year === null
@@ -20,21 +19,11 @@ function entryLabel(work: AnimeWork, position: number): string {
   return `${position}. ${work.title.userPreferred}, ${releasedOn}`;
 }
 
-/**
- * The franchise as a horizontal strip in release order, with the entry the
- * user picked marked in place.
- *
- * Entries keep their release position: moving the selection to the front
- * would destroy the ordering this component exists to show. It also never
- * sorts — `buildTimeline` already guarantees the order, and re-sorting here
- * would duplicate that logic in the wrong layer.
- */
 export function FranchiseTimeline({
   timeline,
   selectedId,
+  onSelectEntry,
 }: FranchiseTimelineProps) {
-  // A strip of one is noise. One Piece and Death Note land here: both are
-  // single continuous series whose franchise lives in `related` instead.
   if (timeline.length < 2) return null;
 
   return (
@@ -48,52 +37,56 @@ export function FranchiseTimeline({
           const isSelected = work.id === selectedId;
 
           return (
-            <li
-              key={work.id}
-              aria-label={entryLabel(work, index + 1)}
-              aria-current={isSelected ? "true" : undefined}
-              className={`flex-shrink-0 w-32 snap-start rounded-2xl border p-2 space-y-2 transition-colors ${
-                isSelected
-                  ? "bg-indigo-500/10 border-indigo-500/50"
-                  : "bg-gray-900 border-gray-800"
-              }`}
-            >
-              <div className="relative w-full h-40 rounded-xl overflow-hidden bg-gray-800">
-                {work.coverImage && (
-                  <Image
-                    src={work.coverImage}
-                    alt={work.title.userPreferred}
-                    fill
-                    sizes="128px"
-                    className="object-cover"
-                  />
-                )}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1 left-1 bg-gray-950/80 text-gray-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                >
-                  {index + 1}
-                </span>
-              </div>
-
-              <p
-                className={`text-xs font-semibold leading-tight line-clamp-2 ${
-                  isSelected ? "text-indigo-300" : "text-gray-300"
+            <li key={work.id} className="flex-shrink-0 w-32 snap-start">
+              <button
+                type="button"
+                onClick={() => onSelectEntry(work.id)}
+                aria-label={entryLabel(work, index + 1)}
+                aria-current={isSelected ? "true" : undefined}
+                aria-controls={SEASON_CARD_ID}
+                className={`w-full text-left rounded-2xl border p-2 space-y-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 ${
+                  isSelected
+                    ? "bg-indigo-500/10 border-indigo-500/50"
+                    : "bg-gray-900 border-gray-800 hover:border-gray-700"
                 }`}
-                title={work.title.userPreferred}
               >
-                {work.title.userPreferred}
-              </p>
+                <div className="relative w-full h-40 rounded-xl overflow-hidden bg-gray-800">
+                  {work.coverImage && (
+                    <Image
+                      src={work.coverImage}
+                      alt=""
+                      fill
+                      sizes="128px"
+                      className="object-cover"
+                    />
+                  )}
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-1 left-1 bg-gray-950/80 text-gray-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                  >
+                    {index + 1}
+                  </span>
+                </div>
 
-              <p className="text-[10px] text-gray-400 font-medium">
-                {work.startDate.year ?? "TBA"}
-              </p>
-
-              {isSelected && (
-                <p className="text-[10px] font-bold uppercase tracking-wide text-indigo-400">
-                  You picked this
+                <p
+                  className={`text-xs font-semibold leading-tight line-clamp-2 ${
+                    isSelected ? "text-indigo-300" : "text-gray-300"
+                  }`}
+                  title={work.title.userPreferred}
+                >
+                  {work.title.userPreferred}
                 </p>
-              )}
+
+                <p className="text-[10px] text-gray-400 font-medium">
+                  {work.startDate.year ?? "TBA"}
+                </p>
+
+                {isSelected && (
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-indigo-400">
+                    Now viewing
+                  </p>
+                )}
+              </button>
             </li>
           );
         })}

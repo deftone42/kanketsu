@@ -1,6 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { FranchiseTimeline } from "./FranchiseTimeline";
+import { SEASON_CARD_ID } from "./SeasonCard";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
 
 function work(
@@ -25,13 +27,22 @@ function work(
   };
 }
 
-const renderTimeline = (timeline: AnimeWork[], selectedId: number) =>
-  render(<FranchiseTimeline timeline={timeline} selectedId={selectedId} />);
+const renderTimeline = (
+  timeline: AnimeWork[],
+  selectedId: number,
+  onSelectEntry: (id: number) => void = () => {},
+) =>
+  render(
+    <FranchiseTimeline
+      timeline={timeline}
+      selectedId={selectedId}
+      onSelectEntry={onSelectEntry}
+    />,
+  );
 
 const strip = () => screen.queryByRole("region", { name: "Series timeline" });
-const entries = () => screen.getAllByRole("listitem");
-const selectedEntries = () =>
-  screen.queryAllByRole("listitem", { current: true });
+const entries = () => screen.getAllByRole("button");
+const selectedEntries = () => screen.queryAllByRole("button", { current: true });
 
 const seasons = [
   work(1, "Jujutsu Kaisen", 2020),
@@ -57,7 +68,7 @@ describe("FranchiseTimeline", () => {
 
     renderTimeline(seasons, selectedId);
 
-    expect(screen.getByRole("listitem", { current: true })).toHaveAccessibleName(
+    expect(screen.getByRole("button", { current: true })).toHaveAccessibleName(
       "2. Jujutsu Kaisen 2nd Season, 2023",
     );
   });
@@ -85,7 +96,7 @@ describe("FranchiseTimeline", () => {
     renderTimeline(timeline, 1);
 
     expect(
-      screen.getByRole("listitem", {
+      screen.getByRole("button", {
         name: "4. Unannounced Season, release date to be announced",
       }),
     ).toBeInTheDocument();
@@ -95,13 +106,12 @@ describe("FranchiseTimeline", () => {
     // Next throws on an empty src, so the image must be omitted entirely.
     const timeline = [...seasons, work(5, "No Art Yet", 2027, "")];
 
-    renderTimeline(timeline, 1);
+    const { container } = renderTimeline(timeline, 1);
 
     expect(
-      screen.getByRole("listitem", { name: "4. No Art Yet, 2027" }),
+      screen.getByRole("button", { name: "4. No Art Yet, 2027" }),
     ).toBeInTheDocument();
-    expect(screen.queryByAltText("No Art Yet")).not.toBeInTheDocument();
-    expect(screen.getByAltText("Jujutsu Kaisen")).toBeInTheDocument();
+    expect(container.querySelectorAll("img")).toHaveLength(3);
   });
 
   it("marks nothing when the selected id is absent from the timeline", () => {
@@ -111,6 +121,60 @@ describe("FranchiseTimeline", () => {
 
     expect(entries()).toHaveLength(3);
     expect(selectedEntries()).toHaveLength(0);
+  });
+
+  it("opens the entry the user clicks", async () => {
+    const user = userEvent.setup();
+    const onSelectEntry = vi.fn();
+
+    renderTimeline(seasons, 1, onSelectEntry);
+    await user.click(
+      screen.getByRole("button", {
+        name: "3. Jujutsu Kaisen 3rd Season, 2026",
+      }),
+    );
+
+    expect(onSelectEntry).toHaveBeenCalledWith(3);
+  });
+
+  it("is operable by keyboard", async () => {
+    const user = userEvent.setup();
+    const onSelectEntry = vi.fn();
+
+    renderTimeline(seasons, 1, onSelectEntry);
+    await user.tab();
+    await user.keyboard("{Enter}");
+
+    expect(onSelectEntry).toHaveBeenCalledWith(1);
+  });
+
+  it("still reports a click on the entry already being viewed", async () => {
+    const user = userEvent.setup();
+    const onSelectEntry = vi.fn();
+
+    renderTimeline(seasons, 2, onSelectEntry);
+    await user.click(
+      screen.getByRole("button", {
+        name: "2. Jujutsu Kaisen 2nd Season, 2023",
+      }),
+    );
+
+    expect(onSelectEntry).toHaveBeenCalledWith(2);
+  });
+
+  it("points each entry at the card it updates", () => {
+    renderTimeline(seasons, 1);
+
+    expect(entries()[0]).toHaveAttribute("aria-controls", SEASON_CARD_ID);
+  });
+
+  it("never calls back for a franchise with no strip", () => {
+    const onSelectEntry = vi.fn();
+
+    renderTimeline([work(1, "Death Note", 2006)], 1, onSelectEntry);
+
+    expect(screen.queryAllByRole("button")).toHaveLength(0);
+    expect(onSelectEntry).not.toHaveBeenCalled();
   });
 
   it("renders nothing for a single-entry franchise", () => {
