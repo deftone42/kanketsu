@@ -142,7 +142,7 @@ export function evaluateWatchingScore(
   return {
     score: finalScore,
     level: levelForScore(finalScore),
-    ...COPY[situation],
+    ...SITUATION_COPY[situation],
     notes,
   };
 }

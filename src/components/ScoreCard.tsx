@@ -1,49 +1,13 @@
 "use client";
 
-import { ScoreLevel, TimingScore } from "@/core/domain/models/score";
+import { TimingScore } from "@/core/domain/models/score";
 import { PlayCircle } from "lucide-react";
+import { LEVEL_STYLES } from "./score-level-styles";
 
 interface ScoreCardProps {
   score: TimingScore;
 }
 
-const LEVEL_STYLES: Record<
-  ScoreLevel,
-  { bg: string; text: string; border: string }
-> = {
-  PERFECT_TIME: {
-    bg: "bg-emerald-500/10",
-    text: "text-emerald-400",
-    border: "border-emerald-500/30",
-  },
-  GOOD_TIME: {
-    bg: "bg-teal-500/10",
-    text: "text-teal-400",
-    border: "border-teal-500/30",
-  },
-  IF_CANT_WAIT: {
-    bg: "bg-orange-500/10",
-    text: "text-orange-400",
-    border: "border-orange-500/30",
-  },
-  RISK_INCOMPLETE: {
-    bg: "bg-amber-500/10",
-    text: "text-amber-400",
-    border: "border-amber-500/30",
-  },
-  NOT_GOOD_TIME: {
-    bg: "bg-rose-500/10",
-    text: "text-rose-400",
-    border: "border-rose-500/30",
-  },
-  NOT_RECOMMENDED: {
-    bg: "bg-red-950/40",
-    text: "text-red-400",
-    border: "border-red-500/30",
-  },
-};
-
-/** The app's answer: is now a good time to watch this? */
 export function ScoreCard({ score }: ScoreCardProps) {
   const styles = LEVEL_STYLES[score.level];
 
@@ -53,7 +17,6 @@ export function ScoreCard({ score }: ScoreCardProps) {
       aria-describedby="watching-score-verdict"
       className={`rounded-3xl border p-5 space-y-3 ${styles.bg} ${styles.border}`}
     >
-      {/* The colour carries the verdict visually; this carries it otherwise. */}
       <p id="watching-score-verdict" className="sr-only">
         {score.badgeText}. Scored {score.score} out of 100.
       </p>
@@ -81,7 +44,6 @@ export function ScoreCard({ score }: ScoreCardProps) {
         <p className="text-sm text-gray-300 leading-relaxed">{score.details}</p>
       </div>
 
-      {/* Omitted rather than rendered empty, so no list is announced with no items. */}
       {score.notes.length > 0 && (
         <ul className="space-y-1 border-t border-white/10 pt-3">
           {score.notes.map((note) => (
