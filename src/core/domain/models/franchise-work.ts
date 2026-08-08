@@ -1,4 +1,5 @@
 import { AnimeFormat, AnimeStatus } from "./anime";
+import { Genre } from "./genre";
 import { PartialDate } from "./partial-date";
 
 export type WorkKind = "ANIME" | "SOURCE";
@@ -31,6 +32,7 @@ export interface AnimeWork {
   episodes: number | null;
   score: number | null;
   status: AnimeStatus;
+  genres: Genre[];
   description: string | null;
   nextAiringEpisode: NextEpisode | null;
 }

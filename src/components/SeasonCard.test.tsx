@@ -20,6 +20,7 @@ function season(overrides: Partial<AnimeWork> = {}): AnimeWork {
     episodes: 23,
     score: 86,
     status: "FINISHED",
+    genres: [],
     description: null,
     nextAiringEpisode: null,
     ...overrides,

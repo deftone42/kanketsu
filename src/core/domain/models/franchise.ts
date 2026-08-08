@@ -6,6 +6,7 @@ import {
   SourceWork,
   WorkStub,
 } from "./franchise-work";
+import { PartialDate } from "./partial-date";
 import { RelationType } from "./relation";
 
 /** A directed relation between two works, hydrated or not. */
@@ -29,6 +30,8 @@ export type FranchiseSourceStatus = "FINISHED" | "ONGOING" | "UNKNOWN";
 export interface FranchiseSummary {
   startYear: number | null;
   endYear: number | null;
+  /** End date of the latest concluded entry, at whatever precision AniList knows. */
+  lastEndDate: PartialDate | null;
   totalEpisodes: number;
   averageScore: number | null;
   status: AnimeStatus;

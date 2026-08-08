@@ -46,6 +46,7 @@ export const FRANCHISE_BATCH_QUERY = `
         chapters
         volumes
         averageScore
+        genres
         description(asHtml: false)
         title { userPreferred english romaji native }
         coverImage { large }

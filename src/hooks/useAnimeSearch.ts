@@ -10,6 +10,7 @@ import { Franchise } from "@/core/domain/models/franchise";
 import { TimingScore } from "@/core/domain/models/score";
 import { evaluateWatchingScore } from "@/core/domain/services/evaluate-score";
 import { FranchiseCollector } from "@/core/domain/services/franchise-collector";
+import { monthsSinceLastRelease } from "@/core/domain/services/time-since-last-release";
 
 const repository: AnimeRepository = new AniListGraphQLRepository();
 const collector = new FranchiseCollector(repository);
@@ -22,6 +23,9 @@ export function useAnimeSearch() {
   const [franchise, setFranchise] = useState<Franchise | null>(null);
   const [score, setScore] = useState<TimingScore | null>(null);
   const [viewedId, setViewedId] = useState<number | null>(null);
+  const [monthsSinceLastEntry, setMonthsSinceLastEntry] = useState<
+    number | null
+  >(null);
   const [isFetchingDetail, setIsFetchingDetail] = useState(false);
 
   const results = useMemo(() => {
@@ -68,14 +72,18 @@ export function useAnimeSearch() {
 
     try {
       const collected = await collector.collect(id);
+      const now = new Date();
+
       setFranchise(collected);
       setViewedId(collected.rootId);
-      setScore(evaluateWatchingScore(collected.summary, new Date()));
+      setScore(evaluateWatchingScore(collected.summary, now));
+      setMonthsSinceLastEntry(monthsSinceLastRelease(collected.summary, now));
     } catch (error) {
       console.error("Could not collect the franchise:", error);
       setFranchise(null);
       setScore(null);
       setViewedId(null);
+      setMonthsSinceLastEntry(null);
     } finally {
       setIsFetchingDetail(false);
     }
@@ -85,6 +93,7 @@ export function useAnimeSearch() {
     setFranchise(null);
     setScore(null);
     setViewedId(null);
+    setMonthsSinceLastEntry(null);
     setQuery("");
     setRawResults([]);
   }, []);
@@ -101,6 +110,7 @@ export function useAnimeSearch() {
     franchise,
     score,
     viewedId,
+    monthsSinceLastEntry,
     isFetchingDetail,
     selectAnime,
     clearSelection,

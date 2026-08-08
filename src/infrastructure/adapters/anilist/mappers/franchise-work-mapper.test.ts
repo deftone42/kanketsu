@@ -86,6 +86,73 @@ describe("mapBatchResponse", () => {
     expect(work && isAnimeWork(work) && work.description).not.toMatch(/<[^>]+>/);
   });
 
+  it("maps genres into our own vocabulary rather than AniList's labels", () => {
+    const batch = mapBatchResponse(asResponse(onePiece));
+    const work = batch.works.find((candidate) => candidate.id === 21);
+
+    expect(work && isAnimeWork(work) && work.genres).toEqual([
+      "ACTION",
+      "ADVENTURE",
+      "COMEDY",
+      "DRAMA",
+      "FANTASY",
+    ]);
+  });
+
+  it("maps a multi-word genre onto a single token", () => {
+    const batch = mapBatchResponse(asResponse(steinsGate));
+    const work = batch.works.find((candidate) => candidate.id === 9253);
+
+    expect(work && isAnimeWork(work) && work.genres).toContain("SCI_FI");
+  });
+
+  it("drops a genre outside our vocabulary instead of leaking the raw label", () => {
+    const response: AniListBatchResponse = {
+      data: {
+        Page: {
+          media: [
+            {
+              id: 1,
+              type: "ANIME",
+              format: "TV",
+              status: "FINISHED",
+              title: { userPreferred: "Newly Tagged" },
+              genres: ["Action", "Isekai"],
+            },
+          ],
+        },
+      },
+    };
+
+    const batch = mapBatchResponse(response);
+    const work = batch.works.find((candidate) => candidate.id === 1);
+
+    expect(work && isAnimeWork(work) && work.genres).toEqual(["ACTION"]);
+  });
+
+  it("maps absent genres to an empty list", () => {
+    const response: AniListBatchResponse = {
+      data: {
+        Page: {
+          media: [
+            {
+              id: 1,
+              type: "ANIME",
+              format: "TV",
+              status: "FINISHED",
+              title: { userPreferred: "Untagged" },
+            },
+          ],
+        },
+      },
+    };
+
+    const batch = mapBatchResponse(response);
+    const work = batch.works.find((candidate) => candidate.id === 1);
+
+    expect(work && isAnimeWork(work) && work.genres).toEqual([]);
+  });
+
   it("maps a missing synopsis to null rather than an empty string", () => {
     const response: AniListBatchResponse = {
       data: {

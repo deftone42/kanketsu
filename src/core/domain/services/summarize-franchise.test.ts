@@ -19,6 +19,7 @@ function animeWork(overrides: Partial<AnimeWork> & { id: number }): AnimeWork {
     episodes: 25,
     score: 80,
     status: "FINISHED" as AnimeStatus,
+    genres: [],
     description: null,
     nextAiringEpisode: null,
     ...overrides,
@@ -184,6 +185,36 @@ describe("summarizeFranchise", () => {
       [],
     );
     expect(summary.endYear).toBe(2023);
+  });
+
+  it("keeps the whole end date of the latest concluded entry", () => {
+    const summary = summarizeFranchise(
+      [
+        animeWork({ id: 1, endDate: { year: 2013, month: 9, day: 28 } }),
+        animeWork({ id: 2, endDate: { year: 2023, month: 11, day: 4 } }),
+      ],
+      [],
+      [],
+    );
+    expect(summary.lastEndDate).toEqual({ year: 2023, month: 11, day: 4 });
+  });
+
+  it("has no end date while no entry has concluded", () => {
+    const summary = summarizeFranchise(
+      [animeWork({ id: 1, endDate: null, status: "ONGOING" })],
+      [],
+      [],
+    );
+    expect(summary.lastEndDate).toBeNull();
+  });
+
+  it("dates the end from the timeline alone, never from related works", () => {
+    const summary = summarizeFranchise(
+      [animeWork({ id: 136, endDate: { year: 2001, month: 3, day: 31 } })],
+      [animeWork({ id: 11061, endDate: { year: 2014, month: 9, day: 24 } })],
+      [],
+    );
+    expect(summary.lastEndDate).toEqual({ year: 2001, month: 3, day: 31 });
   });
 
   it("reads both ends of the year range from the timeline alone", () => {
