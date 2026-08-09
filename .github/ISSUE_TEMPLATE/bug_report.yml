@@ -1,0 +1,42 @@
+name: Bug report
+description: Something in Kanketsu behaves differently than it should
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: input
+    id: anime
+    attributes:
+      label: Which anime?
+      description: Title or AniList id of the series you searched. Timing Score bugs are almost always specific to one franchise.
+      placeholder: One Piece (AniList id 21)
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Search for "..."
+        2. Select the entry "..."
+        3. The score reads "..."
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS
+      placeholder: Firefox 145 on macOS 26
+
+  - type: checkboxes
+    id: console
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked the browser console for errors and included them above if there were any.

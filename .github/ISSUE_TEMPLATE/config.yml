@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wrong or missing anime data
+    url: https://anilist.co/
+    about: Kanketsu reads everything from AniList. If the episode count, airing dates or relations are wrong there, they will be wrong here — report those upstream to AniList.
