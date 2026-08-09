@@ -2,6 +2,23 @@
   "name": "kanketsu",
   "version": "1.0.0",
   "private": true,
+  "description": "Should I watch this anime? Kanketsu scores how good a moment it is to start a series, from its airing status, announced sequels and franchise continuity.",
+  "license": "MIT",
+  "homepage": "https://kanketsu-anime.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deftone42/kanketsu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deftone42/kanketsu/issues"
+  },
+  "keywords": [
+    "anime",
+    "anilist",
+    "nextjs",
+    "typescript",
+    "hexagonal-architecture"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
