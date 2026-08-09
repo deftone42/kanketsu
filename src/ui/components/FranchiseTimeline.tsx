@@ -2,21 +2,13 @@
 
 import Image from "next/image";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
-import { SEASON_CARD_ID } from "./SeasonCard";
+import { SEASON_CARD_ID } from "@/ui/constants/section-ids";
+import { timelineEntryLabel } from "@/ui/helpers/timeline-entry-label";
 
 interface FranchiseTimelineProps {
   timeline: AnimeWork[];
   selectedId: number;
   onSelectEntry: (id: number) => void;
-}
-
-function entryLabel(work: AnimeWork, position: number): string {
-  const releasedOn =
-    work.startDate.year === null
-      ? "release date to be announced"
-      : String(work.startDate.year);
-
-  return `${position}. ${work.title.userPreferred}, ${releasedOn}`;
 }
 
 export function FranchiseTimeline({
@@ -41,7 +33,7 @@ export function FranchiseTimeline({
               <button
                 type="button"
                 onClick={() => onSelectEntry(work.id)}
-                aria-label={entryLabel(work, index + 1)}
+                aria-label={timelineEntryLabel(work, index + 1)}
                 aria-current={isSelected ? "true" : undefined}
                 aria-controls={SEASON_CARD_ID}
                 className={`w-full text-left cursor-pointer rounded-2xl border p-2 space-y-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 ${

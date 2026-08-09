@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FranchiseTimeline } from "./FranchiseTimeline";
-import { SEASON_CARD_ID } from "./SeasonCard";
+import { SEASON_CARD_ID } from "@/ui/constants/section-ids";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
 
 function work(

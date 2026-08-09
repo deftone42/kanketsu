@@ -2,59 +2,16 @@
 
 import Image from "next/image";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
-import { PartialDate } from "@/core/domain/models/partial-date";
 import { Calendar, Clock, Star, Tv } from "lucide-react";
-import { formatTimeRemaining } from "./format-time-remaining";
+import { episodeLabel } from "@/ui/helpers/episode-label";
+import { formatTimeRemaining } from "@/ui/helpers/format-time-remaining";
+import { runLabel } from "@/ui/helpers/run-label";
+import { SEASON_CARD_ID } from "@/ui/constants/section-ids";
 
 interface SeasonCardProps {
-  /** The entry being read — the searched one until the timeline moves it. */
   season: AnimeWork;
 }
 
-export const SEASON_CARD_ID = "viewed-entry";
-
-const MONTH_NAMES = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-function episodeLabel(episodes: number | null): string {
-  if (episodes === null) return "Episodes TBA";
-  return episodes === 1 ? "1 episode" : `${episodes} episodes`;
-}
-
-function monthAndYear(date: PartialDate): string | null {
-  if (date.year === null) return null;
-  if (date.month === null) return String(date.year);
-  return `${MONTH_NAMES[date.month - 1]} ${date.year}`;
-}
-
-function runLabel(startDate: PartialDate, endDate: PartialDate | null): string {
-  const start = monthAndYear(startDate);
-  if (start === null) return "TBA";
-
-  const end = endDate === null ? null : monthAndYear(endDate);
-  if (end === null) return `${start} – present`;
-  return start === end ? start : `${start} – ${end}`;
-}
-
-/**
- * The entry the user is reading, on its own terms.
- *
- * Deliberately separate from the franchise card: searching for a second
- * season and being shown the first season's metadata is the confusion this
- * exists to remove.
- */
 export function SeasonCard({ season }: SeasonCardProps) {
   return (
     <section
@@ -133,7 +90,9 @@ export function SeasonCard({ season }: SeasonCardProps) {
             </p>
           </div>
           <span className="bg-blue-500/20 border border-blue-500/40 text-blue-300 px-2 py-0.5 rounded-full font-bold flex-shrink-0">
-            {formatTimeRemaining(season.nextAiringEpisode.timeUntilAiringSeconds)}
+            {formatTimeRemaining(
+              season.nextAiringEpisode.timeUntilAiringSeconds,
+            )}
           </span>
         </div>
       )}

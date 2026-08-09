@@ -1,77 +1,13 @@
-import { ScoreLevel } from "@/core/domain/models/score";
 import {
   BASE_SCORES,
   SITUATION_COPY,
 } from "@/core/domain/services/evaluate-score";
-import { WatchingSituation } from "@/core/domain/services/watching-situation";
-import { Gauge, GitBranch, Search } from "lucide-react";
-import { LEVEL_STYLES } from "./score-level-styles";
-
-const situationsByScore = (
-  Object.keys(BASE_SCORES) as WatchingSituation[]
-).sort((first, second) => BASE_SCORES[second] - BASE_SCORES[first]);
-
-const scoreBands: ReadonlyArray<{
-  level: ScoreLevel;
-  label: string;
-  range: string;
-  meaning: string;
-}> = [
-  {
-    level: "PERFECT_TIME",
-    label: "Perfect time",
-    range: "90 – 100",
-    meaning: "Start tonight. Nothing is left to wait for.",
-  },
-  {
-    level: "GOOD_TIME",
-    label: "Good time",
-    range: "75 – 89",
-    meaning: "Plenty to watch before the release schedule can catch up to you.",
-  },
-  {
-    level: "RISK_INCOMPLETE",
-    label: "Risk of incomplete",
-    range: "60 – 74",
-    meaning: "Worth starting, but the story does not end where the episodes do.",
-  },
-  {
-    level: "IF_CANT_WAIT",
-    label: "If you can't wait",
-    range: "40 – 59",
-    meaning: "Go in knowing you may be left hanging, or waiting week to week.",
-  },
-  {
-    level: "NOT_GOOD_TIME",
-    label: "Not a good time",
-    range: "10 – 39",
-    meaning: "Frozen or unreleased. Add it to your list and come back later.",
-  },
-  {
-    level: "NOT_RECOMMENDED",
-    label: "Not recommended",
-    range: "0 – 9",
-    meaning: "Cancelled before the story could be told.",
-  },
-];
-
-const steps = [
-  {
-    icon: Search,
-    title: "You pick a title",
-    body: "Search any anime. Seasons, films and spin-offs all resolve to the same franchise, so it does not matter which entry you land on.",
-  },
-  {
-    icon: GitBranch,
-    title: "We walk the whole franchise",
-    body: "Kanketsu traverses every prequel, sequel, movie and OVA, then follows the trail back to the manga or novel underneath it.",
-  },
-  {
-    icon: Gauge,
-    title: "You get a timing verdict",
-    body: "One number out of 100, a plain-language badge, and the reasoning behind it — including how long the wait is likely to be.",
-  },
-];
+import { LEVEL_STYLES } from "@/ui/constants/score-level-styles";
+import {
+  GUIDE_STEPS,
+  SCORE_BANDS,
+  SITUATIONS_BY_SCORE,
+} from "@/ui/constants/scoring-guide-content";
 
 export function ScoringGuide() {
   return (
@@ -95,7 +31,7 @@ export function ScoringGuide() {
           </div>
 
           <ol className="grid gap-5 sm:grid-cols-3">
-            {steps.map(({ icon: Icon, title, body }, index) => (
+            {GUIDE_STEPS.map(({ icon: Icon, title, body }, index) => (
               <li
                 key={title}
                 className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-3"
@@ -140,7 +76,7 @@ export function ScoringGuide() {
           </div>
 
           <ul className="space-y-3">
-            {scoreBands.map(({ level, label, range, meaning }) => {
+            {SCORE_BANDS.map(({ level, label, range, meaning }) => {
               const styles = LEVEL_STYLES[level];
 
               return (
@@ -187,7 +123,7 @@ export function ScoringGuide() {
           </div>
 
           <dl className="grid gap-4 sm:grid-cols-2">
-            {situationsByScore.map((situation) => (
+            {SITUATIONS_BY_SCORE.map((situation) => (
               <div
                 key={situation}
                 className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-2"

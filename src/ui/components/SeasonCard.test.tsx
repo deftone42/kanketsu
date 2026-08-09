@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { SeasonCard, SEASON_CARD_ID } from "./SeasonCard";
+import { SeasonCard } from "./SeasonCard";
+import { SEASON_CARD_ID } from "@/ui/constants/section-ids";
 import { AnimeWork } from "@/core/domain/models/franchise-work";
 
 function season(overrides: Partial<AnimeWork> = {}): AnimeWork {

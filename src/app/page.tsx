@@ -1,13 +1,13 @@
 "use client";
 
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
-import { SearchBar } from "@/components/SearchBar";
-import { SeasonCard } from "@/components/SeasonCard";
-import { FranchiseCard } from "@/components/FranchiseCard";
-import { ScoreCard } from "@/components/ScoreCard";
-import { FranchiseTimeline } from "@/components/FranchiseTimeline";
-import { ScoringGuide } from "@/components/ScoringGuide";
-import { KanketsuMark } from "@/components/KanketsuMark";
+import { SearchBar } from "@/ui/components/SearchBar";
+import { SeasonCard } from "@/ui/components/SeasonCard";
+import { FranchiseCard } from "@/ui/components/FranchiseCard";
+import { ScoreCard } from "@/ui/components/ScoreCard";
+import { FranchiseTimeline } from "@/ui/components/FranchiseTimeline";
+import { ScoringGuide } from "@/ui/components/ScoringGuide";
+import { KanketsuMark } from "@/ui/components/KanketsuMark";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { franchiseGenres } from "@/core/domain/services/franchise-genres";
 import { Loader2 } from "lucide-react";
