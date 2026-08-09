@@ -158,9 +158,21 @@ export default function Home() {
 
       <ScoringGuide />
 
-      <footer className="border-t border-white/5 text-center text-xs text-gray-400 py-8 px-6">
-        Kanketsu &copy; {new Date().getFullYear()} &bull; Built with Next.js &
-        AniList GraphQL API
+      <footer className="border-t border-white/5 text-center text-xs text-gray-400 py-8 px-6 space-y-2">
+        <p>
+          Kanketsu &copy; {new Date().getFullYear()} &bull; Built with Next.js &
+          AniList GraphQL API
+        </p>
+        <p>
+          <a
+            href="https://github.com/deftone42/kanketsu/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded underline underline-offset-4 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 transition-colors"
+          >
+            Report an issue on GitHub
+          </a>
+        </p>
       </footer>
     </main>
   );
