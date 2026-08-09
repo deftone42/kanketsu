@@ -24,6 +24,25 @@ describe("home page", () => {
     ).toHaveTextContent("Is now a good time to start that anime?");
   });
 
+  it("names the product in the top heading", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Kanketsu",
+    );
+  });
+
+  it("keeps the mark decorative, so the heading is not read twice", () => {
+    render(<Home />);
+
+    const heading = screen.getByRole("heading", { level: 1 });
+
+    expect(within(heading).queryByRole("img")).not.toBeInTheDocument();
+    expect(
+      within(heading).queryByRole("graphics-symbol"),
+    ).not.toBeInTheDocument();
+  });
+
   it("offers a collapsed search combobox", () => {
     render(<Home />);
 

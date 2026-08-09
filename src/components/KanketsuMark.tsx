@@ -1,0 +1,46 @@
+export function KanketsuMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      className={className}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M6.8 13.4 L8.4 3.5 L15.2 9.4 Z" fill="#6366f1" />
+      <path d="M25.2 13.4 L23.6 3.5 L16.8 9.4 Z" fill="#6366f1" />
+      <ellipse cx="16" cy="18.5" rx="11" ry="9.6" fill="#6366f1" />
+      <circle cx="11.6" cy="16" r="2" fill="#fff" />
+      <circle cx="20.4" cy="16" r="2" fill="#fff" />
+      <path
+        d="M13.6 21 Q16 23.2 18.4 21"
+        stroke="#fff"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <circle
+        cx="25"
+        cy="25.2"
+        r="6.1"
+        fill="#fff"
+        stroke="#6366f1"
+        strokeWidth="1.6"
+      />
+      <g
+        fill="none"
+        stroke="#6366f1"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        transform="translate(21.7 21.9) scale(0.275)"
+      >
+        <path d="M12 1.5 V5" />
+        <path d="M3 11 V7 H21 V12" />
+        <path d="M7.5 14.5 H16.5" />
+        <path d="M3.5 18 H20.5" />
+        <path d="M9.5 18 L7 23" />
+        <path d="M15 18 V21.5 C15 23.5 17 24 19.5 22.5" />
+      </g>
+    </svg>
+  );
+}

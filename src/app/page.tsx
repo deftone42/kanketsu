@@ -7,9 +7,10 @@ import { FranchiseCard } from "@/components/FranchiseCard";
 import { ScoreCard } from "@/components/ScoreCard";
 import { FranchiseTimeline } from "@/components/FranchiseTimeline";
 import { ScoringGuide } from "@/components/ScoringGuide";
+import { KanketsuMark } from "@/components/KanketsuMark";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { franchiseGenres } from "@/core/domain/services/franchise-genres";
-import { Clock, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
@@ -47,8 +48,16 @@ export default function Home() {
           <header className="text-center space-y-4">
             <h1 className="space-y-3">
               <span className="text-4xl sm:text-6xl font-black tracking-tight text-white flex items-center justify-center gap-3">
-                <Clock className="w-10 h-10 sm:w-14 sm:h-14 text-indigo-500" />
-                Ani<span className="text-indigo-500">Time</span>
+                <KanketsuMark className="w-10 h-10 sm:w-14 sm:h-14 shrink-0" />
+                <span>
+                  Kanketsu
+                  <span
+                    lang="ja"
+                    className="ml-2 align-middle text-2xl sm:text-3xl text-indigo-500"
+                  >
+                    完結
+                  </span>
+                </span>
               </span>
               <span className="block text-lg sm:text-2xl font-bold tracking-tight text-gray-200">
                 Is now a good time to start that anime?
