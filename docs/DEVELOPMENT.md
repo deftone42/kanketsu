@@ -51,8 +51,11 @@ kanketsu/
 │   │   ├── globals.css   # Tailwind v4 entry
 │   │   ├── layout.tsx    # Root layout (dark theme)
 │   │   └── page.tsx      # Landing page — composes hook + cards
-│   ├── components/       # SearchBar, SeasonCard, FranchiseCard,
-│   │                     #   ScoreCard, FranchiseTimeline (+ .test.tsx)
+│   ├── ui/
+│   │   ├── components/   # SearchBar, SeasonCard, FranchiseCard,
+│   │   │                 #   ScoreCard, FranchiseTimeline (+ .test.tsx)
+│   │   ├── helpers/      # label and format functions (+ .test.ts)
+│   │   └── constants/    # presentation data and element ids
 │   ├── core/
 │   │   ├── domain/
 │   │   │   ├── models/   # Franchise, FranchiseWork, score, relation…

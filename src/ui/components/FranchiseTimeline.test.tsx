@@ -91,7 +91,6 @@ describe("FranchiseTimeline", () => {
   });
 
   it("announces an unknown release date instead of leaving it blank", () => {
-    // Real case: BORUTO: NARUTO NEXT GENERATIONS Part 2 has no announced date.
     const timeline = [...seasons, work(4, "Unannounced Season", null)];
 
     renderTimeline(timeline, 1);
@@ -104,7 +103,6 @@ describe("FranchiseTimeline", () => {
   });
 
   it("renders an entry that has no cover art", () => {
-    // Next throws on an empty src, so the image must be omitted entirely.
     const timeline = [...seasons, work(5, "No Art Yet", 2027, "")];
 
     const { container } = renderTimeline(timeline, 1);
@@ -179,7 +177,6 @@ describe("FranchiseTimeline", () => {
   });
 
   it("renders nothing for a single-entry franchise", () => {
-    // One Piece and Death Note both have a timeline of one.
     const timeline = [work(1, "Death Note", 2006)];
 
     const { container } = renderTimeline(timeline, 1);

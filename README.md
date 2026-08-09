@@ -1,4 +1,4 @@
-# 🐾 Kanketsu
+# Kanketsu
 
 [![CI Checks](https://github.com/deftone42/kanketsu/actions/workflows/ci.yml/badge.svg)](https://github.com/deftone42/kanketsu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -7,6 +7,13 @@
 **Kanketsu** is an anime discovery tool designed to help users determine the ideal time to start watching a series. Driven by a custom **Timing Score**, it evaluates the suitability of starting an anime based on its airing status, upcoming sequels, and overall franchise continuity.
 
 **[Try it live](https://kanketsu-anime.vercel.app/)** · [Report a bug or request a feature](https://github.com/deftone42/kanketsu/issues)
+
+> **Why this exists.** Kanketsu is a discovery and practice project: a real problem used as an
+> excuse to work seriously with **Next.js 16 / React 19** and to explore what building alongside
+> **Claude Code** actually looks like — hexagonal boundaries, recorded fixtures instead of
+> hand-written mocks, and accessibility asserted in tests rather than assumed. The conventions it
+> holds itself to are written down in [`CLAUDE.md`](./CLAUDE.md), and the API hazards that shaped
+> the design in [`docs/CONSTRAINTS.md`](./docs/CONSTRAINTS.md).
 
 ---
 
@@ -75,6 +82,7 @@ In the project directory, you can run:
 | [Architecture](./docs/ARCHITECTURE.md)     | Hexagonal layers, data flow, and dependency rules           |
 | [Scoring System](./docs/SCORING-SYSTEM.md) | How the Timing Score is calculated, all cases and constants |
 | [Testing](./docs/TESTING.md)               | Test stack, fixtures, MSW mocking, and best practices       |
+| [Constraints](./docs/CONSTRAINTS.md)       | AniList hazards and the alternatives that were rejected     |
 | [Development](./docs/DEVELOPMENT.md)       | Setup, commands, project structure, and CI/CD               |
 
 ---

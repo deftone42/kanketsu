@@ -6,7 +6,6 @@ interface GraphQLRequestBody {
   variables?: { ids?: number[]; search?: string; id?: number };
 }
 
-/** Search results are small and stable; a literal is clearer than a fixture. */
 const SEARCH_RESPONSE = {
   data: {
     Page: {

@@ -11,10 +11,12 @@ The central idea: **nothing AniList-shaped crosses the port.** The adapter maps 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │  APP LAYER  (Next.js UI)                                         │
-│  src/app/         page, layout, global styles                    │
-│  src/components/  SearchBar, SeasonCard, FranchiseCard,          │
-│                   ScoreCard, FranchiseTimeline                   │
-│  src/hooks/       useAnimeSearch (state + orchestration)         │
+│  src/app/            page, layout, global styles                 │
+│  src/ui/components/  SearchBar, SeasonCard, FranchiseCard,       │
+│                      ScoreCard, FranchiseTimeline                │
+│  src/ui/helpers/     label and format functions                  │
+│  src/ui/constants/   presentation data and element ids           │
+│  src/hooks/          useAnimeSearch (state + orchestration)      │
 ├──────────────────────────────────────────────────────────────────┤
 │  PORT (Interface)                                                │
 │  src/core/ports/  AnimeRepository                                │
@@ -109,7 +111,7 @@ Two AniList facts the batching depends on:
 
 Error mapping: HTTP 429 → `RateLimitedError` (carrying `Retry-After` when present); network failure, non-OK status or unparseable body → `RepositoryUnavailableError`. Search degrades differently on purpose — it returns `[]` rather than throwing, because an empty dropdown while typing is not a failure worth interrupting the user for.
 
-### 4. App Layer — `src/app/`, `src/components/`, `src/hooks/`
+### 4. App Layer — `src/app/`, `src/ui/`, `src/hooks/`
 
 React / Next.js boundary. **Components stay presentational; all orchestration lives in the hook.**
 
@@ -117,12 +119,20 @@ React / Next.js boundary. **Components stay presentational; all orchestration li
   - Instantiates the repository and collector at module scope, wired to the port type.
   - 350ms debounced search with cancellation on query change; results gated at ≥3 characters.
   - On selection: `collector.collect(id)` → `evaluateWatchingScore(franchise.summary, new Date())`.
-- **`src/components/SearchBar.tsx`** — controlled input + result dropdown.
-- **`src/components/SeasonCard.tsx`** — metadata of the entry the user selected.
-- **`src/components/FranchiseCard.tsx`** — franchise totals, AniList rating, next-episode countdown.
-- **`src/components/ScoreCard.tsx`** — the Timing Score verdict and its notes.
-- **`src/components/FranchiseTimeline.tsx`** — release-order strip with `rootId` marked in place; renders nothing below two entries.
+- **`src/ui/components/SearchBar.tsx`** — controlled input + result dropdown.
+- **`src/ui/components/SeasonCard.tsx`** — metadata of the entry the user selected.
+- **`src/ui/components/FranchiseCard.tsx`** — franchise totals, AniList rating, next-episode countdown.
+- **`src/ui/components/ScoreCard.tsx`** — the Timing Score verdict and its notes.
+- **`src/ui/components/FranchiseTimeline.tsx`** — release-order strip with `rootId` marked in place; renders nothing below two entries.
 - **`src/app/page.tsx`** — composes the hook and components, and handles the empty/loading/failed states.
+
+**A component file holds a component and nothing else.** Every function it would otherwise declare
+lives in `src/ui/helpers/`, and every table of presentation data in `src/ui/constants/`; which of
+the two a module belongs to is decided by what it exports — functions or values.
+
+Both are **presentation only**. They may import from `core/domain`; nothing in `core` may import
+from `ui`. A helper that *decides* something about a franchise rather than giving it a label
+belongs in `core/domain/services` instead.
 
 ---
 

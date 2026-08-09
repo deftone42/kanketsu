@@ -1,18 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * CLI test harness for the FranchiseCollector service.
- *
- * Usage:
- *   npm run test:franchise -- --id=21        # One Piece
- *   npm run test:franchise -- --id=918       # Gintama
- *   npm run test:franchise -- --id=16498     # Attack on Titan
- *
- * Hits the real AniList API, runs the frontier-batched traversal, and
- * prints the collected franchise. Note that 9183 is NOT Gintama — it is a
- * dead id that AniList 404s, kept in the fixtures as a not-found scenario.
- */
-
 import { FranchiseCollector } from "../core/domain/services/franchise-collector";
 import { AniListGraphQLRepository } from "../infrastructure/adapters/anilist/anilist-graphql-repository";
 

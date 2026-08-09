@@ -7,7 +7,7 @@ describe("lastEntryLabel", () => {
   });
 
   it("has no wait to report when nothing has been released yet", () => {
-    expect(lastEntryLabel("NOT_YET_RELEASED", null)).toBeNull();
+    expect(lastEntryLabel("NOT_RELEASED", null)).toBeNull();
   });
 
   it("does not call it a wait while the franchise is still airing", () => {

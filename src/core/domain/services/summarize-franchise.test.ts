@@ -54,7 +54,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("keeps the sum when one entry is ongoing with an unknown total", () => {
-    // Regression: the old adapter replaced the whole sum with one season's count.
     const summary = summarizeFranchise(
       [
         animeWork({ id: 1, episodes: 25 }),
@@ -76,7 +75,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("reports NOT_RELEASED when nothing has aired yet", () => {
-    // Regression: the old adapter reported NEW_SEASON_COMING here.
     const summary = summarizeFranchise(
       [animeWork({ id: 1, status: "NOT_RELEASED", episodes: null })],
       [],
@@ -132,8 +130,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("matches the entry's own score when the series has a single season", () => {
-    // Sacred Seven: one season plus specials. The average must not drift away
-    // from that season's score just because extras exist.
     const summary = summarizeFranchise(
       [animeWork({ id: 1, score: 68 })],
       [
@@ -218,9 +214,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("reads both ends of the year range from the timeline alone", () => {
-    // Searching HUNTER×HUNTER (1999) reported "1999 – 2014": the start came
-    // from the timeline and the end from `related`, where the 2011 remake
-    // lives. The range described neither the entry picked nor the franchise.
     const summary = summarizeFranchise(
       [
         animeWork({
@@ -275,7 +268,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("reports UNKNOWN source status when the franchise has no written source", () => {
-    // Steins;Gate is an original anime with no source edge at all.
     const summary = summarizeFranchise([animeWork({ id: 1 })], [], []);
     expect(summary.sourceStatus).toBe("UNKNOWN");
   });
@@ -299,7 +291,6 @@ describe("summarizeFranchise", () => {
   });
 
   it("picks the predominant format when sources are mixed", () => {
-    // Monogatari adapts many light novels plus a stray manga.
     const summary = summarizeFranchise(
       [animeWork({ id: 1 })],
       [],

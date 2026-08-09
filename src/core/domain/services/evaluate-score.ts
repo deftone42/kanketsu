@@ -6,17 +6,11 @@ import {
   deriveWatchingSituation,
 } from "./watching-situation";
 
-/** Days before a premiere within which catching up is worth a bonus. */
 const HYPE_WINDOW_DAYS = 60;
 const HYPE_WINDOW_BONUS = 15;
 const UNFINISHED_SOURCE_PENALTY = -5;
 const SECONDS_PER_DAY = 86_400;
 
-/**
- * What each situation is worth. A closed story is the only route to 100:
- * the score answers "is this a good moment to watch?", and no amount of
- * backlog beats a story you can finish.
- */
 export const BASE_SCORES: Record<WatchingSituation, number> = {
   FINISHED: 100,
   MEGA_SERIES_ONGOING: 80,
@@ -92,10 +86,6 @@ function clampScore(score: number): number {
   return Math.min(100, Math.max(0, score));
 }
 
-/**
- * The level follows the final score rather than the situation, so a modifier
- * that lifts a franchise into a better band lifts its label too.
- */
 function levelForScore(score: number): ScoreLevel {
   if (score >= 90) return "PERFECT_TIME";
   if (score >= 75) return "GOOD_TIME";
@@ -105,10 +95,6 @@ function levelForScore(score: number): ScoreLevel {
   return "NOT_RECOMMENDED";
 }
 
-/**
- * Is now a good moment to watch this? Deliberately not "is this good" — the
- * AniList rating is shown alongside and never touches this number.
- */
 export function evaluateWatchingScore(
   summary: FranchiseSummary,
   now: Date,
@@ -127,8 +113,6 @@ export function evaluateWatchingScore(
     }
   }
 
-  // A stalled adaptation's base already accounts for the source outrunning it;
-  // applying the penalty as well would charge it twice for the same fact.
   if (summary.sourceStatus === "ONGOING" && situation !== "DE_FACTO_HIATUS") {
     score += UNFINISHED_SOURCE_PENALTY;
     const label = summary.sourceFormat

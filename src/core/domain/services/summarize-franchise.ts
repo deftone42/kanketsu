@@ -8,11 +8,6 @@ import {
 import { FranchiseSourceStatus, FranchiseSummary } from "../models/franchise";
 import { comparePartialDates, PartialDate } from "../models/partial-date";
 
-/**
- * Episodes a single entry contributes to the franchise total.
- * An airing entry rarely reports its final count, so we fall back to the
- * episodes already broadcast: the next one to air, minus one.
- */
 function releasedEpisodes(work: AnimeWork): number {
   if (work.episodes !== null) return work.episodes;
   if (work.nextAiringEpisode !== null) {
@@ -21,11 +16,6 @@ function releasedEpisodes(work: AnimeWork): number {
   return 0;
 }
 
-/**
- * Franchise-level status, most severe signal first.
- * NOT_RELEASED is checked before NEW_SEASON_COMING so a franchise that has
- * never aired is not advertised as having a sequel on the way.
- */
 function deriveStatus(timeline: AnimeWork[]): AnimeStatus {
   if (timeline.length === 0) return "FINISHED";
 
@@ -84,11 +74,6 @@ function latestEndDate(works: AnimeWork[]): PartialDate | null {
   );
 }
 
-/**
- * A franchise can adapt several works of different kinds — Monogatari draws
- * on many light novels plus a stray manga — so the label reflects whichever
- * kind predominates.
- */
 function derivePredominantFormat(sources: SourceWork[]): SourceFormat | null {
   const tally = new Map<SourceFormat, number>();
   for (const source of sources) {
@@ -114,10 +99,6 @@ function deriveSourceStatus(sources: SourceWork[]): FranchiseSourceStatus {
     : "ONGOING";
 }
 
-/**
- * Folds a whole franchise into the handful of facts the watching score needs.
- * Pure: give it the same works and it gives the same summary.
- */
 export function summarizeFranchise(
   timeline: AnimeWork[],
   related: AnimeWork[],
@@ -128,22 +109,12 @@ export function summarizeFranchise(
 
   return {
     startYear: timeline[0]?.startDate.year ?? null,
-    // Both ends read the timeline, and only the timeline. Taking the end from
-    // `related` too built the range out of two different populations: searching
-    // HUNTER×HUNTER (1999) reported "1999 – 2014", the end year belonging to
-    // the 2011 remake, while its episode count and score described the 1999
-    // series. `related` holds what does not advance the story — side stories,
-    // OVAs, remakes — so it does not date the story either. A sequel film does
-    // advance it, and DEFAULT_TIMELINE_FORMATS already keeps films on the
-    // timeline.
     endYear: lastEndDate?.year ?? null,
     lastEndDate,
     totalEpisodes: timeline.reduce(
       (total, work) => total + releasedEpisodes(work),
       0,
     ),
-    // Seasons only. Including movies and specials makes a single-season
-    // series report a score its one season never had.
     averageScore: averageScore(timeline),
     status: deriveStatus(timeline),
     nextAiringEpisode: soonestUpcomingEpisode(watchable),

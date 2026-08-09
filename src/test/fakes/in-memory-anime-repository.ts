@@ -6,17 +6,11 @@ import { FranchiseEdge, WorkBatch } from "@/core/domain/models/franchise";
 import { FranchiseWork, WorkStub } from "@/core/domain/models/franchise-work";
 import { RepositoryError } from "@/core/domain/errors/repository-errors";
 
-/**
- * Domain test double. Holds works and edges in memory and answers batched
- * reads the same way the real adapter does, so collector tests need no
- * network and no MSW.
- */
 export class InMemoryAnimeRepository implements AnimeRepository {
   private readonly works = new Map<number, FranchiseWork>();
   private readonly edges: FranchiseEdge[] = [];
   private readonly failures = new Map<number, RepositoryError>();
 
-  /** Number of batched reads performed — asserts request efficiency. */
   requestCount = 0;
 
   addWork(work: FranchiseWork): this {
@@ -33,13 +27,11 @@ export class InMemoryAnimeRepository implements AnimeRepository {
     return this;
   }
 
-  /** Makes any batch containing this id reject with the given error. */
   failOn(id: number, error: RepositoryError): this {
     this.failures.set(id, error);
     return this;
   }
 
-  /** Search is not exercised by collector tests. */
   async searchAnime(): Promise<AnimeSearchResult[]> {
     return [];
   }
@@ -75,12 +67,6 @@ export class InMemoryAnimeRepository implements AnimeRepository {
     return { works, edges, stubs };
   }
 
-  /**
-   * Edges the real adapter would report for these ids. `FRANCHISE_BATCH_QUERY`
-   * nests `relations` three deep, so a response carries edges leaving the
-   * requested works *and* edges leaving their immediate neighbours. Modelling
-   * only the first hop would hide the crossover leak this fake exists to catch.
-   */
   private topologyAround(ids: number[]): FranchiseEdge[] {
     const sources = new Set(ids);
 

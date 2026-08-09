@@ -18,11 +18,8 @@ import { AnimeRepository } from "../../ports/anime-repository";
 import { summarizeFranchise } from "./summarize-franchise";
 
 export interface FranchiseCollectorOptions {
-  /** Maximum traversal depth. Safety valve against malformed graphs. */
   maxDepth?: number;
-  /** Relation types that extend the timeline. Default: PREQUEL and SEQUEL. */
   followRelationTypes?: ReadonlySet<RelationType>;
-  /** Formats allowed on the timeline. Others are collected as related works. */
   timelineFormats?: ReadonlySet<AnimeFormat>;
 }
 
@@ -31,20 +28,6 @@ const DEFAULT_TIMELINE_FORMATS: ReadonlySet<AnimeFormat> = new Set<AnimeFormat>(
   ["TV", "TV_SHORT", "MOVIE", "SPECIAL"],
 );
 
-/**
- * Collects a complete franchise into our own model.
- *
- * Traverses one *frontier* at a time rather than one node at a time: every
- * unvisited work at the current depth is fetched in a single batched read.
- * Nested topology in each response reveals ids further ahead, so a linear
- * chain costs roughly one request per three entries instead of one per entry.
- *
- * Honesty guarantees:
- * - A work that genuinely does not exist is skipped; traversal continues.
- * - A rate limit or outage stops traversal and sets `isComplete: false`
- *   with the outstanding ids in `unresolvedIds`. A partial franchise is
- *   never presented as a whole one.
- */
 export class FranchiseCollector {
   constructor(private readonly repository: AnimeRepository) {}
 
@@ -99,8 +82,6 @@ export class FranchiseCollector {
       depth += 1;
     }
 
-    // One final read hydrates everything adjacent that we never traversed:
-    // movies, OVAs, specials and the written sources.
     if (isComplete) {
       const adjacent = this.adjacentIds(edges, requested);
       if (adjacent.length > 0) {
@@ -151,7 +132,6 @@ export class FranchiseCollector {
     };
   }
 
-  /** Unvisited works reachable from what we have, along followed relations. */
   private nextFrontier(
     edges: Map<string, FranchiseEdge>,
     nodes: Map<number, FranchiseWork>,
@@ -170,11 +150,6 @@ export class FranchiseCollector {
     return [...next];
   }
 
-  /**
-   * Ids reachable from a starting work along followed relations, in either
-   * direction — a chain is the same chain whether AniList models the link as
-   * the sequel's PREQUEL or the prequel's SEQUEL.
-   */
   private reachableFrom(
     rootId: number,
     edges: Map<string, FranchiseEdge>,
@@ -207,23 +182,6 @@ export class FranchiseCollector {
     return reachable;
   }
 
-  /**
-   * Everything one edge away *from a work we actually collected*, that
-   * traversal never asked for.
-   *
-   * The source check is the whole point. A batch response nests `relations`
-   * three deep, so it also reports edges leaving works that merely neighbour
-   * the franchise. Taking every target regardless of origin walks two hops
-   * through a crossover into an unrelated series: One Piece links by CHARACTER
-   * to a Nissin commercial, which links by CHARACTER to Sazae-san, whose
-   * weekly episode then won the franchise's "next episode" pick.
-   *
-   * One hop along a CHARACTER edge is no better, only nearer: it is how
-   * Dragon Ball Z joined One Piece and Durarara!! joined Baccano!, dragging
-   * Durarara!!'s 2010 into a franchise that ended in 2008. `related` feeds
-   * `endYear` and `nextAiringEpisode`, so a cameo can suppress the
-   * DE_FACTO_HIATUS window or hijack a premiere countdown.
-   */
   private adjacentIds(
     edges: Map<string, FranchiseEdge>,
     requested: Set<number>,
@@ -237,19 +195,6 @@ export class FranchiseCollector {
     return [...adjacent];
   }
 
-  /**
-   * The written works the franchise actually adapts.
-   *
-   * AniList separates the two kinds of book in a franchise by relation type:
-   * from an anime, ADAPTATION points at the work it was adapted *from*, while
-   * a manga drawn from that same book hangs off the anime as ALTERNATIVE.
-   * Taking every source-kind node instead let Durarara!!'s three derived manga
-   * outvote its one light novel, so a novel finished in 2014 was summarised as
-   * "Manga ongoing" — one of those manga is still running.
-   *
-   * The edge is read in either direction: a chain is the same chain whether
-   * AniList reports it from the anime or from the book.
-   */
   private collectSources(
     nodes: Map<number, FranchiseWork>,
     edges: Map<string, FranchiseEdge>,
@@ -274,16 +219,6 @@ export class FranchiseCollector {
     return [...sources.values()];
   }
 
-  /**
-   * The timeline: the chain the selected work actually belongs to, restricted
-   * to timeline formats and ordered by release date. The selected work is
-   * always present so the UI can highlight it even when its format is excluded.
-   *
-   * Membership is *reachability from the root* along followed relations, not
-   * merely touching a followed edge. Franchises routinely contain self-contained
-   * sequel chains — recap movies, chibi shorts — that would otherwise merge into
-   * the main line despite connecting to it only through a SPIN_OFF or PARENT edge.
-   */
   private buildTimeline(
     rootId: number,
     nodes: Map<number, FranchiseWork>,

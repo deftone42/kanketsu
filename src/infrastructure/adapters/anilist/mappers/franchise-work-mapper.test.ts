@@ -23,8 +23,6 @@ describe("mapBatchResponse", () => {
   });
 
   it("preserves a null episode count on an airing series", () => {
-    // One Piece reports episodes: null while ongoing. The summary's
-    // nextAiringEpisode fallback depends on this surviving the mapping.
     const batch = mapBatchResponse(asResponse(onePiece));
     const work = batch.works.find((candidate) => candidate.id === 21);
 
@@ -52,10 +50,6 @@ describe("mapBatchResponse", () => {
     const hydratedIds = batch.works.map((work) => work.id);
     const edgeTargets = new Set(batch.edges.map((edge) => edge.targetId));
 
-    // Only the requested id becomes a work; everything the nested projection
-    // reveals stays topology. Edges may point back at a hydrated node — a
-    // sequel's PREQUEL edge returns to its root — so reachability, not
-    // absence, is what distinguishes topology from content here.
     expect(hydratedIds).toEqual([9253]);
     expect(edgeTargets.size).toBeGreaterThan(1);
     expect(batch.stubs.some((stub) => stub.id === 9253)).toBe(false);

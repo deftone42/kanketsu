@@ -68,7 +68,6 @@ describe("SeasonCard", () => {
   });
 
   it("reports an unknown episode count rather than showing zero", () => {
-    // An airing season usually has no final count yet.
     const work = season({ episodes: null, status: "ONGOING" });
 
     renderSeason(work);

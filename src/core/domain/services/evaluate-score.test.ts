@@ -257,13 +257,6 @@ describe("evaluateWatchingScore", () => {
       expect(result.badgeText).toBe("Stalled Adaptation");
     });
 
-    /**
-     * The scenario the de facto hiatus exists for. The anime ended in 2014 but
-     * the manga never concluded, so the adaptation stops mid-arc and there is
-     * no ending to watch. `sourceStatus` reads ONGOING rather than HIATUS
-     * because deriveSourceStatus only reports FINISHED when every source has
-     * finished — a paused manga is an unfinished manga.
-     */
     it("calls HUNTER×HUNTER's adaptation stalled rather than complete", () => {
       const result = score({
         status: "FINISHED",
@@ -277,14 +270,6 @@ describe("evaluateWatchingScore", () => {
       expect(result.badgeText).toBe("Stalled Adaptation");
     });
 
-    /**
-     * The counterweight to HUNTER×HUNTER, and why the situation is worth 55
-     * rather than 30. Baccano!'s anime adapts three arcs and closes them; its
-     * light novel simply never ends, so it lands in the same situation as an
-     * adaptation abandoned mid-story. Nothing in AniList separates the two —
-     * that needs adapted-versus-published chapters — so the band says "if you
-     * can't wait" instead of pretending to know which one this is.
-     */
     it("does not bury a franchise whose source merely never ends", () => {
       const result = score({
         status: "FINISHED",
