@@ -107,6 +107,14 @@ describe("home page", () => {
     expect(bandsSection.getByText("Perfect time")).toBeInTheDocument();
   });
 
+  it("points at the issue tracker, so a wrong verdict has somewhere to go", () => {
+    render(<Home />);
+
+    expect(
+      screen.getByRole("link", { name: "Report an issue on GitHub" }),
+    ).toHaveAttribute("href", "https://github.com/deftone42/kanketsu/issues");
+  });
+
   it("keeps the guide below the search, so a selection pushes it down", () => {
     render(<Home />);
 

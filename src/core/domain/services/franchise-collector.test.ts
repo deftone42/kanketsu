@@ -74,7 +74,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("orders same-year entries by full date", async () => {
-    // Regression: year-only sorting put Kizumonogatari II before I.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(1, "Kizumonogatari II", date(2016, 8, 19)))
       .addWork(anime(2, "Kizumonogatari I", date(2016, 1, 8)))
@@ -89,7 +88,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("keeps a prequel that aired later in release order", async () => {
-    // Fate/Zero (2011) is a PREQUEL to Fate/stay night (2006).
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(10087, "Fate/Zero", date(2011, 10, 2)))
       .addWork(anime(356, "Fate/stay night", date(2006, 1, 7)))
@@ -130,13 +128,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("does not follow a crossover into somebody else's franchise", async () => {
-    // Observed against the live API: One Piece links by CHARACTER to a Nissin
-    // commercial, which links by CHARACTER to Sazae-san. Sazae-san airs weekly,
-    // so it won the "soonest upcoming episode" pick and the card announced
-    // episode 2844 of a franchise that has no such episode.
-    //
-    // The first hop used to be allowed, and admitted the commercial itself.
-    // A shared character is a cameo, not membership, so neither hop is taken.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(21, "One Piece", date(1999), "TV", "ONGOING"))
       .addWork(anime(101099, "HUNGRY DAYS", date(2019), "SPECIAL"))
@@ -149,17 +140,12 @@ describe("FranchiseCollector", () => {
     expect(franchise.nodes.has(101099)).toBe(false);
     expect(franchise.nodes.has(2406)).toBe(false);
     expect(franchise.related).toEqual([]);
-    // The edge is still recorded: it is true topology, just not membership.
     expect(
       franchise.edges.some((edge) => edge.relationType === "CHARACTER"),
     ).toBe(true);
   });
 
   it("does not adopt a sibling series that only shares characters", async () => {
-    // Baccano! and Durarara!! are separate series by one author, linked on
-    // AniList by CHARACTER alone. Adopting Durarara!! pushed Baccano!'s
-    // endYear from 2008 to 2010, and the card claimed a franchise that ended
-    // in 2008 ran until 2010.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(2251, "Baccano!", date(2007, 7, 27)))
       .addWork(
@@ -176,8 +162,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("does not adopt source works reachable only through a crossover", async () => {
-    // Same leak, other symptom: Steins;Gate pulled in Saya no Uta and reported
-    // the franchise's source as still publishing.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(9253, "Steins;Gate", date(2011)))
       .addWork(anime(10519, "Steins;Gate OVA", date(2011), "OVA"))
@@ -216,10 +200,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("ignores manga drawn from the source when picking the source material", async () => {
-    // Durarara!! adapts a light novel that finished in 2014, but AniList also
-    // hangs three manga *drawn from that same novel* off the anime, as
-    // ALTERNATIVE, and one of them is still running. Counting them as sources
-    // outvoted the single novel and the card read "Manga ongoing".
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(6746, "Durarara!!", date(2010, 1, 8)))
       .addWork(source(46816, "Durarara!! novel", "NOVEL", "FINISHED"))
@@ -239,9 +219,6 @@ describe("FranchiseCollector", () => {
   });
 
   it("excludes a sequel chain that is disconnected from the root", async () => {
-    // Attack on Titan's chibi shorts form their own PREQUEL/SEQUEL chain,
-    // reachable from nothing. They must not merge into the main timeline
-    // just because their internal edges are of a followed type.
     const repo = new InMemoryAnimeRepository()
       .addWork(anime(1, "Season 1", date(2013)))
       .addWork(anime(2, "Season 2", date(2017)))
@@ -306,7 +283,6 @@ describe("FranchiseCollector", () => {
 
     await new FranchiseCollector(repository).collect(1);
 
-    // root batch + one frontier batch containing both 2 and 3.
     expect(repository.requestCount).toBeLessThanOrEqual(2);
   });
 

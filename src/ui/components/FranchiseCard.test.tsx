@@ -225,8 +225,6 @@ describe("FranchiseCard", () => {
   });
 
   it("does not size a franchise that adapts several different works", () => {
-    // Monogatari draws on five separate light novels: a combined chapter
-    // count would describe none of them.
     renderFranchise("Series", summary({ sourceFormat: "NOVEL" }), {
       sources: [
         sourceWork({ id: 1, format: "NOVEL", chapters: 107, volumes: 10 }),

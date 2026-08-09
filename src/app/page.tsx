@@ -1,13 +1,13 @@
 "use client";
 
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
-import { SearchBar } from "@/components/SearchBar";
-import { SeasonCard } from "@/components/SeasonCard";
-import { FranchiseCard } from "@/components/FranchiseCard";
-import { ScoreCard } from "@/components/ScoreCard";
-import { FranchiseTimeline } from "@/components/FranchiseTimeline";
-import { ScoringGuide } from "@/components/ScoringGuide";
-import { KanketsuMark } from "@/components/KanketsuMark";
+import { SearchBar } from "@/ui/components/SearchBar";
+import { SeasonCard } from "@/ui/components/SeasonCard";
+import { FranchiseCard } from "@/ui/components/FranchiseCard";
+import { ScoreCard } from "@/ui/components/ScoreCard";
+import { FranchiseTimeline } from "@/ui/components/FranchiseTimeline";
+import { ScoringGuide } from "@/ui/components/ScoringGuide";
+import { KanketsuMark } from "@/ui/components/KanketsuMark";
 import { isAnimeWork } from "@/core/domain/models/franchise-work";
 import { franchiseGenres } from "@/core/domain/services/franchise-genres";
 import { Loader2 } from "lucide-react";
@@ -158,9 +158,21 @@ export default function Home() {
 
       <ScoringGuide />
 
-      <footer className="border-t border-white/5 text-center text-xs text-gray-400 py-8 px-6">
-        Kanketsu &copy; {new Date().getFullYear()} &bull; Built with Next.js &
-        AniList GraphQL API
+      <footer className="border-t border-white/5 text-center text-xs text-gray-400 py-8 px-6 space-y-2">
+        <p>
+          Kanketsu &copy; {new Date().getFullYear()} &bull; Built with Next.js &
+          AniList GraphQL API
+        </p>
+        <p>
+          <a
+            href="https://github.com/deftone42/kanketsu/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded underline underline-offset-4 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 transition-colors"
+          >
+            Report an issue on GitHub
+          </a>
+        </p>
       </footer>
     </main>
   );

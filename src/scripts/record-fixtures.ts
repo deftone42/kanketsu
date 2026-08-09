@@ -1,17 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Records real AniList responses into test fixtures.
- *
- * Usage: npm run record:fixtures
- *
- * Hand-written mocks encode what we assume the API returns. Every defect
- * found while designing this model came from a shape nobody would have
- * invented, so fixtures are recorded and replayed instead.
- *
- * Re-run whenever FRANCHISE_BATCH_QUERY changes.
- */
-
 import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { FRANCHISE_BATCH_QUERY } from "../infrastructure/adapters/anilist/graphql/queries";
@@ -29,7 +17,6 @@ const SCENARIOS: { name: string; ids: number[] }[] = [
   { name: "missing-work", ids: [9183] }, // dead id -> empty media array
 ];
 
-/** AniList throttles at 30 req/min; space recordings out generously. */
 const DELAY_BETWEEN_CALLS_MS = 2500;
 
 function wait(ms: number): Promise<void> {

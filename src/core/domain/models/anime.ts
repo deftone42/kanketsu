@@ -6,11 +6,6 @@ export type AnimeFormat =
   | "OVA"
   | "ONA";
 
-/**
- * Our status vocabulary, which deliberately differs from AniList's:
- * RELEASING becomes ONGOING, and NEW_SEASON_COMING is derived by
- * summarizeFranchise rather than reported by the API.
- */
 export type AnimeStatus =
   | "FINISHED"
   | "ONGOING"

@@ -2,7 +2,7 @@
 
 import { TimingScore } from "@/core/domain/models/score";
 import { PlayCircle } from "lucide-react";
-import { LEVEL_STYLES } from "./score-level-styles";
+import { LEVEL_STYLES } from "@/ui/constants/score-level-styles";
 
 interface ScoreCardProps {
   score: TimingScore;

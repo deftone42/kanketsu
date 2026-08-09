@@ -16,7 +16,6 @@ import { FRANCHISE_BATCH_QUERY, SEARCH_ANIME_QUERY } from "./graphql/queries";
 
 const ANILIST_ENDPOINT = "https://graphql.anilist.co";
 
-/** AniList accepts at most 50 ids per page. */
 const MAX_IDS_PER_REQUEST = 50;
 
 function chunk(ids: number[], size: number): number[][] {

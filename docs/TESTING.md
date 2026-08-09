@@ -53,7 +53,8 @@ Tests sit beside the code they cover.
 | `src/core/domain/models/partial-date.test.ts`              | Ordering with partially-known dates                    |
 | `src/core/domain/errors/repository-errors.test.ts`         | Error identity and `retryAfterSeconds`                 |
 | `src/infrastructure/.../mappers/franchise-work-mapper.test.ts` | DTO → domain against recorded fixtures            |
-| `src/components/*.test.tsx`                                 | `SeasonCard`, `FranchiseCard`, `ScoreCard`, `FranchiseTimeline` |
+| `src/ui/components/*.test.tsx`                              | `SeasonCard`, `FranchiseCard`, `ScoreCard`, `FranchiseTimeline` |
+| `src/ui/helpers/*.test.ts`                                  | Label and format helpers, unit tested in isolation     |
 | `src/test/fakes/in-memory-anime-repository.ts`             | Domain test double implementing `AnimeRepository`      |
 | `src/test/fixtures/anilist/*.json`                         | Recorded AniList responses                             |
 | `src/mocks/handlers.ts` / `server.ts`                      | MSW handlers + server instance                         |

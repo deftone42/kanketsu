@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **No heavy dependencies without asking.** Runtime deps are deliberately four: `next`, `react`, `react-dom`, `lucide-react`, plus `@vercel/analytics`. Reach for the platform before a package.
 - **Tailwind for styling.** Conditional classes are plain template literals with ternaries (see `FranchiseTimeline.tsx`); there is no `cn()` helper and no `clsx`/`tailwind-merge`, so don't import one.
 - **Accessibility is not optional.** Every UI change ships accessible: semantic elements over a `div` with a handler, keyboard parity with the mouse, a visible focus ring, and an accessible name wherever the visual cue is the only signal. Assert it in tests through roles and accessible names, never class names or test ids (see `FranchiseTimeline.test.tsx`). The `Accesibility` line in `ROADMAP.md` Phase 2 is an audit of what shipped before this rule, not permission to defer.
-- **Don't add comments.** Prefer semantic code: name the function, the variable or the type so the intent reads off the code itself. If a comment feels necessary, that is usually a naming or decomposition problem. The rare exception is a non-obvious external constraint (an API hazard, a rejected alternative) that no name can carry — put that in `docs/`, not inline.
+- **No comments.** Not "few" — none. Name the function, the variable or the type so the intent reads off the code itself; if a comment feels necessary, that is a naming or decomposition problem. Non-obvious external constraints (an API hazard, a rejected alternative) that no name can carry go in `docs/CONSTRAINTS.md`, which is where the ones that used to be inline now live.
+- **A component file holds a component and nothing else.** Every function goes to `src/ui/helpers/`, every table of presentation data to `src/ui/constants/`; what a module exports — functions or values — decides which. Both are presentation only: they may import from `core/domain`, nothing in `core` may import from `ui`, and a helper that *decides* something about a franchise rather than labelling it belongs in `core/domain/services`.
 
 ## Commands
 
@@ -30,7 +31,7 @@ Node `>=22` is enforced via `.nvmrc` + `engines` with `engine-strict=true` (`.np
 
 ## Architecture
 
-Hexagonal, with a single port. Dependency direction: `app`/`components`/`hooks` → `core/ports` → `core/domain`, and `infrastructure` → `core/domain`. The domain imports nothing outside itself (no React, no Next, no fetch). `@/*` maps to `src/*`.
+Hexagonal, with a single port. Dependency direction: `app`/`ui`/`hooks` → `core/ports` → `core/domain`, and `infrastructure` → `core/domain`. The domain imports nothing outside itself (no React, no Next, no fetch). `@/*` maps to `src/*`.
 
 **Port** — `src/core/ports/anime-repository.ts` declares two methods:
 
@@ -61,4 +62,4 @@ Domain traversal tests use `InMemoryAnimeRepository` (`src/test/fakes/`) instead
 
 ## Docs
 
-`docs/ARCHITECTURE.md`, `docs/SCORING-SYSTEM.md`, `docs/TESTING.md`, `docs/DEVELOPMENT.md`, plus `ROADMAP.md` for what's in flight (franchise/sequel UI breakdown, genre recommendations; deployment pipeline is on hold).
+`docs/ARCHITECTURE.md`, `docs/SCORING-SYSTEM.md`, `docs/TESTING.md`, `docs/DEVELOPMENT.md`, `docs/CONSTRAINTS.md` (AniList hazards and rejected alternatives — read it before changing traversal or scoring), plus `ROADMAP.md` for what's in flight (franchise/sequel UI breakdown, genre recommendations; deployment pipeline is on hold).

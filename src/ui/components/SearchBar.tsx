@@ -4,6 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { Search, Loader2, Star, X } from "lucide-react";
 import { AnimeSearchResult } from "@/core/ports/anime-repository";
+import {
+  SEARCH_LISTBOX_ID,
+  searchResultOptionId,
+} from "@/ui/helpers/search-result-ids";
 
 interface SearchBarProps {
   query: string;
@@ -13,9 +17,6 @@ interface SearchBarProps {
   onSelect: (id: number) => void;
   onClear: () => void;
 }
-
-const LISTBOX_ID = "anime-search-results";
-const optionId = (animeId: number) => `anime-search-result-${animeId}`;
 
 export function SearchBar({
   query,
@@ -86,10 +87,10 @@ export function SearchBar({
           role="combobox"
           aria-label="Search anime"
           aria-expanded={isExpanded}
-          aria-controls={LISTBOX_ID}
+          aria-controls={SEARCH_LISTBOX_ID}
           aria-autocomplete="list"
           aria-activedescendant={
-            activeOption ? optionId(activeOption.id) : undefined
+            activeOption ? searchResultOptionId(activeOption.id) : undefined
           }
           autoComplete="off"
           value={query}
@@ -124,7 +125,7 @@ export function SearchBar({
       )}
 
       <ul
-        id={LISTBOX_ID}
+        id={SEARCH_LISTBOX_ID}
         role="listbox"
         aria-label="Anime suggestions"
         hidden={!isExpanded}
@@ -133,7 +134,7 @@ export function SearchBar({
         {results.map((anime, index) => (
           <li
             key={anime.id}
-            id={optionId(anime.id)}
+            id={searchResultOptionId(anime.id)}
             role="option"
             aria-selected={index === activeIndex}
             onMouseDown={(event) => {

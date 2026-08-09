@@ -6,7 +6,7 @@ const drawnShapes = (source: string) =>
 
 describe("the Kanketsu mark", () => {
   it("draws the same shapes in the hero component and the favicon", () => {
-    const component = readFileSync("src/components/KanketsuMark.tsx", "utf8");
+    const component = readFileSync("src/ui/components/KanketsuMark.tsx", "utf8");
     const favicon = readFileSync("src/app/icon.svg", "utf8");
 
     expect(drawnShapes(component)).toHaveLength(9);

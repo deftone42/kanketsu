@@ -1,4 +1,3 @@
-/** Base for every failure the repository port may raise. */
 export abstract class RepositoryError extends Error {
   protected constructor(message: string) {
     super(message);
@@ -6,14 +5,12 @@ export abstract class RepositoryError extends Error {
   }
 }
 
-/** The work genuinely does not exist. Traversal should skip it and continue. */
 export class WorkNotFoundError extends RepositoryError {
   constructor(readonly id: number) {
     super(`Work ${id} does not exist`);
   }
 }
 
-/** The upstream API refused us for volume. Traversal must stop, not truncate. */
 export class RateLimitedError extends RepositoryError {
   constructor(readonly retryAfterSeconds: number | null) {
     super(
@@ -24,7 +21,6 @@ export class RateLimitedError extends RepositoryError {
   }
 }
 
-/** Network failure, server error, or a response we could not parse. */
 export class RepositoryUnavailableError extends RepositoryError {
   constructor(message: string) {
     super(message);

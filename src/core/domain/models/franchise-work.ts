@@ -49,11 +49,6 @@ export interface SourceWork {
 
 export type FranchiseWork = AnimeWork | SourceWork;
 
-/**
- * A work we know exists but have not hydrated. Produced by the nested
- * projection in a batch response; carries only enough to plan the next
- * frontier and label an edge. Never stored as a node.
- */
 export interface WorkStub {
   id: number;
   kind: WorkKind;

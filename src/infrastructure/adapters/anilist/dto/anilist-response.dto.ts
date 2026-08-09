@@ -21,7 +21,6 @@ export interface AniListNextAiringEpisode {
   timeUntilAiring: number;
 }
 
-/** A row from the search query — deliberately lean, search fetches little. */
 export interface AniListSearchMediaItem {
   id: number;
   title: AniListTitle;
@@ -38,7 +37,6 @@ export interface AniListSearchResponse {
   };
 }
 
-/** A node inside a nested `relations` projection: topology only. */
 export interface AniListNestedNode {
   id: number;
   type?: string | null;
@@ -52,7 +50,6 @@ export interface AniListNestedEdge {
   node: AniListNestedNode;
 }
 
-/** A fully hydrated media item from the top level of a batch response. */
 export interface AniListBatchMediaItem {
   id: number;
   type?: string | null;

@@ -54,10 +54,6 @@ const RELATION_TYPES: ReadonlySet<string> = new Set([
   "SOURCE",
 ]);
 
-/**
- * AniList tags freely and adds genres over time, so an unknown label is
- * expected traffic rather than a defect: it is dropped, never leaked raw.
- */
 const GENRES_BY_ANILIST_LABEL: ReadonlyMap<string, Genre> = new Map([
   ["Action", "ACTION"],
   ["Adventure", "ADVENTURE"],
@@ -113,7 +109,6 @@ function mapAnimeFormat(format: string | null | undefined): AnimeFormat | null {
     : null;
 }
 
-/** AniList's vocabulary differs from ours: RELEASING is our ONGOING. */
 function mapAnimeStatus(status: string | null | undefined): AnimeStatus {
   switch (status) {
     case "RELEASING":
@@ -218,10 +213,6 @@ function toStub(node: AniListNestedNode): WorkStub {
   };
 }
 
-/**
- * Walks a nested `relations` projection, collecting edges and stubs.
- * Nested nodes are topology, never content, so they never become works.
- */
 function collectTopology(
   sourceId: number,
   edges: AniListNestedEdge[] | null | undefined,
@@ -245,11 +236,6 @@ function collectTopology(
   }
 }
 
-/**
- * Turns one batched AniList response into domain works plus the topology
- * discovered around them. Hydration and topology are deliberately separate:
- * only top-level media carry full fields.
- */
 export function mapBatchResponse(response: AniListBatchResponse): WorkBatch {
   const media = response.data?.Page?.media ?? [];
 
