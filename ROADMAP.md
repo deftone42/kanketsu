@@ -27,9 +27,12 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
 - [x] **Timing Score refinement** (PR #5) — closure-first redesign: `summary.sourceStatus` is scored, a closed story is the only route to 100, and abandoned adaptations are inferred as `DE_FACTO_HIATUS` instead of passing as completed stories. The full table and its rationale live in `docs/SCORING-SYSTEM.md`.
   - **Quality left the calculation deliberately.** The old plan was to penalise poorly-rated series harder; instead `averageScore` was removed from scoring and shown beside the verdict as its own piece of information — the score answers _"is now a good moment"_, not _"is this good"_.
   - Guard rail worth keeping: for a single-season series the seasons average must equal that season's own score. Fixed once already — the average used to include movies and specials, which made Sacred Seven report a score its only season never had.
-- [ ] **Proper icon for the hero and the favicon:**
-  - The hero still borrows lucide's `Clock` and `src/app/favicon.ico` is the Next.js default. Neither says what the app is.
-  - One mark has to serve both: legible at 16px in a tab and at 56px beside the title.
+- [x] **Proper icon for the hero and the favicon:**
+  - The hero has its own mark — a cat carrying the 完 stamp — instead of lucide's `Clock`, and `src/app/icon.svg` replaces the Next.js default `favicon.ico`. Leaving `favicon.ico` in place is not an option: it wins over `icon.svg` in the App Router, so the new mark would never be seen.
+  - **The kanji is drawn as vector strokes, never `<text>`.** A `<text>` favicon renders empty on any machine without a Japanese font.
+  - The badge is a white disc with an indigo ring rather than a dark halo, which read as a dirty outline on a light browser tab.
+  - `KanketsuMark.tsx` and `icon.svg` duplicate the same paths — importing an SVG as a component needs a loader, and the runtime dependencies are four on purpose. `KanketsuMark.test.tsx` compares the `d` attributes of both files so they cannot drift apart.
+  - **Only an SVG favicon ships.** Safari below 16.4 shows no icon at all; rasterizing an `.ico` needs tooling the project does not have.
 
 ---
 
