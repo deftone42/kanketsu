@@ -40,7 +40,7 @@ async function fetchBatch(ids: number[]): Promise<WorkBatch> {
     response = await fetch(ANILIST_ENDPOINT, {
       method: "POST",
       headers: {
-        "User-Agent": "AniTime/1.0",
+        "User-Agent": "Kanketsu/1.0",
         "Content-Type": "application/json",
         Accept: "application/json",
       },
@@ -88,7 +88,7 @@ export class AniListGraphQLRepository implements AnimeRepository {
       const response = await fetch(ANILIST_ENDPOINT, {
         method: "POST",
         headers: {
-          "User-Agent": "AniTime/1.0",
+          "User-Agent": "Kanketsu/1.0",
           "Content-Type": "application/json",
           Accept: "application/json",
         },

@@ -1,6 +1,6 @@
-# ⏱️ AniTime
+# 🐾 Kanketsu
 
-**AniTime** is an anime discovery tool designed to help users determine the ideal time to start watching a series. Driven by a custom **Timing Score**, it evaluates the suitability of starting an anime based on its airing status, upcoming sequels, and overall franchise continuity.
+**Kanketsu** is an anime discovery tool designed to help users determine the ideal time to start watching a series. Driven by a custom **Timing Score**, it evaluates the suitability of starting an anime based on its airing status, upcoming sequels, and overall franchise continuity.
 
 ---
 

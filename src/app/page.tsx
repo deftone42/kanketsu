@@ -150,7 +150,7 @@ export default function Home() {
       <ScoringGuide />
 
       <footer className="border-t border-white/5 text-center text-xs text-gray-400 py-8 px-6">
-        AniTime &copy; {new Date().getFullYear()} &bull; Built with Next.js &
+        Kanketsu &copy; {new Date().getFullYear()} &bull; Built with Next.js &
         AniList GraphQL API
       </footer>
     </main>

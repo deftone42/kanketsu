@@ -48,7 +48,7 @@ describe("home page", () => {
   it("explains the scoring without needing a search", () => {
     render(<Home />);
 
-    expect(section("How AniTime decides")).toBeInTheDocument();
+    expect(section("How Kanketsu decides")).toBeInTheDocument();
     expect(section("What the number means")).toBeInTheDocument();
     expect(section("The eight situations")).toBeInTheDocument();
     expect(section("Only a finished story reaches 100")).toBeInTheDocument();
@@ -92,7 +92,7 @@ describe("home page", () => {
     render(<Home />);
 
     const search = screen.getByRole("combobox", { name: "Search anime" });
-    const guide = section("How AniTime decides");
+    const guide = section("How Kanketsu decides");
 
     expect(
       search.compareDocumentPosition(guide) &

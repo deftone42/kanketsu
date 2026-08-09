@@ -1,6 +1,6 @@
-# 🛠️ AniTime Development Guide
+# 🛠️ Kanketsu Development Guide
 
-Practical guide for working on the AniTime codebase — setup, commands, project structure, and CI/CD.
+Practical guide for working on the Kanketsu codebase — setup, commands, project structure, and CI/CD.
 
 ---
 

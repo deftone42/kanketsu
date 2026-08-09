@@ -1,4 +1,4 @@
-# 🎯 AniTime Scoring System (Timing Score)
+# 🎯 Kanketsu Scoring System (Timing Score)
 
 The **Timing Score** answers one question: _"Is now a good moment to start watching this franchise?"_
 

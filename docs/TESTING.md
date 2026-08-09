@@ -1,6 +1,6 @@
-# 🧪 AniTime Testing Guide
+# 🧪 Kanketsu Testing Guide
 
-AniTime uses **Vitest** with **React Testing Library** for components and **MSW** for network interception.
+Kanketsu uses **Vitest** with **React Testing Library** for components and **MSW** for network interception.
 
 The governing rule: **fixtures are recorded from the real AniList API, never hand-written.** Hand-written mocks encode what we _assume_ the API returns, and every defect found while designing the franchise model came from a shape nobody would have invented.
 

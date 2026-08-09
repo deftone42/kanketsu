@@ -1,6 +1,6 @@
-# 🗺️ AniTime - Project Roadmap & Architecture Status
+# 🗺️ Kanketsu - Project Roadmap & Architecture Status
 
-**AniTime** is an anime discovery tool centered around calculating a **"Timing Score"** (an evaluation of how suitable it is to start a series based on its current status, sequel announcements, and franchise continuity).
+**Kanketsu** is an anime discovery tool centered around calculating a **"Timing Score"** (an evaluation of how suitable it is to start a series based on its current status, sequel announcements, and franchise continuity).
 
 ---
 
@@ -27,15 +27,13 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
 - [x] **Timing Score refinement** (PR #5) — closure-first redesign: `summary.sourceStatus` is scored, a closed story is the only route to 100, and abandoned adaptations are inferred as `DE_FACTO_HIATUS` instead of passing as completed stories. The full table and its rationale live in `docs/SCORING-SYSTEM.md`.
   - **Quality left the calculation deliberately.** The old plan was to penalise poorly-rated series harder; instead `averageScore` was removed from scoring and shown beside the verdict as its own piece of information — the score answers _"is now a good moment"_, not _"is this good"_.
   - Guard rail worth keeping: for a single-season series the seasons average must equal that season's own score. Fixed once already — the average used to include movies and specials, which made Sacred Seven report a score its only season never had.
-- [ ] **Genre & Format Recommendation Engine:**
-  - **Domain:** ✅ `Genre` is our own token vocabulary (`SCI_FI`, `SLICE_OF_LIFE`), not AniList's display labels — the mapper translates and drops anything outside it, so recommendations never compare API spellings. `AnimeWork.genres` is hydrated and `franchiseGenres` ranks a franchise's by how many entries share them. `format` was already classified.
-  - **Infrastructure:** Parameterized AniList GraphQL queries to retrieve related/recommended series by genre and format.
-  - **Domain Service:** Recommendation sorting algorithm prioritizing shows with a favorable **Timing Score** ("Ideal to watch now").
-  - **UI:** Interactive carousel/section for "Similar shows worth watching right now".
+- [ ] **Proper icon for the hero and the favicon:**
+  - The hero still borrows lucide's `Clock` and `src/app/favicon.ico` is the Next.js default. Neither says what the app is.
+  - One mark has to serve both: legible at 16px in a tab and at 56px beside the title.
 
 ---
 
-## 🔮 Phase 2: Optimization & Advanced Features (Backlog)
+## 🔮 Backlog
 
 - [ ] **Client Caching / LocalStorage:**
   - Temporary client-side caching to minimize API requests for repeated searches.
@@ -45,6 +43,8 @@ Stack, hexagonal layering, deployment and the recorded-fixture policy live in `C
 - [ ] **Custom Timing Score Filters:**
   - User preference toggles (e.g., "Prefer finished series", "Tolerate ongoing series if few episodes remain", "Filter recommendations strictly by Movies or TV Series").
 - [ ] **Dedicated Design**
-- [ ] **Proper icon for the hero and the favicon:**
-  - The hero still borrows lucide's `Clock` and `src/app/favicon.ico` is the Next.js default. Neither says what the app is.
-  - One mark has to serve both: legible at 16px in a tab and at 56px beside the title.
+- [ ] **Genre & Format Recommendation Engine:**
+  - **Domain:** ✅ `Genre` is our own token vocabulary (`SCI_FI`, `SLICE_OF_LIFE`), not AniList's display labels — the mapper translates and drops anything outside it, so recommendations never compare API spellings. `AnimeWork.genres` is hydrated and `franchiseGenres` ranks a franchise's by how many entries share them. `format` was already classified.
+  - **Infrastructure:** Parameterized AniList GraphQL queries to retrieve related/recommended series by genre and format.
+  - **Domain Service:** Recommendation sorting algorithm prioritizing shows with a favorable **Timing Score** ("Ideal to watch now").
+  - **UI:** Interactive carousel/section for "Similar shows worth watching right now".

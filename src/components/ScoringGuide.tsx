@@ -64,7 +64,7 @@ const steps = [
   {
     icon: GitBranch,
     title: "We walk the whole franchise",
-    body: "AniTime traverses every prequel, sequel, movie and OVA, then follows the trail back to the manga or novel underneath it.",
+    body: "Kanketsu traverses every prequel, sequel, movie and OVA, then follows the trail back to the manga or novel underneath it.",
   },
   {
     icon: Gauge,
@@ -86,11 +86,11 @@ export function ScoringGuide() {
               id="how-it-works-heading"
               className="text-2xl sm:text-3xl font-black tracking-tight text-white"
             >
-              How AniTime decides
+              How Kanketsu decides
             </h2>
             <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               Starting an anime that stops mid-story is a specific kind of
-              disappointment. AniTime exists to warn you before it happens.
+              disappointment. Kanketsu exists to warn you before it happens.
             </p>
           </div>
 
@@ -230,7 +230,7 @@ export function ScoringGuide() {
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
             The community rating from AniList sits next to the score and never
             enters the calculation. Whether a show is worth your time is your
-            call. AniTime only tells you whether this is the right moment to
+            call. Kanketsu only tells you whether this is the right moment to
             make it.
           </p>
         </div>
