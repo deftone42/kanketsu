@@ -39,7 +39,7 @@ Hexagonal, with a single port. Dependency direction: `app`/`components`/`hooks` 
 
 **One franchise implementation.** `src/core/domain/services/franchise-collector.ts` (`FranchiseCollector`) is the single path: a frontier-batched traversal that fetches every unvisited work at the current depth in one request. It returns a `Franchise` — `timeline` (PREQUEL/SEQUEL chain in release order), `related` (movies, OVAs, specials), `sources` (manga/novels), `summary`, and `isComplete`/`unresolvedIds` when traversal stopped early. `rootId` is always the id you passed, so the UI can highlight the entry the user selected.
 
-Two AniList facts the batching depends on: the API shares **one ID space** across anime and manga (so omitting the `type` filter returns source works for free), and it rate-limits **per request, not per query complexity** (so `FRANCHISE_BATCH_QUERY` nests `relations` three deep at no cost). Nested nodes are *topology stubs* — they reveal ids for planning the next frontier and never become hydrated nodes.
+Two AniList facts the batching depends on: the API shares **one ID space** across anime and manga (so omitting the `type` filter returns source works for free), and it rate-limits **per request, not per query complexity** (so `FRANCHISE_BATCH_QUERY` nests `relations` three deep at no cost). Nested nodes are _topology stubs_ — they reveal ids for planning the next frontier and never become hydrated nodes.
 
 **Aggregation lives in the domain.** `summarizeFranchise` folds the collected works into the `FranchiseSummary` that `evaluateWatchingScore` consumes. It is pure and unit-tested; nothing about franchise-level totals or status lives in the adapter any more.
 
@@ -47,7 +47,7 @@ Two AniList facts the batching depends on: the API shares **one ID space** acros
 
 **App layer** — `useAnimeSearch` is the only orchestration point: it instantiates the repository at module scope, debounces 350ms with cancellation, gates results at ≥3 chars, and on selection fetches detail then computes the score. Components stay presentational.
 
-**Static export** — `next.config.ts` sets `output: "export"`, and Vercel serves the resulting `out/` at the domain root, so there is no `basePath`/`assetPrefix` (they used to point at `/anitime` for GitHub Pages; that host was dropped because publishing a private repo needs a paid plan). No server runtime exists: all AniList calls are client-side, so avoid server actions, route handlers, or anything requiring a Node server.
+**Static export** — `next.config.ts` sets `output: "export"`, and Vercel serves the resulting `out/` at the domain root, so there is no `basePath`/`assetPrefix`. No server runtime exists: all AniList calls are client-side, so avoid server actions, route handlers, or anything requiring a Node server.
 
 ## Testing
 
@@ -55,7 +55,7 @@ Vitest + happy-dom + RTL, globals on. Setup files: `src/test/setup.ts` (MSW life
 
 Domain traversal tests use `InMemoryAnimeRepository` (`src/test/fakes/`) instead — it answers batched reads like the real adapter, models the three-hop topology so crossover leaks are catchable, and counts requests.
 
-**Fixtures are recorded, never hand-written.** `npm run record:fixtures` hits the real API and writes `src/test/fixtures/anilist/*.json`; tests replay those offline. Re-record when `FRANCHISE_BATCH_QUERY` changes. Each fixture pins a hazard found against the live API: One Piece reports `episodes: null` while airing, Monogatari's sequels adapt five *different* source novels, Steins;Gate has no source work at all, and **id 9183 is a dead id** (AniList 404s it — real Gintama is `918`, and `docs/` may still cite 9183 wrongly).
+**Fixtures are recorded, never hand-written.** `npm run record:fixtures` hits the real API and writes `src/test/fixtures/anilist/*.json`; tests replay those offline. Re-record when `FRANCHISE_BATCH_QUERY` changes. Each fixture pins a hazard found against the live API: One Piece reports `episodes: null` while airing, Monogatari's sequels adapt five _different_ source novels, Steins;Gate has no source work at all, and **id 9183 is a dead id** (AniList 404s it — real Gintama is `918`, and `docs/` may still cite 9183 wrongly).
 
 `docs/ARCHITECTURE.md` and `docs/TESTING.md` were rewritten against the current tree and are safe to cite.
 

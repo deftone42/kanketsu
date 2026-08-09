@@ -18,31 +18,31 @@ nvm use
 
 ## 🚀 Available Scripts
 
-| Command                        | Description                                                       |
-| :----------------------------- | :---------------------------------------------------------------- |
-| `npm run dev`                  | Start Next.js dev server with hot reload (http://localhost:3000)  |
-| `npm run build`                | Build static export via `next build` → `out/`                     |
-| `npm run start`                | Serve the production build (`next start`)                         |
-| `npm run lint`                 | Run ESLint (flat config, `eslint.config.mjs`)                     |
-| `npx tsc --noEmit`             | TypeScript compiler check — **part of CI, not covered by lint**   |
-| `npm run test`                 | Run Vitest once (CI mode)                                         |
-| `npm run test:watch`           | Run Vitest in watch mode                                          |
-| `npm run test -- <substring>`  | Run one test file (substring match on path)                       |
-| `npm run test -- -t "<name>"`  | Run one test by name                                              |
+| Command                       | Description                                                      |
+| :---------------------------- | :--------------------------------------------------------------- |
+| `npm run dev`                 | Start Next.js dev server with hot reload (http://localhost:3000) |
+| `npm run build`               | Build static export via `next build` → `out/`                    |
+| `npm run start`               | Serve the production build (`next start`)                        |
+| `npm run lint`                | Run ESLint (flat config, `eslint.config.mjs`)                    |
+| `npx tsc --noEmit`            | TypeScript compiler check — **part of CI, not covered by lint**  |
+| `npm run test`                | Run Vitest once (CI mode)                                        |
+| `npm run test:watch`          | Run Vitest in watch mode                                         |
+| `npm run test -- <substring>` | Run one test file (substring match on path)                      |
+| `npm run test -- -t "<name>"` | Run one test by name                                             |
 
 Two scripts hit the **real AniList API** and are never part of CI:
 
-| Command                             | Description                                                       |
-| :---------------------------------- | :----------------------------------------------------------------- |
-| `npm run record:fixtures`           | Re-record `src/test/fixtures/anilist/*.json` from the live API     |
-| `npm run test:franchise -- --id=21` | CLI harness: real call + BFS dump (default id 21 = One Piece)      |
+| Command                             | Description                                                    |
+| :---------------------------------- | :------------------------------------------------------------- |
+| `npm run record:fixtures`           | Re-record `src/test/fixtures/anilist/*.json` from the live API |
+| `npm run test:franchise -- --id=21` | CLI harness: real call + BFS dump (default id 21 = One Piece)  |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-anitime/
+kanketsu/
 ├── .github/workflows/
 │   └── ci.yml            # Lint + typecheck + tests + build (on PRs)
 ├── docs/                 # 📘 This documentation set
@@ -84,7 +84,7 @@ anitime/
 ### `next.config.ts`
 
 - `output: "export"` → **static site generation**. No server runtime exists, so avoid server actions, route handlers, or anything needing a Node server: every AniList call is client-side.
-- **No `basePath` / `assetPrefix`.** They used to point at `/anitime` for GitHub Pages; the export is now served at the domain root.
+- **No `basePath` / `assetPrefix`.**
 - `images.unoptimized: true` + remote pattern for `s4.anilist.co` → cover art loads client-side without the Next image optimizer.
 
 ### `vitest.config.mjs`
