@@ -30,8 +30,8 @@ The project strictly adheres to **Hexagonal Architecture (Ports & Adapters)** pr
 ## ⚡ Quick Start
 
 1. **Clone the repository:**
-   git clone https://github.com/your-username/anitime.git
-   cd anitime
+   git clone https://github.com/deftone42/kanketsu.git
+   cd kanketsu
 
 2. **Ensure correct Node.js version:**
    nvm use
