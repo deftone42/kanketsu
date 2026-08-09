@@ -25,7 +25,7 @@ export function ScoreCard({ score }: ScoreCardProps) {
         <div className="flex items-center gap-2 opacity-80">
           <PlayCircle className={`w-4 h-4 ${styles.text}`} />
           <span className="text-[11px] uppercase tracking-wider font-bold text-gray-400">
-            AniTime Watching Score
+            Kanketsu Watching Score
           </span>
         </div>
 

@@ -1,6 +1,6 @@
-# 🏗️ AniTime Architecture Guide
+# 🏗️ Kanketsu Architecture Guide
 
-AniTime follows **Hexagonal Architecture (Ports & Adapters)**, separating the pure core domain from the UI framework and the external API. This guide explains each layer, the flow of data, and the rules that keep the boundaries clean.
+Kanketsu follows **Hexagonal Architecture (Ports & Adapters)**, separating the pure core domain from the UI framework and the external API. This guide explains each layer, the flow of data, and the rules that keep the boundaries clean.
 
 The central idea: **nothing AniList-shaped crosses the port.** The adapter maps raw GraphQL into our own vocabulary, and the domain never learns where the data came from.
 

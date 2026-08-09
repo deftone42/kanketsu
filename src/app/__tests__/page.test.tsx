@@ -24,6 +24,25 @@ describe("home page", () => {
     ).toHaveTextContent("Is now a good time to start that anime?");
   });
 
+  it("names the product in the top heading", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Kanketsu",
+    );
+  });
+
+  it("keeps the mark decorative, so the heading is not read twice", () => {
+    render(<Home />);
+
+    const heading = screen.getByRole("heading", { level: 1 });
+
+    expect(within(heading).queryByRole("img")).not.toBeInTheDocument();
+    expect(
+      within(heading).queryByRole("graphics-symbol"),
+    ).not.toBeInTheDocument();
+  });
+
   it("offers a collapsed search combobox", () => {
     render(<Home />);
 
@@ -48,7 +67,7 @@ describe("home page", () => {
   it("explains the scoring without needing a search", () => {
     render(<Home />);
 
-    expect(section("How AniTime decides")).toBeInTheDocument();
+    expect(section("How Kanketsu decides")).toBeInTheDocument();
     expect(section("What the number means")).toBeInTheDocument();
     expect(section("The eight situations")).toBeInTheDocument();
     expect(section("Only a finished story reaches 100")).toBeInTheDocument();
@@ -92,7 +111,7 @@ describe("home page", () => {
     render(<Home />);
 
     const search = screen.getByRole("combobox", { name: "Search anime" });
-    const guide = section("How AniTime decides");
+    const guide = section("How Kanketsu decides");
 
     expect(
       search.compareDocumentPosition(guide) &

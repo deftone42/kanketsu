@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "AniTime",
+  name: "Kanketsu",
   url: "https://anitime-inky.vercel.app",
-  title: "AniTime - Anime Watch Timing Calculator",
+  title: "Kanketsu — Should you start that anime now?",
   description:
     "Find out if it is a good time to start an anime or if you should wait.",
 } as const;
